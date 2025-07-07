@@ -90,17 +90,17 @@
 <body class="">
 
     <header class="bg-base2">
-        <div class="container mx-auto px-6 py-6 flex justify-between items-start">
+        <div class="container mx-auto px-6 py-6 flex flex-col md:flex-row md:justify-between md:items-start">
             <div>
                 <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
                 <p class="text-xl md:text-2xl mt-1 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
-                <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-base01">
+                <div class="mt-4 flex flex-col md:flex-row md:flex-wrap gap-y-1 md:gap-x-4 text-sm text-base01">
                     <span data-translate-key="location">// location: 'Stonehouse, GL'</span>
                     <span data-translate-key="contact">// contact: '07858925933'</span>
                     <span data-translate-key="email">// email: 'piotrrekas@gmail.com'</span>
                 </div>
             </div>
-            <div class="flex flex-col items-end space-y-2">
+            <div class="flex flex-col items-start mt-4 md:mt-0 md:items-end space-y-2">
                 <div id="theme-switcher" class="flex space-x-2 text-xs">
                     <button data-theme="default" class="theme-btn">Solarized Light</button>
                     <button data-theme="theme-atom-one-dark" class="theme-btn">Atom One Dark</button>
@@ -255,25 +255,25 @@
             },
             qualifications_data: {
                 pl: [
-                    { title: 'Spawanie Specjalistyczne', desc: 'Zaawansowana biegłość w spawaniu TIG stali nierdzewnej, stali miękkiej, aluminium, brązu odlewanego i mosiądzu."' },
-                    { title: 'Rzemiosło Artystyczne', desc: 'Poziom ekspercki (9/10) w ręcznej, artystycznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu materiałów takich jak brąz odlewany i mosiądz, głównie z doświadczenia w rzeźbie artystycznej.' },
-                    { title: 'Produkcja Techniczna', desc: 'Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy konstrukcyjne, rurociągi i armatura przy użyciu spawarek TIG/MIG, szlifierek i przecinarek. Uwaga: Ograniczone doświadczenie w obsłudze ciężkich maszyn przemysłowych, takich jak tokarki.' },
-                    { title: 'Jakość i Zgodność', desc: 'Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm).' },
-                    { title: 'Bezpieczeństwo i Procedury', desc: 'Nienaganny rekord bezpieczeństwa z rygorystycznym przestrzeganiem wszystkich protokołów. Doświadczenie w tworzeniu książek danych spawalniczych i optymalizacji stanowisk pracy. Posiadacz Certyfikatu HACCP Poziom 2.' },
+                    { title: '"Spawanie Specjalistyczne"', desc: '"Zaawansowana biegłość w spawaniu TIG stali nierdzewnej, stali miękkiej, aluminium, brązu odlewanego i mosiądzu."' },
+                    { title: '"Rzemiosło Artystyczne"', desc: '"Poziom ekspercki (9/10) w ręcznej, artystycznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu materiałów takich jak brąz odlewany i mosiądz, głównie z doświadczenia w rzeźbie artystycznej."' },
+                    { title: '"Produkcja Techniczna"', desc: '"Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy konstrukcyjne, rurociągi i armatura przy użyciu spawarek TIG/MIG, szlifierek i przecinarek. Uwaga: Ograniczone doświadczenie w obsłudze ciężkich maszyn przemysłowych, takich jak tokarki."' },
+                    { title: '"Jakość i Zgodność"', desc: '"Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm)."' },
+                    { title: '"Bezpieczeństwo i Procedury"', desc: '"Nienaganny rekord bezpieczeństwa z rygorystycznym przestrzeganiem wszystkich protokołów. Doświadczenie w tworzeniu książek danych spawalniczych i optymalizacji stanowisk pracy. Posiadacz Certyfikatu HACCP Poziom 2."' },
                 ],
                 en: [
-                    { title: 'Specialist Welding', desc: 'Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass."' },
-                    { title: 'Artisanal Fabrication', desc: 'Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture.' },
-                    { title: 'Technical Fabrication', desc: 'Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes.' },
-                    { title: 'Quality & Compliance', desc: 'Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm).' },
-                    { title: 'Safety & Procedures', desc: 'Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate.' },
+                    { title: '"Specialist Welding"', desc: '"Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass."' },
+                    { title: '"Artisanal Fabrication"', desc: '"Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture."' },
+                    { title: '"Technical Fabrication"', desc: '"Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes."' },
+                    { title: '"Quality & Compliance"', desc: '"Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)."' },
+                    { title: '"Safety & Procedures"', desc: '"Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate."' },
                 ],
                 de: [
-                    { title: 'Spezialschweißen', desc: 'Fortgeschrittene Kenntnisse im WIG-Schweißen von Edelstahl, Baustahl, Aluminium, Gussbronze und Messing."' },
-                    { title: 'Handwerkliche Fertigung', desc: 'Expertenniveau (9/10) in manueller, künstlerischer Metallbearbeitung, einschließlich komplexer Formgebung, Texturierung und Veredelung von Materialien wie Gussbronze und Messing, hauptsächlich aus Erfahrung in der bildenden Kunst.' },
-                    { title: 'Technische Fertigung', desc: 'Kompetent in der Herstellung und Montage von Industriekomponenten wie Strukturrahmen, Rohrleitungen und Armaturen mit WIG/MIG-Schweißgeräten, Schleifmaschinen und Schneidgeräten. Hinweis: Begrenzte Erfahrung mit schweren Industriemaschinen wie Drehmaschinen.' },
-                    { title: 'Qualität & Konformität', desc: 'Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- und Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl und Aluminium (1,6 mm, 3 mm und 6 mm) erhalten.' },
-                    { title: 'Sicherheit & Verfahren', desc: 'Tadellose Sicherheitsbilanz bei strikter Einhaltung aller Protokolle. Erfahrung in der Erstellung von Schweißdatenbüchern und der Optimierung von Arbeitsplätzen. Inhaber eines HACCP-Zertifikats Stufe 2.' },
+                    { title: '"Spezialschweißen"', desc: '"Fortgeschrittene Kenntnisse im WIG-Schweißen von Edelstahl, Baustahl, Aluminium, Gussbronze und Messing."' },
+                    { title: '"Handwerkliche Fertigung"', desc: '"Expertenniveau (9/10) in manueller, künstlerischer Metallbearbeitung, einschließlich komplexer Formgebung, Texturierung und Veredelung von Materialien wie Gussbronze und Messing, hauptsächlich aus Erfahrung in der bildenden Kunst."' },
+                    { title: '"Technische Fertigung"', desc: '"Kompetent in der Herstellung und Montage von Industriekomponenten wie Strukturrahmen, Rohrleitungen und Armaturen mit WIG/MIG-Schweißgeräten, Schleifmaschinen und Schneidgeräten. Hinweis: Begrenzte Erfahrung mit schweren Industriemaschinen wie Drehmaschinen."' },
+                    { title: '"Qualität & Konformität"', desc: '"Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- und Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl und Aluminium (1,6 mm, 3 mm und 6 mm) erhalten."' },
+                    { title: '"Sicherheit & Verfahren"', desc: '"Tadellose Sicherheitsbilanz bei strikter Einhaltung aller Protokolle. Erfahrung in der Erstellung von Schweißdatenbüchern und der Optimierung von Arbeitsplätzen. Inhaber eines HACCP-Zertifikats Stufe 2."' },
                 ]
             },
             skills_chart_title: {
@@ -282,9 +282,9 @@
                 de: "Fähigkeitsdiagramm"
             },
             skills_chart_desc: {
-                pl: "Ten wykres przedstawia wizualny przegląd kluczowych kompetencji, demonstrując wszechstronny i solidny zestaw umiejętności dostosowany do środowisk produkcyjnych o wysokiej integralności.",
-                en: "This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments.",
-                de: "Dieses Diagramm bietet einen visuellen Überblick über die Schlüsselkompetenzen und demonstriert ein abgerundetes und robustes Fähigkeitenset, das auf hochintegrierte Fertigungsumgebungen zugeschnitten ist."
+                pl: "/* Ten wykres przedstawia wizualny przegląd kluczowych kompetencji, demonstrując wszechstronny i solidny zestaw umiejętności dostosowany do środowisk produkcyjnych o wysokiej integralności. */",
+                en: "/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */",
+                de: "/* Dieses Diagramm bietet einen visuellen Überblick über die Schlüsselkompetenzen und demonstriert ein abgerundetes und robustes Fähigkeitenset, das auf hochintegrierte Fertigungsumgebungen zugeschnitten ist. */"
             },
             skills_chart_labels: {
                 pl: ['Spawanie TIG', 'Jakość i Zgodność', 'Rzemiosło Artystyczne', 'Obróbka Przemysłowa', 'Procedury Bezpieczeństwa', 'Rozwiązywanie Problemów'],
@@ -312,9 +312,9 @@
                 de: "Beruflicher Werdegang"
             },
             timeline_desc: {
-                pl: "Kliknij na dowolną rolę, aby rozwinąć i zobaczyć szczegółowe obowiązki i kluczowe osiągnięcia z tego stanowiska.",
-                en: "Click on any role to expand and view detailed responsibilities and key achievements from that position.",
-                de: "Klicken Sie auf eine beliebige Rolle, um detaillierte Verantwortlichkeiten und wichtige Erfolge aus dieser Position anzuzeigen."
+                pl: "/* Kliknij na dowolną rolę, aby rozwinąć i zobaczyć szczegółowe obowiązki i kluczowe osiągnięcia z tego stanowiska. */",
+                en: "/* Click on any role to expand and view detailed responsibilities and key achievements from that position. */",
+                de: "/* Klicken Sie auf eine beliebige Rolle, um detaillierte Verantwortlichkeiten und wichtige Erfolge aus dieser Position anzuzeigen. */"
             },
             work_history: {
                 pl: [
@@ -354,9 +354,9 @@
                 de: "Wichtigste Stärken und Erfolge"
             },
             achievements_desc: {
-                pl: "Zbiór kluczowych osiągnięć, które podkreślają moją zdolność do dostarczania wymiernych rezultatów.",
-                en: "A collection of key achievements that highlight my ability to deliver tangible results.",
-                de: "Eine Sammlung von Schlüsselerfolgen, die meine Fähigkeit unterstreichen, greifbare Ergebnisse zu liefern."
+                pl: "/* Zbiór kluczowych osiągnięć, które podkreślają moją zdolność do dostarczania wymiernych rezultatów. */",
+                en: "/* A collection of key achievements that highlight my ability to deliver tangible results. */",
+                de: "/* Eine Sammlung von Schlüsselerfolgen, die meine Fähigkeit unterstreichen, greifbare Ergebnisse zu liefern. */"
             },
             key_achievements: {
                 pl: [
