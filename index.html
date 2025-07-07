@@ -338,7 +338,7 @@
                     { role: "WIG-Schweißer", company: "Active8 Robots", period: "Mai 2021 – Sep 2021", description: "Projekt: Edelstahlrahmen für manuelle und robotergestützte Verpackungstische für McCain Foods. Zu den Aufgaben gehörten die Einrichtung der Werkstatt, die Herstellung, das Schneiden, Anpassen, WIG-Schweißen und Veredeln von Edelstahlelementen.", materials: ["Edelstahl-Kastenprofile", "Edelstahlrohre"], tools: ["WIG-Schweißgerät", "Schneidwerkzeuge", "Exzenterschleifer", "INOX-Finish-Werkzeuge"], achievements: ["Eine kostengünstige Metallbearbeitungsabteilung organisiert und geholfen, einen großen Teil des Projekts pünktlich abzuschließen, wobei eine hervorragende Metallbearbeitungsqualität erzielt wurde."] },
                     { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Projekt: EVERHOT-Öfen. Dieselben Aufgaben und Verantwortlichkeiten wie im späteren Zeitraum, mit Schwerpunkt auf dem Anpassen, Montieren und WIG-Schweißen von Edelstahlkomponenten.", materials: ["Edelstahlblech"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: [] },
                     { role: "WIG-Schweißer", company: "Berkeley Stainless Fittings", period: "Jun 2020 – Feb 2021", description: "Herstellung von Hygienekomponenten (Rohre, Ventile, Flansche) für die Lebensmittel- und Pharmaindustrie.", materials: ["Hygienischer Edelstahl (Rohre, Fittings, Ventile)"], tools: ["WIG-Schweißgerät", "Drehtisch", "Schweißroboter", "Polierwerkzeuge"], achievements: ["Die Schweißqualität der Produkte erheblich verbessert und die Effizienz gesteigert (Drehtischgeschwindigkeiten um 50 % erhöht), indem ein umfassendes Datenbuch für Schweißeinstellungen und Präzisionsadapter entwickelt wurden."] },
-                    { role: "Metallbauer", company: "Pangolin Editions Ltd", period: "Okt 2015 – Apr 2019", description: "Ausführung komplexer, mehrstufiger Herstellungen von großformatigen Bronzeskulpturen für weltbekannte Künstler wie Damien Hirst. Diese Rolle erforderte außergewöhnliche Präzision, Liebe zum Detail und fortgeschrittene Problemlösungsfähigkeiten.", materials: ["Gussbronze", "Messing", "Aluminium"], tools: ["WIG/MIG-Schweißgerät", "Plasmaschneider", "Elektrische/Druckluftschleifer", "Handwerkzeuge", "Brückenkran (bis zu 20 Tonnen)"], achievements: ["Die Arbeitseffizienz der Abteilung durch die Entwicklung und den Austausch neuer Arbeitsmethoden, Techniken und Werkzeuge gesteigert.", "Schlecht gegossene Bronzeskulpturen erfolgreich repariert."] }
+                    { role: "Metallbauer", company: "Pangolin Editions Ltd", period: "Okt 2015 – Apr 2019", description: "Ausführung komplexer, mehrstufiger Herstellungen von großformatigen Bronzeskulpturen für weltbekannte Künstler wie Damien Hirst. Diese Rolle erforderte außergewöhnliche Präzision, Liebe zum Detail und fortgeschrittene Problemlösungsfähigkeiten.", materials: ["Gussbronze", "Messing", "Aluminium"], tools: ["WIG/MIG-Schweißer", "Plasmaschneider", "Elektrische/Druckluftschleifer", "Handwerkzeuge", "Brückenkran (bis zu 20 Tonnen)"], achievements: ["Die Arbeitseffizienz der Abteilung durch die Entwicklung und den Austausch neuer Arbeitsmethoden, Techniken und Werkzeuge gesteigert.", "Schlecht gegossene Bronzeskulpturen erfolgreich repariert."] }
                 ]
             },
             achievements_title: {
@@ -545,7 +545,7 @@
                 labels: translations.skills_chart_labels[lang],
                 datasets: [{
                     label: 'Proficiency',
-                    data: [], // Initially empty
+                    data: [0, 0, 0, 0, 0, 0], 
                     backgroundColor: ACCENT_COLOR + '33',
                     borderColor: ACCENT_COLOR,
                     pointBackgroundColor: ACCENT_COLOR,
@@ -560,7 +560,7 @@
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    animation: false, // Disable default animation
+                    animation: false, 
                     scales: {
                         r: {
                             angleLines: { color: GRID_COLOR },
@@ -579,9 +579,65 @@
             const skillsObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        skillsChart.data.datasets[0].data = [9, 9, 9, 3, 8, 9];
-                        skillsChart.options.animation = { duration: 2000 };
-                        skillsChart.update();
+                        const targetData = [9, 9, 9, 3, 8, 9];
+                        const animationDuration = 1700; 
+                        const maxChartValue = 10;
+                        let startTime = null;
+
+                        const speedMultipliers = [1.1, 0.8, 1.0, 0.9, 0.85, 1.2];
+
+                        function animateChart(timestamp) {
+                            if (!startTime) {
+                                startTime = timestamp;
+                            }
+                            const elapsedTime = timestamp - startTime;
+
+                            // ZMIANA: Niestandardowa funkcja ease-in-out (Cubic) dla TIG Welding dla szybszego startu
+                            const customTigEase = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+
+                            const newValues = targetData.map((targetValue, index) => {
+                                // Spawanie TIG (indeks 0) otrzymuje specjalną animację
+                                if (index === 0) {
+                                    const timeToReachTarget = animationDuration;
+                                    let progress = elapsedTime / timeToReachTarget;
+                                    if (progress > 1) progress = 1;
+                                    
+                                    const easedProgress = customTigEase(progress); // Zastosuj nową funkcję
+                                    return easedProgress * targetValue;
+                                } 
+                                // Pozostałe umiejętności używają logiki mnożnika prędkości
+                                else {
+                                    const speedMultiplier = speedMultipliers[index];
+                                    const timeToReachTarget = (targetValue / maxChartValue) * (animationDuration / speedMultiplier);
+
+                                    if (elapsedTime >= timeToReachTarget) {
+                                        return targetValue; 
+                                    }
+                                    
+                                    if (timeToReachTarget === 0) {
+                                        return 0;
+                                    }
+
+                                    const progress = elapsedTime / timeToReachTarget;
+                                    return progress * targetValue;
+                                }
+                            });
+
+                            skillsChart.data.datasets[0].data = newValues;
+                            skillsChart.update('none'); 
+
+                            const allDone = newValues.every((val, i) => val >= targetData[i]);
+
+                            if (!allDone) {
+                                requestAnimationFrame(animateChart);
+                            } else {
+                                skillsChart.data.datasets[0].data = targetData;
+                                skillsChart.update('none');
+                            }
+                        }
+
+                        requestAnimationFrame(animateChart);
+                        
                         observer.unobserve(skillsChartCanvas);
                     }
                 });
