@@ -8,13 +8,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
-    <!-- Chosen Palette: VS Code Solarized Light -->
-    <!-- Application Structure Plan: A minimalist, single-page application styled like a code editor. The structure uses a top navigation bar mimicking editor tabs. The main content area is divided into logical code blocks ('functions') for Summary, Skills, Timeline, and Achievements. The timeline is now an accordion, allowing users to expand/collapse job details directly, which is more intuitive and keeps context clear. This design is unique and memorable for a technical audience. -->
-    <!-- Visualization & Content Choices: Summary->Key-value pairs like variables; Skills->Chart.js Radar Chart->Visual data representation; Work History->Accordion (HTML/JS)->Organize and reveal information on demand; Achievements->Grid of 'code snippets'->Highlight key results. All choices avoid SVG/Mermaid, using Chart.js and custom JS/CSS for a cohesive, code-editor aesthetic. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-
     <style>
         :root {
             --base03: #002b36; /* dark slate for text */
@@ -35,7 +30,7 @@
             --green: #859900;
         }
         body {
-            font-family: 'Fira Code', monospace;
+            font-family: 'IBM Plex Mono', monospace;
             background-color: var(--base3);
             color: var(--base01);
         }
@@ -55,20 +50,17 @@
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 550px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             height: 350px;
             max-height: 450px;
         }
-        .border-base0 {
-            border-color: var(--base0);
-        }
     </style>
 </head>
 <body class="">
 
-    <header class="bg-base2 border-b-2 border-base0">
+    <header class="bg-base2">
         <div class="container mx-auto px-6 py-6">
             <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
             <p class="text-xl md:text-2xl mt-1 text-cyan">High-Integrity TIG Welder & Fabricator</p>
@@ -80,34 +72,37 @@
         </div>
     </header>
 
-    <nav id="navbar" class="bg-base2/80 backdrop-blur-sm sticky top-0 z-50 border-b border-base0">
+    <nav id="navbar" class="backdrop-blur-sm sticky top-0 z-50 py-4">
         <div class="container mx-auto px-6">
-            <ul class="flex justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto">
-                <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">summary</a></li>
-                <li><a href="#qualifications" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">qualifications</a></li>
-                <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">skills-chart</a></li>
-                <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">timeline</a></li>
-                <li><a href="#achievements" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">achievements</a></li>
-                <li><a href="#education" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">education</a></li>
-            </ul>
+            <div class="bg-base2 shadow-lg">
+                <ul class="flex justify-start space-x-6 px-4 py-2 text-base01 font-medium overflow-x-auto">
+                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">summary</a></li>
+                    <li><a href="#qualifications" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">qualifications</a></li>
+                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">skills-chart</a></li>
+                    <li><a href="#welding-skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">welding-breakdown</a></li>
+                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">timeline</a></li>
+                    <li><a href="#achievements" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">achievements</a></li>
+                    <li><a href="#education" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">education</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <main class="container mx-auto px-6 py-12">
         <section id="summary" class="scroll-mt-24">
             <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Professional Summary</h2>
-            <div class="bg-base2 p-6">
+            <div class="bg-base2 p-6 shadow-lg">
                 <p class="leading-relaxed">
                     <span class="text-magenta">const</span> <span class="text-blue">summary</span> = `A highly skilled and meticulous TIG Welder with extensive experience in stainless steel and aluminium fabrication for safety-critical, highly regulated sectors, including Aerospace, Defence, and Food Production. Proven ability to work on high-integrity components for demanding clients such as Rolls-Royce, consistently meeting the highest standards of quality and precision. Safety-focused, with a track record of developing and implementing robust welding procedures to ensure full penetration and compliance with stringent specifications. Seeking to leverage specialist skills within the UK nuclear industry to contribute to projects where safety, quality, and precision are paramount.`;
                 </p>
             </div>
         </section>
 
-        <div class="my-16 border-t border-base0"></div>
+        <div class="my-16"></div>
 
         <section id="qualifications" class="scroll-mt-24">
             <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Key Qualifications</h2>
-            <div class="bg-base2 p-6 space-y-4">
+            <div class="bg-base2 p-6 space-y-4 shadow-lg">
                 <div>
                     <p><span class="text-green">"Specialist Welding"</span>: <span class="text-orange">"Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass."</span>,</p>
                 </div>
@@ -126,19 +121,28 @@
             </div>
         </section>
 
-        <div class="my-16 border-t border-base0"></div>
+        <div class="my-16"></div>
 
         <section id="skills" class="scroll-mt-24">
             <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Skills Chart</h2>
             <p class="text-center mb-8 text-base01">/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */</p>
-            <div class="bg-base2 p-6">
+            <div class="bg-base2 p-6 shadow-lg">
                 <div class="chart-container">
                     <canvas id="skillsChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <div class="my-16 border-t border-base0"></div>
+        <div class="my-16"></div>
+
+        <section id="welding-skills" class="scroll-mt-24">
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Welding Skills Breakdown</h2>
+            <div id="welding-chart-placeholder" class="bg-base2 p-6 pb-8 shadow-lg">
+                <!-- JS will populate this area -->
+            </div>
+        </section>
+
+        <div class="my-16"></div>
 
         <section id="timeline" class="scroll-mt-24">
             <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Career Timeline</h2>
@@ -148,21 +152,21 @@
             </div>
         </section>
 
-        <div class="my-16 border-t border-base0"></div>
+        <div class="my-16"></div>
 
         <section id="achievements" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Key Achievements</h2>
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Key Strengths & Achievements</h2>
             <p class="text-center mb-8 text-base01">/* A collection of key achievements that highlight my ability to deliver tangible results. */</p>
-            <div class="grid md:grid-cols-2 gap-4">
-                 <!-- Achievements will be populated by JS -->
+            <div class="grid md:grid-cols-2 gap-4" id="achievements-grid">
+                <!-- Achievements will be populated by JS -->
             </div>
         </section>
         
-        <div class="my-16 border-t border-base0"></div>
+        <div class="my-16"></div>
 
         <section id="education" class="scroll-mt-24">
             <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Education & Info</h2>
-            <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6">
+            <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6 shadow-lg">
                 <div>
                     <p class="text-green">education:</p>
                     <ul class="pl-4 mt-2 space-y-1">
@@ -173,7 +177,7 @@
                 <div>
                     <p class="text-green">additional_info:</p>
                      <ul class="pl-4 mt-2 space-y-1">
-                        <li><span class="text-base01">- <span class="text-blue">languages:</span> Polish (Native), English (Upper-Intermediate)</span></li>
+                        <li><span class="text-base01">- <span class="text-blue">languages:</span> Polish (Native), English (Intermediate)</span></li>
                         <li><span class="text-base01">- <span class="text-blue">interests:</span> Sports (basketball, track athletics), Computers, Art</span></li>
                     </ul>
                 </div>
@@ -181,7 +185,7 @@
         </section>
     </main>
 
-    <footer class="bg-base2 mt-16 border-t-2 border-base0">
+    <footer class="bg-base2 mt-16">
         <div class="container mx-auto px-6 py-6 text-center text-base01">
             <p><span class="text-base01/70">// End of file. &copy; 2025 Piotr Nowakowski.</span></p>
         </div>
@@ -208,7 +212,7 @@
                 achievements: [
                     "Achieved positive test results and certifications in the aerospace industry for fillet welds on stainless steel and aluminum with thicknesses of 1.6mm, 3mm, and 6mm.",
                     "Identified and implemented solutions for welding settings that enabled the acceptance of new orders from clients such as Rolls-Royce.",
-                    "Successfully upgraded and maintained the welding bay setup, developing welding procedures and settings.",
+                    "Successfully upgraded and maintained the welding bay setup, developing procedures and settings.",
                     "Maintained a strong safety record and adhered to all relevant safety protocols and guidelines."
                 ]
             },
@@ -282,42 +286,50 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const FONT_COLOR = '#586e75';
-            const GRID_COLOR = '#93a1a1';
+            const GRID_COLOR = '#839496';
+            const LIGHT_GRID_COLOR = 'rgba(131, 148, 150, 0.4)';
             const ACCENT_COLOR = '#2aa198';
+            const FONT_FAMILY = "'IBM Plex Mono', monospace";
+            const ANIMATION_DURATION = 2000;
 
-            // SKILLS CHART
-            const ctx = document.getElementById('skillsChart').getContext('2d');
-            new Chart(ctx, {
+            // --- SKILLS CHART (RADAR) ---
+            const skillsChartCanvas = document.getElementById('skillsChart');
+            const skillsChartCtx = skillsChartCanvas.getContext('2d');
+            const skillsChartData = {
+                labels: ['TIG Welding', 'Quality & Compliance', 'Artisanal Fabrication', 'Industrial Machining', 'Safety Procedures', 'Problem Solving'],
+                datasets: [{
+                    label: 'Proficiency',
+                    data: [], // Initially empty
+                    backgroundColor: 'rgba(42, 161, 152, 0.2)',
+                    borderColor: ACCENT_COLOR,
+                    pointBackgroundColor: ACCENT_COLOR,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: ACCENT_COLOR
+                }]
+            };
+            const skillsChartConfig = {
                 type: 'radar',
-                data: {
-                    labels: ['TIG Welding', 'Quality & Compliance', 'Artisanal Fabrication', 'Industrial Machining', 'Safety Procedures', 'Problem Solving'],
-                    datasets: [{
-                        label: 'Proficiency',
-                        data: [9, 9, 9, 3, 8, 9],
-                        backgroundColor: 'rgba(42, 161, 152, 0.2)',
-                        borderColor: ACCENT_COLOR,
-                        pointBackgroundColor: ACCENT_COLOR,
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: ACCENT_COLOR
-                    }]
-                },
+                data: skillsChartData,
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
+                    animation: {
+                        duration: ANIMATION_DURATION,
+                    },
                     scales: {
                         r: {
                             angleLines: { color: GRID_COLOR },
                             grid: { color: GRID_COLOR },
                             pointLabels: {
-                                font: { size: 12, family: "'Fira Code', monospace" },
+                                font: { size: 12, family: FONT_FAMILY },
                                 color: FONT_COLOR
                             },
                             ticks: {
                                 backdropColor: 'rgba(238, 232, 213, 0.75)',
                                 color: FONT_COLOR,
                                 stepSize: 2,
-                                font: { family: "'Fira Code', monospace" }
+                                font: { family: FONT_FAMILY }
                             },
                             suggestedMin: 0,
                             suggestedMax: 10
@@ -327,23 +339,256 @@
                         legend: { display: false }
                     }
                 }
-            });
+            };
+            const skillsChart = new Chart(skillsChartCtx, skillsChartConfig);
 
-            // TIMELINE ACCORDION
+            const skillsObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillsChart.data.datasets[0].data = [9, 9, 9, 3, 8, 9];
+                        skillsChart.update();
+                        observer.unobserve(skillsChartCanvas);
+                    }
+                });
+            }, { threshold: 0.5 });
+            skillsObserver.observe(skillsChartCanvas);
+
+
+            // --- WELDING SKILLS BAR CHART & TIMELINE ---
+            const weldingChartPlaceholder = document.getElementById('welding-chart-placeholder');
+            
+            const allWeldingSkills = [
+                { type: 'TIG', method: 'Manual - Stainless S.', experience: 36, proficiency: 9, companies: ['Fowlers', 'CKF', 'DKM', 'Active8', 'Berkeley']},
+                { type: 'MIG', method: 'Manual - Mild Steel', experience: 2, proficiency: 4, companies: ['CKF', 'Pangolin']},
+                { type: 'TIG', method: 'Manual - Aluminum', experience: 3, proficiency: 8, companies: ['Fowlers', 'Pangolin Editions']},
+                { type: 'TIG', method: 'Rotating Table - Stainless S.', experience: 7.6, proficiency: 9, companies: ['Berkeley Fittings']},
+                { type: 'TIG', method: 'Robot Operator - Stainless S.', experience: 0.8, proficiency: 3, companies: ['Berkeley Fittings']},
+                { type: 'TIG', method: 'Manual - Bronze', experience: 18, proficiency: 8, companies: ['Pangolin Editions']},
+                { type: 'MIG', method: 'Manual - Bronze', experience: 0.25, proficiency: 5, companies: ['Pangolin Editions']},
+                { type: 'MIG', method: 'Manual - Aluminum', experience: 0.4, proficiency: 4, companies: ['Fowlers', 'Pangolin Editions']},
+                { type: 'TIG', method: 'Manual - Brass', experience: 0.5, proficiency: 5, companies: ['Pangolin Editions']}
+            ];
+
+            const isMobile = window.innerWidth < 768;
+            const startYear = 2015;
+            const endYear = 2026;
+            const totalYears = endYear - startYear;
+            const CHART_AREA_HEIGHT = 450; // Fixed height for alignment
+
+            const getMaterialColor = (material) => {
+                const lowerMaterial = material.toLowerCase();
+                if (lowerMaterial.includes('stainless') || lowerMaterial.includes('steel')) return 'rgba(108, 113, 196, 1)';
+                if (lowerMaterial.includes('aluminum')) return 'rgba(128, 128, 128, 1)';
+                if (lowerMaterial.includes('brass')) return 'rgba(181, 166, 66, 1)';
+                if (lowerMaterial.includes('bronze')) return 'rgba(205, 127, 50, 1)';
+                return 'rgba(42, 161, 152, 1)';
+            };
+
+            // --- Build Chart Structure ---
+            
+            const mainContainer = document.createElement('div');
+            mainContainer.className = 'flex flex-col md:flex-row';
+
+            // 1. Chart Content Side (Left)
+            const chartContentSide = document.createElement('div');
+            chartContentSide.className = 'flex-grow flex flex-col';
+
+            // 1a. Header Row
+            const headerRow = document.createElement('div');
+            headerRow.className = 'flex text-xs font-bold';
+            headerRow.style.color = FONT_COLOR;
+            headerRow.style.fontFamily = FONT_FAMILY;
+            headerRow.innerHTML = `
+                <div class="flex-shrink-0 pr-2" style="width: 50px;">Type</div>
+                <div class="flex-shrink-0 pr-2" style="width: 170px;">Method & Material</div>
+                <div class="flex-grow">Experience & Proficiency (1-10)</div>
+            `;
+            chartContentSide.appendChild(headerRow);
+            
+            // 1b. Chart Area (Grid + Bars)
+            const chartArea = document.createElement('div');
+            chartArea.className = 'relative flex-grow';
+            chartArea.style.height = `${CHART_AREA_HEIGHT}px`;
+            
+            // Grid is positioned behind the rows
+            const gridLines = document.createElement('div');
+            gridLines.className = 'absolute inset-0 pointer-events-none flex z-0 mt-2';
+            const gridSpacer = document.createElement('div');
+            gridSpacer.className = 'flex-shrink-0';
+            gridSpacer.style.width = '220px'; // 50px + 170px
+            gridLines.appendChild(gridSpacer);
+
+            const gridLineContainer = document.createElement('div');
+            gridLineContainer.className = 'flex-grow relative';
+            const innerGrid = document.createElement('div');
+            innerGrid.className = 'absolute top-0 left-0 w-full h-full flex justify-between';
+            for (let i = 0; i <= 60; i += 6) {
+                const line = document.createElement('div');
+                line.style.height = '100%';
+                line.style.width = '1px';
+                line.style.backgroundColor = GRID_COLOR;
+                line.style.opacity = '0.2';
+                innerGrid.appendChild(line);
+            }
+            gridLineContainer.appendChild(innerGrid);
+            gridLines.appendChild(gridLineContainer);
+            chartArea.appendChild(gridLines);
+
+            // Rows are positioned on top of the grid
+            const chartRowsContainer = document.createElement('div');
+            chartRowsContainer.className = 'absolute inset-0 flex flex-col justify-between space-y-3 mt-2 z-10';
+            allWeldingSkills.forEach(skill => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center';
+
+                const typeCol = document.createElement('div');
+                typeCol.className = 'flex-shrink-0 text-left text-xs pr-2';
+                typeCol.style.width = '50px';
+                typeCol.textContent = skill.type;
+                row.appendChild(typeCol);
+
+                const methodCol = document.createElement('div');
+                methodCol.className = 'flex-shrink-0 text-left text-xs pr-2';
+                methodCol.style.width = '170px';
+                methodCol.textContent = skill.method;
+                row.appendChild(methodCol);
+                
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'flex-grow flex items-center';
+                
+                const bar = document.createElement('div');
+                const barWidth = (skill.experience / 60) * 100;
+                bar.className = 'skill-bar h-6 rounded-r-sm transition-all ease-out';
+                bar.style.width = '0%';
+                bar.style.transitionDuration = `${ANIMATION_DURATION}ms`;
+                bar.style.backgroundColor = getMaterialColor(skill.method);
+                bar.dataset.width = `${barWidth}%`;
+                barWrapper.appendChild(bar);
+
+                const details = document.createElement('span');
+                details.className = 'skill-details ml-2 opacity-0 transition-opacity whitespace-nowrap';
+                details.style.transitionDuration = '500ms';
+                details.style.transitionDelay = `${ANIMATION_DURATION - 500}ms`;
+                
+                const proficiencyText = `<span class="font-normal" style="color: ${FONT_COLOR}; font-size: 12px;">${skill.proficiency}/10</span>`;
+                const companyList = skill.companies.join(', ');
+                const maxCompanyChars = isMobile ? 10 : 25;
+                const truncatedCompanies = companyList.length > maxCompanyChars ? companyList.substring(0, maxCompanyChars) + '...' : companyList;
+                const detailsText = ` <span style="font-size: 11px; color: rgba(88, 110, 117, 0.85);">(@ ${truncatedCompanies})</span>`;
+                
+                details.innerHTML = proficiencyText + detailsText;
+                barWrapper.appendChild(details);
+                
+                row.appendChild(barWrapper);
+                chartRowsContainer.appendChild(row);
+            });
+            chartArea.appendChild(chartRowsContainer);
+            chartContentSide.appendChild(chartArea);
+
+            // 1c. X-Axis (Experience in months)
+            const xAxisContainer = document.createElement('div');
+            xAxisContainer.className = 'flex mt-2';
+            const xAxisSpacer = document.createElement('div');
+            xAxisSpacer.className = 'flex-shrink-0';
+            xAxisSpacer.style.width = '220px'; // 50px + 170px
+            xAxisContainer.appendChild(xAxisSpacer);
+
+            const xAxis = document.createElement('div');
+            xAxis.className = 'flex-grow';
+            
+            const xAxisTicks = document.createElement('div');
+            xAxisTicks.className = 'flex justify-between border-t pt-1';
+            xAxisTicks.style.borderColor = GRID_COLOR;
+            for(let i=0; i<=60; i+=6) {
+                const tick = document.createElement('span');
+                tick.className = 'text-xs';
+                tick.textContent = i;
+                xAxisTicks.appendChild(tick);
+            }
+            xAxis.appendChild(xAxisTicks);
+
+            const xAxisTitle = document.createElement('div');
+            xAxisTitle.className = 'text-center text-sm mt-2';
+            xAxisTitle.style.fontFamily = FONT_FAMILY;
+            xAxisTitle.style.color = FONT_COLOR;
+            xAxisTitle.textContent = 'Effective Experience (months)';
+            xAxis.appendChild(xAxisTitle);
+            
+            xAxisContainer.appendChild(xAxis);
+            chartContentSide.appendChild(xAxisContainer);
+
+            mainContainer.appendChild(chartContentSide);
+
+            // 2. Year Axis Side (Right)
+            const yearAxisSide = document.createElement('div');
+            yearAxisSide.className = 'w-full md:w-16 flex-shrink-0 md:ml-16';
+            
+            const yearAxisContainer = document.createElement('div');
+            yearAxisContainer.className = 'relative w-full h-full';
+
+            const yearAxisHeaderSpacer = document.createElement('div');
+            yearAxisHeaderSpacer.className = 'h-6'; // Matches header height
+            yearAxisContainer.appendChild(yearAxisHeaderSpacer);
+
+            const yearAxisItself = document.createElement('div');
+            yearAxisItself.className = 'relative w-full border-t-2 md:border-t-0 md:border-l-2';
+            yearAxisItself.style.borderColor = 'var(--base0)';
+            yearAxisItself.style.height = `${CHART_AREA_HEIGHT}px`;
+
+            for (let year = endYear; year >= startYear; year--) {
+                if (year % 2 !== 0 && year !== endYear && year !== startYear) continue;
+                const marker = document.createElement('div');
+                marker.className = 'absolute';
+                if (isMobile) {
+                    const position = ((year - startYear) / totalYears) * 100;
+                    marker.style.left = `${position}%`;
+                    marker.innerHTML = `<span class="absolute bottom-full text-xs text-base01/70 pb-1 -translate-x-1/2">${year}</span><div class="w-px h-2 absolute bottom-0 -translate-x-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
+                } else {
+                    const position = ((endYear - year) / totalYears) * 100;
+                    marker.style.top = `${position}%`;
+                    marker.innerHTML = `<span class="absolute right-full text-xs text-base01/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
+                }
+                yearAxisItself.appendChild(marker);
+            }
+            yearAxisContainer.appendChild(yearAxisItself);
+            yearAxisSide.appendChild(yearAxisContainer);
+            mainContainer.appendChild(yearAxisSide);
+            
+            // Append all parts to the placeholder
+            weldingChartPlaceholder.appendChild(mainContainer);
+
+            // Observer for animation
+            const weldingObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.skill-bar').forEach(bar => {
+                            bar.style.width = bar.dataset.width;
+                        });
+                        document.querySelectorAll('.skill-details').forEach(detail => {
+                            detail.style.opacity = '1';
+                        });
+                        observer.unobserve(weldingChartPlaceholder);
+                    }
+                });
+            }, { threshold: 0.1 });
+            weldingObserver.observe(weldingChartPlaceholder);
+
+
+            // --- TIMELINE ACCORDION ---
             const timelineContainer = document.getElementById('timeline-container');
             workHistory.forEach((job, index) => {
                 const item = document.createElement('div');
                 item.className = 'timeline-item bg-base2';
                 
                 const header = document.createElement('div');
-                header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center';
+                header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
                 header.innerHTML = `
                     <div>
                         <span class="font-bold text-blue">${job.role}</span>
                         <span class="text-base01">@</span>
                         <span class="text-green">${job.company}</span>
                     </div>
-                    <span class="text-sm text-base01">${job.period}</span>
+                    <span class="text-sm text-base01 flex-shrink-0">${job.period}</span>
                 `;
 
                 const content = document.createElement('div');
@@ -351,45 +596,20 @@
                 
                 let materialsHTML = '';
                 if (job.materials && job.materials.length > 0) {
-                    materialsHTML = `
-                        <p class="mt-2 text-magenta">materials: [</p>
-                        <ul class="pl-6 text-base01">
-                            ${job.materials.map(mat => `<li><span class="text-orange">'${mat}'</span>,</li>`).join('')}
-                        </ul>
-                        <p class="text-magenta">],</p>
-                    `;
+                    materialsHTML = `<p class="mt-2 text-magenta">materials: [</p><ul class="pl-6 text-base01">${job.materials.map(mat => `<li><span class="text-orange">'${mat}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
                 }
 
                 let toolsHTML = '';
                 if (job.tools && job.tools.length > 0) {
-                    toolsHTML = `
-                        <p class="mt-2 text-magenta">tools: [</p>
-                        <ul class="pl-6 text-base01">
-                            ${job.tools.map(tool => `<li><span class="text-orange">'${tool}'</span>,</li>`).join('')}
-                        </ul>
-                        <p class="text-magenta">],</p>
-                    `;
+                    toolsHTML = `<p class="mt-2 text-magenta">tools: [</p><ul class="pl-6 text-base01">${job.tools.map(tool => `<li><span class="text-orange">'${tool}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
                 }
 
                 let achievementsHTML = '';
                 if (job.achievements.length > 0) {
-                    achievementsHTML = `
-                        <p class="mt-2 text-magenta">achievements: [</p>
-                        <ul class="pl-6 text-base01">
-                            ${job.achievements.map(ach => `<li><span class="text-orange">'${ach}'</span>,</li>`).join('')}
-                        </ul>
-                        <p class="text-magenta">],</p>
-                    `;
+                    achievementsHTML = `<p class="mt-2 text-magenta">achievements: [</p><ul class="pl-6 text-base01">${job.achievements.map(ach => `<li><span class="text-orange">'${ach}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
                 }
 
-                content.innerHTML = `
-                    <div class="pl-6 border-l-2 border-base0">
-                        <p class="text-magenta">description: <span class="text-orange">\`${job.description}\`</span>,</p>
-                        ${materialsHTML}
-                        ${toolsHTML}
-                        ${achievementsHTML}
-                    </div>
-                `;
+                content.innerHTML = `<div class="pl-6 border-l-2 border-base0"><p class="text-magenta">description: <span class="text-orange">\`${job.description}\`</span>,</p>${materialsHTML}${toolsHTML}${achievementsHTML}</div>`;
                 
                 item.appendChild(header);
                 item.appendChild(content);
@@ -401,26 +621,25 @@
                 });
             });
 
-            // ACHIEVEMENTS
-            const achievementsContainer = document.querySelector('#achievements .grid');
+            // --- ACHIEVEMENTS ---
+            const achievementsContainer = document.getElementById('achievements-grid');
             const keyAchievements = [
+                { title: 'Analytical Approach & Optimization', text: 'At Berkeley Stainless Fittings, I achieved superior results in rotating table welding by methodically documenting, testing, and refining settings. This data-driven approach allowed me to surpass the quality and efficiency of colleagues with decades more experience, demonstrating a core strength in process optimization.'},
+                { title: 'Rapid Skill Acquisition', text: 'Despite having only 6 months of intermittent experience with aluminum, I successfully passed the most difficult aerospace-grade fillet weld test (1.6mm). This highlights a natural aptitude and the ability to quickly master complex, high-precision tasks under pressure.'},
                 { title: 'Enabled Rolls-Royce Orders', text: 'Developed and implemented welding settings that enabled Fowlers of Bristol to secure new orders from Rolls-Royce, resolving previous technical challenges.'},
+                { title: 'Workshop Creation', text: 'At Active8 Robots, organised a fully functional and cost-effective metalwork department from scratch, enabling timely project completion for McCain Foods.'},
                 { title: 'Passed Difficult Weld Tests', text: 'Achieved aerospace coding for aluminium fillet welds with only 3 months of intermittent experience, a task colleagues with 20+ years of experience could not pass.'},
-                { title: '50% Efficiency Increase', text: 'At Berkeley Stainless Fittings, improved welding quality and increased rotary table speeds by up to 50% by developing a comprehensive welding settings data book.'},
-                { title: 'Workshop Creation', text: 'At Active8 Robots, organised a fully functional and cost-effective metalwork department from scratch, enabling timely project completion for McCain Foods.'}
+                { title: '50% Efficiency Increase', text: 'At Berkeley Stainless Fittings, improved welding quality and increased rotary table speeds by up to 50% by developing a comprehensive welding settings data book.'}
             ];
             
             keyAchievements.forEach(ach => {
                 const card = document.createElement('div');
-                card.className = 'bg-base2 p-4 hover:border-green transition';
-                card.innerHTML = `
-                    <h3 class="font-bold text-green mb-2">## ${ach.title}</h3>
-                    <p class="text-base01 text-sm">${ach.text}</p>
-                `;
+                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition';
+                card.innerHTML = `<h3 class="font-bold text-green mb-2">## ${ach.title}</h3><p class="text-base01 text-sm">${ach.text}</p>`;
                 achievementsContainer.appendChild(card);
             });
 
-            // SMOOTH SCROLL
+            // --- SMOOTH SCROLL ---
             document.querySelectorAll('#navbar a').forEach(link => {
                 link.addEventListener('click', e => {
                     e.preventDefault();
