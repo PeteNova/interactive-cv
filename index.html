@@ -79,10 +79,10 @@
             cursor: pointer;
         }
         .lang-btn:hover, .theme-btn:hover {
-            color: var(--cyan);
+            color: var(--orange);
         }
         .lang-btn.active, .theme-btn.active {
-            color: var(--cyan);
+            color: var(--orange);
             cursor: default;
         }
     </style>
@@ -90,7 +90,7 @@
 <body class="">
 
     <div class="sticky top-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between">
+        <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row md:items-center md:justify-between">
             <nav id="navbar">
                 <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto text-sm md:text-base">
                     <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
@@ -98,7 +98,7 @@
                     <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career & Education</a></li>
                 </ul>
             </nav>
-            <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-t border-base0 md:border-t-0">
+            <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-b border-base0 md:border-b-0 md:border-t-0">
                  <div id="theme-switcher" class="flex items-center space-x-2 text-xs">
                     <button data-theme="default" class="theme-btn" data-translate-key="theme_light">Light Mode</button>
                     <button data-theme="theme-atom-one-dark" class="theme-btn" data-translate-key="theme_dark">Dark Mode</button>
