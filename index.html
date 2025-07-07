@@ -29,10 +29,28 @@
             --cyan: #2aa198;
             --green: #859900;
         }
+        body.theme-atom-one-dark {
+            --base03: #282c34; /* bg */
+            --base02: #2c313a; /* bg-alt */
+            --base01: #abb2bf; /* fg */
+            --base00: #5c6370; /* fg-alt */
+            --base0: #3e4451; /* borders */
+            --base1: #e06c75; /* red for base1 */
+            --base2: #21252b; /* bg-secondary */
+            --base3: #282c34; /* bg-main */
+            --yellow: #e5c07b;
+            --orange: #d19a66;
+            --red: #e06c75;
+            --magenta: #c678dd;
+            --violet: #c678dd;
+            --blue: #61afef;
+            --cyan: #56b6c2;
+            --green: #98c379;
+        }
         body {
-            font-family: 'IBM Plex Mono', monospace;
             background-color: var(--base3);
             color: var(--base01);
+            font-family: 'IBM Plex Mono', monospace;
         }
         .timeline-item-header::before {
             content: '▶';
@@ -52,18 +70,46 @@
             width: 100%;
             height: 350px;
         }
+        .lang-btn, .theme-btn {
+            padding: 2px 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            color: var(--base01);
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        .lang-btn:hover, .theme-btn:hover {
+            color: var(--cyan);
+        }
+        .lang-btn.active, .theme-btn.active {
+            color: var(--cyan);
+            cursor: default;
+        }
     </style>
 </head>
 <body class="">
 
     <header class="bg-base2">
-        <div class="container mx-auto px-6 py-6">
-            <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
-            <p class="text-xl md:text-2xl mt-1 text-cyan">High-Integrity TIG Welder & Fabricator</p>
-            <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-base01">
-                <span class="text-base01/70">// location: 'Stonehouse, GL'</span>
-                <span class="text-base01/70">// contact: '07858925933'</span>
-                <span class="text-base01/70">// email: 'piotrrekas@gmail.com'</span>
+        <div class="container mx-auto px-6 py-6 flex justify-between items-start">
+            <div>
+                <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
+                <p class="text-xl md:text-2xl mt-1 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
+                <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-base01">
+                    <span data-translate-key="location">// location: 'Stonehouse, GL'</span>
+                    <span data-translate-key="contact">// contact: '07858925933'</span>
+                    <span data-translate-key="email">// email: 'piotrrekas@gmail.com'</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-end space-y-2">
+                <div id="theme-switcher" class="flex space-x-2 text-xs">
+                    <button data-theme="default" class="theme-btn">Solarized Light</button>
+                    <button data-theme="theme-atom-one-dark" class="theme-btn">Atom One Dark</button>
+                </div>
+                <div id="lang-switcher" class="flex space-x-2 text-sm font-bold">
+                    <button data-lang="en" class="lang-btn">EN</button>
+                    <button data-lang="pl" class="lang-btn">PL</button>
+                    <button data-lang="de" class="lang-btn">DE</button>
+                </div>
             </div>
         </div>
     </header>
@@ -72,13 +118,13 @@
         <div class="container mx-auto px-6">
             <div class="bg-base2 shadow-lg">
                 <ul class="flex justify-start space-x-6 px-4 py-2 text-base01 font-medium overflow-x-auto">
-                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">summary</a></li>
-                    <li><a href="#qualifications" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">qualifications</a></li>
-                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">skills-chart</a></li>
-                    <li><a href="#welding-skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">welding-breakdown</a></li>
-                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">timeline</a></li>
-                    <li><a href="#achievements" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">achievements</a></li>
-                    <li><a href="#education" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange">education</a></li>
+                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_summary">summary</a></li>
+                    <li><a href="#qualifications" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_qualifications">qualifications</a></li>
+                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills_chart">skills-chart</a></li>
+                    <li><a href="#welding-skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_welding_breakdown">welding-breakdown</a></li>
+                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_timeline">timeline</a></li>
+                    <li><a href="#achievements" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_achievements">achievements</a></li>
+                    <li><a href="#education" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_education">education</a></li>
                 </ul>
             </div>
         </div>
@@ -86,42 +132,25 @@
 
     <main class="container mx-auto px-6 py-12">
         <section id="summary" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Professional Summary</h2>
+            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="summary_title">Professional Summary</h2>
             <div class="bg-base2 p-6 shadow-lg">
-                <p class="leading-relaxed">
-                    <span class="text-magenta">const</span> <span class="text-blue">summary</span> = `A highly skilled and meticulous TIG Welder with extensive experience in stainless steel and aluminium fabrication for safety-critical, highly regulated sectors, including Aerospace, Defence, and Food Production. Proven ability to work on high-integrity components for demanding clients such as Rolls-Royce, consistently meeting the highest standards of quality and precision. Safety-focused, with a track record of developing and implementing robust welding procedures to ensure full penetration and compliance with stringent specifications. Seeking to leverage specialist skills within the UK nuclear industry to contribute to projects where safety, quality, and precision are paramount.`;
-                </p>
+                <p id="summary-text" class="leading-relaxed"></p>
             </div>
         </section>
 
         <div class="my-16"></div>
 
         <section id="qualifications" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Key Qualifications</h2>
-            <div class="bg-base2 p-6 space-y-4 shadow-lg">
-                <div>
-                    <p><span class="text-green">"Specialist Welding"</span>: <span class="text-orange">"Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass."</span>,</p>
+            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="qualifications_title">Key Qualifications</h2>
+            <div id="qualifications-list" class="bg-base2 p-6 space-y-4 shadow-lg">
                 </div>
-                <div>
-                    <p><span class="text-green">"Artisanal Fabrication"</span>: <span class="text-orange">"Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture."</span>,</p>
-                </div>
-                <div>
-                    <p><span class="text-green">"Technical Fabrication"</span>: <span class="text-orange">"Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes."</span>,</p>
-                </div>
-                <div>
-                    <p><span class="text-green">"Quality & Compliance"</span>: <span class="text-orange">"Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)."</span>,</p>
-                </div>
-                 <div>
-                    <p><span class="text-green">"Safety & Procedures"</span>: <span class="text-orange">"Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate."</span></p>
-                </div>
-            </div>
         </section>
 
         <div class="my-16"></div>
 
         <section id="skills" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Skills Chart</h2>
-            <p class="text-center mb-8 text-base01">/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */</p>
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills Chart</h2>
+            <p class="text-center mb-8 text-base01" data-translate-key="skills_chart_desc">/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */</p>
             <div class="bg-base2 p-6 shadow-lg overflow-x-auto">
                 <div class="chart-container" style="min-width: 500px;">
                     <canvas id="skillsChart"></canvas>
@@ -132,50 +161,43 @@
         <div class="my-16"></div>
 
         <section id="welding-skills" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Welding Skills Breakdown</h2>
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
             <div id="welding-chart-placeholder" class="bg-base2 p-6 pb-8 shadow-lg">
-                <!-- JS will populate this area -->
-            </div>
+                </div>
         </section>
 
         <div class="my-16"></div>
 
         <section id="timeline" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Career Timeline</h2>
-            <p class="text-center mb-8 text-base01">/* Click on any role to expand and view detailed responsibilities and key achievements from that position. */</p>
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="timeline_title">Career Timeline</h2>
+            <p class="text-center mb-8 text-base01" data-translate-key="timeline_desc">/* Click on any role to expand and view detailed responsibilities and key achievements from that position. */</p>
             <div id="timeline-container" class="space-y-2">
-                <!-- Timeline items will be populated by JS -->
-            </div>
+                </div>
         </section>
 
         <div class="my-16"></div>
 
         <section id="achievements" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet">Key Strengths & Achievements</h2>
-            <p class="text-center mb-8 text-base01">/* A collection of key achievements that highlight my ability to deliver tangible results. */</p>
+            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
+            <p class="text-center mb-8 text-base01" data-translate-key="achievements_desc">/* A collection of key achievements that highlight my ability to deliver tangible results. */</p>
             <div class="grid md:grid-cols-2 gap-4" id="achievements-grid">
-                <!-- Achievements will be populated by JS -->
-            </div>
+                </div>
         </section>
         
         <div class="my-16"></div>
 
         <section id="education" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet">Education & Info</h2>
+            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Education & Info</h2>
             <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6 shadow-lg">
                 <div>
-                    <p class="text-green">education:</p>
-                    <ul class="pl-4 mt-2 space-y-1">
-                        <li><span class="text-base01">- <span class="text-blue">University of Rzeszow</span>, Department of Art, Poland (2006 – 2009)</span></li>
-                        <li><span class="text-base01">- <span class="text-blue">Comprehensive School of Fine Arts</span>, Rzeszow, Poland (2000 – 2006)</span></li>
-                    </ul>
+                    <p class="text-green" data-translate-key="education_heading">education:</p>
+                    <ul id="education-list" class="pl-4 mt-2 space-y-1">
+                        </ul>
                 </div>
                 <div>
-                    <p class="text-green">additional_info:</p>
-                     <ul class="pl-4 mt-2 space-y-1">
-                        <li><span class="text-base01">- <span class="text-blue">languages:</span> Polish (Native), English (Intermediate)</span></li>
-                        <li><span class="text-base01">- <span class="text-blue">interests:</span> Sports (basketball, track athletics), Computers, Art</span></li>
-                    </ul>
+                    <p class="text-green" data-translate-key="info_heading">additional_info:</p>
+                     <ul id="info-list" class="pl-4 mt-2 space-y-1">
+                        </ul>
                 </div>
             </div>
         </section>
@@ -183,120 +205,353 @@
 
     <footer class="bg-base2 mt-16">
         <div class="container mx-auto px-6 py-6 text-center text-base01">
-            <p><span class="text-base01/70">// End of file. &copy; 2025 Piotr Nowakowski.</span></p>
+            <p data-translate-key="footer_text"><span class="text-base01/70">// End of file. &copy; 2025 Piotr Nowakowski.</span></p>
         </div>
     </footer>
 
     <script>
-        const workHistory = [
-            {
-                role: "TIG/MIG Welder",
-                company: "CKF Systems Limited",
-                period: "Sep 2024 – Jul 2025",
-                description: "Continuing to build on specialist welding skills in an automated systems environment for the food industry.",
-                materials: ["Stainless Steel", "Steel Structures"],
-                tools: ["TIG Welder", "MIG Welder"],
-                achievements: []
+        const translations = {
+            subtitle: {
+                pl: "Spawacz TIG & Konstruktor Wysokiej Jakości",
+                en: "High-Integrity TIG Welder & Fabricator",
+                de: "Hochwertiger WIG-Schweißer & Fertiger"
             },
-            {
-                role: "TIG/MIG Welder",
-                company: "Fowlers Of Bristol (Engineers) Ltd.",
-                period: "Feb 2024 – Aug 2024",
-                description: "Fabricating and welding components for Aerospace & Defence industry Suppliers. Ensuring the highest quality and safety standards in welding operations. Collaborating with a team of skilled professionals to meet project deadlines and specifications. Conducting visual inspections and quality checks on completed welds.",
-                materials: ["Stainless Steel", "Aluminum"],
-                tools: ["TIG Welder", "MIG Welder", "Inspection Tools"],
-                achievements: [
-                    "Achieved positive test results and certifications in the aerospace industry for fillet welds on stainless steel and aluminum with thicknesses of 1.6mm, 3mm, and 6mm.",
-                    "Identified and implemented solutions for welding settings that enabled the acceptance of new orders from clients such as Rolls-Royce.",
-                    "Successfully upgraded and maintained the welding bay setup, developing procedures and settings.",
-                    "Maintained a strong safety record and adhered to all relevant safety protocols and guidelines."
+            location: {
+                pl: "// lokalizacja: 'Stonehouse, GL'",
+                en: "// location: 'Stonehouse, GL'",
+                de: "// standort: 'Stonehouse, GL'"
+            },
+            contact: {
+                pl: "// kontakt: '07858925933'",
+                en: "// contact: '07858925933'",
+                de: "// kontakt: '07858925933'"
+            },
+            email: {
+                pl: "// email: 'piotrrekas@gmail.com'",
+                en: "// email: 'piotrrekas@gmail.com'",
+                de: "// email: 'piotrrekas@gmail.com'"
+            },
+            nav_summary: { pl: "podsumowanie", en: "summary", de: "zusammenfassung" },
+            nav_qualifications: { pl: "kwalifikacje", en: "qualifications", de: "qualifikationen" },
+            nav_skills_chart: { pl: "wykres-umiejętności", en: "skills-chart", de: "fähigkeitsdiagramm" },
+            nav_welding_breakdown: { pl: "analiza-spawania", en: "welding-breakdown", de: "schweißanalyse" },
+            nav_timeline: { pl: "oś-czasu", en: "timeline", de: "zeitleiste" },
+            nav_achievements: { pl: "osiągnięcia", en: "achievements", de: "erfolge" },
+            nav_education: { pl: "edukacja", en: "education", de: "bildung" },
+            summary_title: {
+                pl: "Podsumowanie Zawodowe",
+                en: "Professional Summary",
+                de: "Berufliche Zusammenfassung"
+            },
+            summary_text: {
+                pl: "`Wysoce wykwalifikowany i skrupulatny Spawacz TIG z bogatym doświadczeniem w obróbce stali nierdzewnej i aluminium dla sektorów o krytycznym znaczeniu dla bezpieczeństwa, w tym lotniczego, obronnego i spożywczego. Udokumentowana zdolność do pracy nad komponentami o wysokiej integralności dla wymagających klientów, takich jak Rolls-Royce, konsekwentnie spełniając najwyższe standardy jakości i precyzji. Skoncentrowany na bezpieczeństwie, z historią opracowywania i wdrażania solidnych procedur spawalniczych w celu zapewnienia pełnej penetracji i zgodności z rygorystycznymi specyfikacjami. Chce wykorzystać specjalistyczne umiejętności w brytyjskim przemyśle jądrowym, aby przyczynić się do projektów, w których bezpieczeństwo, jakość i precyzja są najważniejsze.`",
+                en: "`A highly skilled and meticulous TIG Welder with extensive experience in stainless steel and aluminium fabrication for safety-critical, highly regulated sectors, including Aerospace, Defence, and Food Production. Proven ability to work on high-integrity components for demanding clients such as Rolls-Royce, consistently meeting the highest standards of quality and precision. Safety-focused, with a track record of developing and implementing robust welding procedures to ensure full penetration and compliance with stringent specifications. Seeking to leverage specialist skills within the UK nuclear industry to contribute to projects where safety, quality, and precision are paramount.`",
+                de: "`Ein hochqualifizierter und sorgfältiger WIG-Schweißer mit umfassender Erfahrung in der Herstellung von Edelstahl und Aluminium für sicherheitskritische, stark regulierte Sektoren, einschließlich Luft- und Raumfahrt, Verteidigung und Lebensmittelproduktion. Nachgewiesene Fähigkeit, an hochintegrierten Komponenten für anspruchsvolle Kunden wie Rolls-Royce zu arbeiten und dabei stets die höchsten Qualitäts- und Präzisionsstandards zu erfüllen. Sicherheitsorientiert, mit einer Erfolgsbilanz bei der Entwicklung und Implementierung robuster Schweißverfahren, um eine vollständige Durchdringung und die Einhaltung strenger Spezifikationen zu gewährleisten. Bestrebt, Fachkenntnisse in der britischen Atomindustrie zu nutzen, um zu Projekten beizutragen, bei denen Sicherheit, Qualität und Präzision an erster Stelle stehen.`"
+            },
+            qualifications_title: {
+                pl: "Kluczowe Kwalifikacje",
+                en: "Key Qualifications",
+                de: "Schlüsselqualifikationen"
+            },
+            qualifications_data: {
+                pl: [
+                    { title: '"Spawanie Specjalistyczne"', desc: '"Zaawansowana biegłość w spawaniu TIG stali nierdzewnej, stali miękkiej, aluminium, brązu odlewanego i mosiądzu."' },
+                    { title: '"Rzemiosło Artystyczne"', desc: '"Poziom ekspercki (9/10) w ręcznej, artystycznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu materiałów takich jak brąz odlewany i mosiądz, głównie z doświadczenia w rzeźbie artystycznej."' },
+                    { title: '"Produkcja Techniczna"', desc: '"Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy konstrukcyjne, rurociągi i armatura przy użyciu spawarek TIG/MIG, szlifierek i przecinarek. Uwaga: Ograniczone doświadczenie w obsłudze ciężkich maszyn przemysłowych, takich jak tokarki."' },
+                    { title: '"Jakość i Zgodność"', desc: '"Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm)."' },
+                    { title: '"Bezpieczeństwo i Procedury"', desc: '"Nienaganny rekord bezpieczeństwa z rygorystycznym przestrzeganiem wszystkich protokołów. Doświadczenie w tworzeniu książek danych spawalniczych i optymalizacji stanowisk pracy. Posiadacz Certyfikatu HACCP Poziom 2."' },
+                ],
+                en: [
+                    { title: '"Specialist Welding"', desc: '"Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass."' },
+                    { title: '"Artisanal Fabrication"', desc: '"Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture."' },
+                    { title: '"Technical Fabrication"', desc: '"Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes."' },
+                    { title: '"Quality & Compliance"', desc: '"Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)."' },
+                    { title: '"Safety & Procedures"', desc: '"Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate."' },
+                ],
+                de: [
+                    { title: '"Spezialschweißen"', desc: '"Fortgeschrittene Kenntnisse im WIG-Schweißen von Edelstahl, Baustahl, Aluminium, Gussbronze und Messing."' },
+                    { title: '"Handwerkliche Fertigung"', desc: '"Expertenniveau (9/10) in manueller, künstlerischer Metallbearbeitung, einschließlich komplexer Formgebung, Texturierung und Veredelung von Materialien wie Gussbronze und Messing, hauptsächlich aus Erfahrung in der bildenden Kunst."' },
+                    { title: '"Technische Fertigung"', desc: '"Kompetent in der Herstellung und Montage von Industriekomponenten wie Strukturrahmen, Rohrleitungen und Armaturen mit WIG/MIG-Schweißgeräten, Schleifmaschinen und Schneidgeräten. Hinweis: Begrenzte Erfahrung mit schweren Industriemaschinen wie Drehmaschinen."' },
+                    { title: '"Qualität & Konformität"', desc: '"Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- und Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl und Aluminium (1,6 mm, 3 mm und 6 mm) erhalten."' },
+                    { title: '"Sicherheit & Verfahren"', desc: '"Tadellose Sicherheitsbilanz bei strikter Einhaltung aller Protokolle. Erfahrung in der Erstellung von Schweißdatenbüchern und der Optimierung von Arbeitsplätzen. Inhaber eines HACCP-Zertifikats Stufe 2."' },
                 ]
             },
-            {
-                role: "TIG/MIG Welder",
-                company: "CKF Systems Limited",
-                period: "Sep 2022 – Feb 2024",
-                description: "Fabricating and welding various components of production lines for the food industry. Ensuring the highest quality and safety standards, conducting visual inspections, and adhering to strict procedures.",
-                materials: ["Stainless Steel", "Steel Structures"],
-                tools: ["TIG Welder", "MIG Welder"],
-                achievements: [
-                    "Consistently produced high-quality welds, contributing to the successful completion of complex production line projects for corporate clients in the food industry.",
-                    "Successfully upgraded and maintained the welding bay setup."
+            skills_chart_title: {
+                pl: "Wykres Umiejętności",
+                en: "Skills Chart",
+                de: "Fähigkeitsdiagramm"
+            },
+            skills_chart_desc: {
+                pl: "/* Ten wykres przedstawia wizualny przegląd kluczowych kompetencji, demonstrując wszechstronny i solidny zestaw umiejętności dostosowany do środowisk produkcyjnych o wysokiej integralności. */",
+                en: "/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */",
+                de: "/* Dieses Diagramm bietet einen visuellen Überblick über die Schlüsselkompetenzen und demonstriert ein abgerundetes und robustes Fähigkeitenset, das auf hochintegrierte Fertigungsumgebungen zugeschnitten ist. */"
+            },
+            skills_chart_labels: {
+                pl: ['Spawanie TIG', 'Jakość i Zgodność', 'Rzemiosło Artystyczne', 'Obróbka Przemysłowa', 'Procedury Bezpieczeństwa', 'Rozwiązywanie Problemów'],
+                en: ['TIG Welding', 'Quality & Compliance', 'Artisanal Fabrication', 'Industrial Machining', 'Safety Procedures', 'Problem Solving'],
+                de: ['WIG-Schweißen', 'Qualität & Konformität', 'Handwerkliche Fertigung', 'Industrielle Bearbeitung', 'Sicherheitsverfahren', 'Problemlösung']
+            },
+            welding_skills_title: {
+                pl: "Analiza Umiejętności Spawalniczych",
+                en: "Welding Skills Breakdown",
+                de: "Analyse der Schweißfähigkeiten"
+            },
+            welding_chart_headers: {
+                pl: { type: "Typ", method: "Metoda i Materiał", exp: "Doświadczenie i Biegłość (1-10)" },
+                en: { type: "Type", method: "Method & Material", exp: "Experience & Proficiency (1-10)" },
+                de: { type: "Typ", method: "Methode & Material", exp: "Erfahrung & Kenntnisse (1-10)" }
+            },
+            welding_chart_xaxis: {
+                pl: "Efektywne Doświadczenie (miesiące)",
+                en: "Effective Experience (months)",
+                de: "Effektive Erfahrung (Monate)"
+            },
+            timeline_title: {
+                pl: "Oś Czasu Kariery",
+                en: "Career Timeline",
+                de: "Beruflicher Werdegang"
+            },
+            timeline_desc: {
+                pl: "/* Kliknij na dowolną rolę, aby rozwinąć i zobaczyć szczegółowe obowiązki i kluczowe osiągnięcia z tego stanowiska. */",
+                en: "/* Click on any role to expand and view detailed responsibilities and key achievements from that position. */",
+                de: "/* Klicken Sie auf eine beliebige Rolle, um detaillierte Verantwortlichkeiten und wichtige Erfolge aus dieser Position anzuzeigen. */"
+            },
+            work_history: {
+                pl: [
+                    { role: "Spawacz TIG/MIG", company: "CKF Systems Limited", period: "Wrz 2024 – Lip 2025", description: "Dalsze rozwijanie specjalistycznych umiejętności spawalniczych w środowisku zautomatyzowanych systemów dla przemysłu spożywczego.", materials: ["Stal Nierdzewna", "Konstrukcje Stalowe"], tools: ["Spawarka TIG", "Spawarka MIG"], achievements: [] },
+                    { role: "Spawacz TIG/MIG", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Lut 2024 – Sie 2024", description: "Produkcja i spawanie komponentów dla dostawców przemysłu lotniczego i obronnego. Zapewnienie najwyższych standardów jakości i bezpieczeństwa w operacjach spawalniczych. Współpraca z zespołem wykwalifikowanych specjalistów w celu dotrzymania terminów i specyfikacji projektowych. Przeprowadzanie kontroli wizualnych i jakościowych ukończonych spoin.", materials: ["Stal Nierdzewna", "Aluminium"], tools: ["Spawarka TIG", "Spawarka MIG", "Narzędzia Inspekcyjne"], achievements: ["Osiągnięto pozytywne wyniki testów i certyfikaty w przemyśle lotniczym dla spoin pachwinowych na stali nierdzewnej i aluminium o grubościach 1.6mm, 3mm i 6mm.", "Zidentyfikowano i wdrożono rozwiązania dla ustawień spawalniczych, które umożliwiły przyjmowanie nowych zamówień od klientów takich jak Rolls-Royce.", "Pomyślnie zmodernizowano i utrzymano stanowisko spawalnicze, opracowując procedury i ustawienia spawalnicze.", "Utrzymano wysoki poziom bezpieczeństwa i przestrzegano wszystkich odpowiednich protokołów i wytycznych bezpieczeństwa."] },
+                    { role: "Spawacz TIG/MIG", company: "CKF Systems Limited", period: "Wrz 2022 – Lut 2024", description: "Produkcja i spawanie różnych komponentów linii produkcyjnych dla przemysłu spożywczego. Zapewnienie najwyższych standardów jakości i bezpieczeństwa, przeprowadzanie kontroli wizualnych i przestrzeganie ścisłych procedur.", materials: ["Stal Nierdzewna", "Konstrukcje Stalowe"], tools: ["Spawarka TIG", "Spawarka MIG"], achievements: ["Konsekwentnie produkował wysokiej jakości spoiny, przyczyniając się do pomyślnego ukończenia złożonych projektów linii produkcyjnych dla klientów korporacyjnych w przemyśle spożywczym.", "Pomyślnie zmodernizowano i utrzymano stanowisko spawalnicze."] },
+                    { role: "Spawacz TIG", company: "DKM Sheetmetal Ltd", period: "Sty 2022 – Wrz 2022", description: "Projekt: piece EVERHOT, pokrywy, zawiasy, części grilla. Obowiązki obejmowały dopasowywanie, montaż produktów oraz spawanie części TIG za pomocą zacisków i przyrządów.", materials: ["Blacha Nierdzewna (1-1.5mm)", "Płyta Nierdzewna (5mm)"], tools: ["Spawarka TIG", "Zaciski", "Przyrządy"], achievements: ["Opracowano metodę pracy o wyższej wydajności."] },
+                    { role: "Spawacz TIG", company: "Active8 Robots", period: "Maj 2021 – Wrz 2021", description: "Projekt: ramy ze stali nierdzewnej do ręcznego i zrobotyzowanego stołu pakującego dla McCain Foods. Obowiązki obejmowały przygotowanie warsztatu, produkcję, cięcie, dopasowywanie, spawanie TIG i wykańczanie elementów ze stali nierdzewnej.", materials: ["Profile Pudełkowe Nierdzewne", "Rury Nierdzewne"], tools: ["Spawarka TIG", "Narzędzia Tnące", "Szlifierka Orbitalna", "Narzędzia do Wykończenia INOX"], achievements: ["Zorganizowano opłacalny dział obróbki metalu i pomógł ukończyć główną część projektu na czas, zapewniając wyjątkową jakość obróbki metalu."] },
+                    { role: "Spawacz TIG", company: "DKM Sheetmetal Ltd", period: "Lut 2021 – Kwi 2021", description: "Projekt: piece EVERHOT. Te same obowiązki co w późniejszym okresie, skoncentrowane na dopasowywaniu, montażu i spawaniu TIG komponentów ze stali nierdzewnej.", materials: ["Blacha Nierdzewna"], tools: ["Spawarka TIG", "Zaciski", "Przyrządy"], achievements: [] },
+                    { role: "Spawacz TIG", company: "Berkeley Stainless Fittings", period: "Cze 2020 – Lut 2021", description: "Produkcja higienicznych komponentów (rury, zawory, kołnierze) dla przemysłu spożywczego i farmaceutycznego.", materials: ["Higieniczna Stal Nierdzewna (Rury, Armatura, Zawory)"], tools: ["Spawarka TIG", "Stół Obrotowy", "Robot Spawalniczy", "Narzędzia Polerskie"], achievements: ["Znacząco poprawiono jakość spawania produktów i zwiększono wydajność (prędkości stołu obrotowego o 50%) poprzez opracowanie kompleksowej książki danych ustawień spawalniczych i precyzyjnych adapterów."] },
+                    { role: "Metaloplastyk", company: "Pangolin Editions Ltd", period: "Paź 2015 – Kwi 2019", description: "Wykonywanie złożonych, wieloetapowych produkcji wielkoskalowych rzeźb z brązu dla światowej sławy artystów, takich jak Damien Hirst. Rola ta wymagała wyjątkowej precyzji, dbałości o szczegóły i zaawansowanych umiejętności rozwiązywania problemów.", materials: ["Brąz Odlewany", "Mosiądz", "Aluminium"], tools: ["Spawarka TIG/MIG", "Przecinarka Plazmowa", "Szlifierki Elektryczne/Pneumatyczne", "Narzędzia Ręczne", "Suwnica (do 20 ton)"], achievements: ["Zwiększono wydajność pracy działu poprzez opracowanie i udostępnienie nowych metod pracy, technik i narzędzi.", "Pomyślnie naprawiono źle odlane rzeźby z brązu."] }
+                ],
+                en: [
+                    { role: "TIG/MIG Welder", company: "CKF Systems Limited", period: "Sep 2024 – Jul 2025", description: "Continuing to build on specialist welding skills in an automated systems environment for the food industry.", materials: ["Stainless Steel", "Steel Structures"], tools: ["TIG Welder", "MIG Welder"], achievements: [] },
+                    { role: "TIG/MIG Welder", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Feb 2024 – Aug 2024", description: "Fabricating and welding components for Aerospace & Defence industry Suppliers. Ensuring the highest quality and safety standards in welding operations. Collaborating with a team of skilled professionals to meet project deadlines and specifications. Conducting visual inspections and quality checks on completed welds.", materials: ["Stainless Steel", "Aluminum"], tools: ["TIG Welder", "MIG Welder", "Inspection Tools"], achievements: ["Achieved positive test results and certifications in the aerospace industry for fillet welds on stainless steel and aluminum with thicknesses of 1.6mm, 3mm, and 6mm.", "Identified and implemented solutions for welding settings that enabled the acceptance of new orders from clients such as Rolls-Royce.", "Successfully upgraded and maintained the welding bay setup, developing welding procedures and settings.", "Maintained a strong safety record and adhered to all relevant safety protocols and guidelines."] },
+                    { role: "TIG/MIG Welder", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Fabricating and welding various components of production lines for the food industry. Ensuring the highest quality and safety standards, conducting visual inspections, and adhering to strict procedures.", materials: ["Stainless Steel", "Steel Structures"], tools: ["TIG Welder", "MIG Welder"], achievements: ["Consistently produced high-quality welds, contributing to the successful completion of complex production line projects for corporate clients in the food industry.", "Successfully upgraded and maintained the welding bay setup."] },
+                    { role: "TIG Welder", company: "DKM Sheetmetal Ltd", period: "Jan 2022 – Sep 2022", description: "Project: EVERHOT ovens, lids, hinges, grill parts. Responsibilities included fitting, assembling products, and TIG welding parts with clamps and jigs.", materials: ["Stainless Steel Sheet (1-1.5mm)", "Stainless Steel Plate (5mm)"], tools: ["TIG Welder", "Clamps", "Jigs"], achievements: ["Developed a method for working at a higher efficiency."] },
+                    { role: "TIG Welder", company: "Active8 Robots", period: "May 2021 – Sep 2021", description: "Project: Stainless steel frames for manual and robot pack-off table for McCain Foods. Responsibilities included setting up the workshop, fabricating, cutting, fitting, TIG welding, and finishing stainless steel elements.", materials: ["Stainless Steel Box Sections", "Stainless Steel Tubes"], tools: ["TIG Welder", "Cutting Tools", "Orbital Sander", "INOX Finish Tools"], achievements: ["Organized a cost-efficient metalwork department and helped to finish a major part of the project on time, providing outstanding metalwork quality."] },
+                    { role: "TIG Welder", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Project: EVERHOT ovens. Same role and responsibilities as the later period, focused on fitting, assembling, and TIG welding stainless steel components.", materials: ["Stainless Steel Sheet"], tools: ["TIG Welder", "Clamps", "Jigs"], achievements: [] },
+                    { role: "TIG Welder", company: "Berkeley Stainless Fittings", period: "Jun 2020 – Feb 2021", description: "Fabricated hygienic components (tubes, valves, flanges) for the food and pharmaceutical industries.", materials: ["Hygienic Stainless Steel (Tubes, Fittings, Valves)"], tools: ["TIG Welder", "Rotating Table", "Robot Welder", "Polishing Tools"], achievements: ["Significantly improved product welding quality and increased efficiency (rotary table speeds up by 50%) by developing a comprehensive welding settings data book and precision adapters."] },
+                    { role: "Metalworker", company: "Pangolin Editions Ltd", period: "Oct 2015 – Apr 2019", description: "Executed complex, multi-stage fabrication of large-scale bronze sculptures for world-renowned artists such as Damien Hirst. This role demanded exceptional precision, attention to detail, and advanced problem-solving skills.", materials: ["Cast Bronze", "Brass", "Aluminum"], tools: ["TIG/MIG Welder", "Plasma Cutter", "Electric/Air Grinders", "Manual Tools", "Floor-operated Crane (up to 20 ton)"], achievements: ["Increased department work efficiency by developing and sharing new working methods, techniques and tools.", "Successfully repaired poorly casted bronze sculptures."] }
+                ],
+                de: [
+                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2024 – Jul 2025", description: "Weiterentwicklung spezialisierter Schweißkenntnisse in einer automatisierten Systemumgebung für die Lebensmittelindustrie.", materials: ["Edelstahl", "Stahlkonstruktionen"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: [] },
+                    { role: "WIG/MIG-Schweißer", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Feb 2024 – Aug 2024", description: "Herstellung und Schweißen von Komponenten für Zulieferer der Luft- und Raumfahrt- sowie der Verteidigungsindustrie. Gewährleistung höchster Qualitäts- und Sicherheitsstandards bei Schweißarbeiten. Zusammenarbeit mit einem Team von qualifizierten Fachleuten, um Projekttermine und -spezifikationen einzuhalten. Durchführung von Sicht- und Qualitätsprüfungen an fertigen Schweißnähten.", materials: ["Edelstahl", "Aluminium"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät", "Inspektionswerkzeuge"], achievements: ["Positive Testergebnisse und Zertifizierungen in der Luft- und Raumfahrtindustrie für Kehlnähte an Edelstahl und Aluminium mit Dicken von 1,6 mm, 3 mm und 6 mm erzielt.", "Lösungen für Schweißeinstellungen identifiziert und implementiert, die die Annahme neuer Aufträge von Kunden wie Rolls-Royce ermöglichten.", "Schweißbucht erfolgreich modernisiert und gewartet, Schweißverfahren und -einstellungen entwickelt.", "Eine starke Sicherheitsbilanz aufrechterhalten und alle relevanten Sicherheitsprotokolle und -richtlinien eingehalten."] },
+                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Herstellung und Schweißen verschiedener Komponenten von Produktionslinien für die Lebensmittelindustrie. Gewährleistung höchster Qualitäts- und Sicherheitsstandards, Durchführung von Sichtprüfungen und Einhaltung strenger Verfahren.", materials: ["Edelstahl", "Stahlkonstruktionen"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: ["Kontinuierlich hochwertige Schweißnähte produziert, die zum erfolgreichen Abschluss komplexer Produktionslinienprojekte für Firmenkunden in der Lebensmittelindustrie beigetragen haben.", "Schweißbucht erfolgreich modernisiert und gewartet."] },
+                    { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Jan 2022 – Sep 2022", description: "Projekt: EVERHOT-Öfen, Deckel, Scharniere, Grillteile. Zu den Aufgaben gehörten das Anpassen, Montieren von Produkten und das WIG-Schweißen von Teilen mit Klemmen und Vorrichtungen.", materials: ["Edelstahlblech (1-1,5 mm)", "Edelstahlplatte (5 mm)"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: ["Eine Methode für eine höhere Arbeitseffizienz entwickelt."] },
+                    { role: "WIG-Schweißer", company: "Active8 Robots", period: "Mai 2021 – Sep 2021", description: "Projekt: Edelstahlrahmen für manuelle und robotergestützte Verpackungstische für McCain Foods. Zu den Aufgaben gehörten die Einrichtung der Werkstatt, die Herstellung, das Schneiden, Anpassen, WIG-Schweißen und Veredeln von Edelstahlelementen.", materials: ["Edelstahl-Kastenprofile", "Edelstahlrohre"], tools: ["WIG-Schweißgerät", "Schneidwerkzeuge", "Exzenterschleifer", "INOX-Finish-Werkzeuge"], achievements: ["Eine kostengünstige Metallbearbeitungsabteilung organisiert und geholfen, einen großen Teil des Projekts pünktlich abzuschließen, wobei eine hervorragende Metallbearbeitungsqualität erzielt wurde."] },
+                    { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Projekt: EVERHOT-Öfen. Dieselben Aufgaben und Verantwortlichkeiten wie im späteren Zeitraum, mit Schwerpunkt auf dem Anpassen, Montieren und WIG-Schweißen von Edelstahlkomponenten.", materials: ["Edelstahlblech"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: [] },
+                    { role: "WIG-Schweißer", company: "Berkeley Stainless Fittings", period: "Jun 2020 – Feb 2021", description: "Herstellung von Hygienekomponenten (Rohre, Ventile, Flansche) für die Lebensmittel- und Pharmaindustrie.", materials: ["Hygienischer Edelstahl (Rohre, Fittings, Ventile)"], tools: ["WIG-Schweißgerät", "Drehtisch", "Schweißroboter", "Polierwerkzeuge"], achievements: ["Die Schweißqualität der Produkte erheblich verbessert und die Effizienz gesteigert (Drehtischgeschwindigkeiten um 50 % erhöht), indem ein umfassendes Datenbuch für Schweißeinstellungen und Präzisionsadapter entwickelt wurden."] },
+                    { role: "Metallbauer", company: "Pangolin Editions Ltd", period: "Okt 2015 – Apr 2019", description: "Ausführung komplexer, mehrstufiger Herstellungen von großformatigen Bronzeskulpturen für weltbekannte Künstler wie Damien Hirst. Diese Rolle erforderte außergewöhnliche Präzision, Liebe zum Detail und fortgeschrittene Problemlösungsfähigkeiten.", materials: ["Gussbronze", "Messing", "Aluminium"], tools: ["WIG/MIG-Schweißgerät", "Plasmaschneider", "Elektrische/Druckluftschleifer", "Handwerkzeuge", "Brückenkran (bis zu 20 Tonnen)"], achievements: ["Die Arbeitseffizienz der Abteilung durch die Entwicklung und den Austausch neuer Arbeitsmethoden, Techniken und Werkzeuge gesteigert.", "Schlecht gegossene Bronzeskulpturen erfolgreich repariert."] }
                 ]
             },
-            {
-                role: "TIG Welder",
-                company: "DKM Sheetmetal Ltd",
-                period: "Jan 2022 – Sep 2022",
-                description: "Project: EVERHOT ovens, lids, hinges, grill parts. Responsibilities included fitting, assembling products, and TIG welding parts with clamps and jigs.",
-                materials: ["Stainless Steel Sheet (1-1.5mm)", "Stainless Steel Plate (5mm)"],
-                tools: ["TIG Welder", "Clamps", "Jigs"],
-                achievements: [
-                    "Developed a method for working at a higher efficiency."
+            achievements_title: {
+                pl: "Kluczowe Mocne Strony i Osiągnięcia",
+                en: "Key Strengths & Achievements",
+                de: "Wichtigste Stärken und Erfolge"
+            },
+            achievements_desc: {
+                pl: "/* Zbiór kluczowych osiągnięć, które podkreślają moją zdolność do dostarczania wymiernych rezultatów. */",
+                en: "/* A collection of key achievements that highlight my ability to deliver tangible results. */",
+                de: "/* Eine Sammlung von Schlüsselerfolgen, die meine Fähigkeit unterstreichen, greifbare Ergebnisse zu liefern. */"
+            },
+            key_achievements: {
+                pl: [
+                    { title: 'Podejście Analityczne i Optymalizacja', text: 'W Berkeley Stainless Fittings osiągnąłem doskonałe wyniki w spawaniu na stole obrotowym poprzez metodyczne dokumentowanie, testowanie i udoskonalanie ustawień. To podejście oparte na danych pozwoliło mi przewyższyć jakość i wydajność kolegów z wieloletnim doświadczeniem, co świadczy o mojej sile w optymalizacji procesów.'},
+                    { title: 'Szybkie Przyswajanie Umiejętności', text: 'Mimo zaledwie 6 miesięcy sporadycznego doświadczenia z aluminium, pomyślnie zdałem najtrudniejszy test spoiny pachwinowej klasy lotniczej (1.6mm). To podkreśla naturalne predyspozycje i zdolność do szybkiego opanowywania złożonych, precyzyjnych zadań pod presją.'},
+                    { title: 'Umożliwienie Zamówień od Rolls-Royce', text: 'Opracowałem i wdrożyłem ustawienia spawalnicze, które umożliwiły Fowlers of Bristol pozyskanie nowych zamówień od Rolls-Royce, rozwiązując wcześniejsze problemy techniczne.'},
+                    { title: 'Stworzenie Warsztatu', text: 'W Active8 Robots zorganizowałem od podstaw w pełni funkcjonalny i opłacalny dział obróbki metalu, co umożliwiło terminowe ukończenie projektu dla McCain Foods.'},
+                    { title: 'Zdanie Trudnych Testów Spawalniczych', text: 'Uzyskałem uprawnienia lotnicze na spoiny pachwinowe z aluminium po zaledwie 3 miesiącach sporadycznego doświadczenia, zadanie, którego nie mogli zaliczyć koledzy z ponad 20-letnim doświadczeniem.'},
+                    { title: 'Wzrost Wydajności o 50%', text: 'W Berkeley Stainless Fittings poprawiłem jakość spawania i zwiększyłem prędkość stołu obrotowego nawet o 50% dzięki opracowaniu kompleksowej książki danych ustawień spawalniczych.'}
+                ],
+                en: [
+                    { title: 'Analytical Approach & Optimization', text: 'At Berkeley Stainless Fittings, I achieved superior results in rotating table welding by methodically documenting, testing, and refining settings. This data-driven approach allowed me to surpass the quality and efficiency of colleagues with decades more experience, demonstrating a core strength in process optimization.'},
+                    { title: 'Rapid Skill Acquisition', text: 'Despite having only 6 months of intermittent experience with aluminum, I successfully passed the most difficult aerospace-grade fillet weld test (1.6mm). This highlights a natural aptitude and the ability to quickly master complex, high-precision tasks under pressure.'},
+                    { title: 'Enabled Rolls-Royce Orders', text: 'Developed and implemented welding settings that enabled Fowlers of Bristol to secure new orders from Rolls-Royce, resolving previous technical challenges.'},
+                    { title: 'Workshop Creation', text: 'At Active8 Robots, organised a fully functional and cost-effective metalwork department from scratch, enabling timely project completion for McCain Foods.'},
+                    { title: 'Passed Difficult Weld Tests', text: 'Achieved aerospace coding for aluminium fillet welds with only 3 months of intermittent experience, a task colleagues with 20+ years of experience could not pass.'},
+                    { title: '50% Efficiency Increase', text: 'At Berkeley Stainless Fittings, improved welding quality and increased rotary table speeds by up to 50% by developing a comprehensive welding settings data book.'}
+                ],
+                de: [
+                    { title: 'Analytischer Ansatz & Optimierung', text: 'Bei Berkeley Stainless Fittings erzielte ich hervorragende Ergebnisse beim Drehtischschweißen, indem ich Einstellungen methodisch dokumentierte, testete und verfeinerte. Dieser datengesteuerte Ansatz ermöglichte es mir, die Qualität und Effizienz von Kollegen mit jahrzehntelanger Erfahrung zu übertreffen, was eine Kernstärke in der Prozessoptimierung demonstriert.'},
+                    { title: 'Schnelle Aneignung von Fähigkeiten', text: 'Trotz nur 6 Monaten sporadischer Erfahrung mit Aluminium habe ich den schwierigsten Kehlnaht-Test auf Luft- und Raumfahrtniveau (1,6 mm) erfolgreich bestanden. Dies unterstreicht eine natürliche Begabung und die Fähigkeit, komplexe, hochpräzise Aufgaben unter Druck schnell zu meistern.'},
+                    { title: 'Ermöglichte Rolls-Royce-Aufträge', text: 'Entwickelte und implementierte Schweißeinstellungen, die es Fowlers of Bristol ermöglichten, neue Aufträge von Rolls-Royce zu sichern und frühere technische Herausforderungen zu lösen.'},
+                    { title: 'Werkstatterstellung', text: 'Bei Active8 Robots eine voll funktionsfähige und kostengünstige Metallbearbeitungsabteilung von Grund auf organisiert, was eine rechtzeitige Projektabwicklung für McCain Foods ermöglichte.'},
+                    { title: 'Schwierige Schweißtests bestanden', text: 'Luft- und Raumfahrtzertifizierung für Aluminium-Kehlnähte mit nur 3 Monaten sporadischer Erfahrung erhalten, eine Aufgabe, die Kollegen mit über 20 Jahren Erfahrung nicht bestehen konnten.'},
+                    { title: '50% Effizienzsteigerung', text: 'Bei Berkeley Stainless Fittings die Schweißqualität verbessert und die Drehtischgeschwindigkeiten um bis zu 50 % erhöht, indem ein umfassendes Datenbuch für Schweißeinstellungen entwickelt wurde.'}
                 ]
             },
-            {
-                role: "TIG Welder",
-                company: "Active8 Robots",
-                period: "May 2021 – Sep 2021",
-                description: "Project: Stainless steel frames for manual and robot pack-off table for McCain Foods. Responsibilities included setting up the workshop, fabricating, cutting, fitting, TIG welding, and finishing stainless steel elements.",
-                materials: ["Stainless Steel Box Sections", "Stainless Steel Tubes"],
-                tools: ["TIG Welder", "Cutting Tools", "Orbital Sander", "INOX Finish Tools"],
-                achievements: [
-                    "Organized a cost-efficient metalwork department and helped to finish a major part of the project on time, providing outstanding metalwork quality."
-                ]
+            education_title: {
+                pl: "Edukacja i Informacje",
+                en: "Education & Info",
+                de: "Bildung & Informationen"
             },
-            {
-                role: "TIG Welder",
-                company: "DKM Sheetmetal Ltd",
-                period: "Feb 2021 – Apr 2021",
-                description: "Project: EVERHOT ovens. Same role and responsibilities as the later period, focused on fitting, assembling, and TIG welding stainless steel components.",
-                materials: ["Stainless Steel Sheet"],
-                tools: ["TIG Welder", "Clamps", "Jigs"],
-                achievements: []
+            education_heading: { pl: "edukacja:", en: "education:", de: "bildung:" },
+            info_heading: { pl: "dodatkowe_informacje:", en: "additional_info:", de: "zusätzliche_informationen:" },
+            education_data: {
+                pl: ["<span class='text-blue'>Uniwersytet Rzeszowski</span>, Wydział Sztuki, Polska (2006 – 2009)", "<span class='text-blue'>Zespół Szkół Plastycznych</span>, Rzeszów, Polska (2000 – 2006)"],
+                en: ["<span class='text-blue'>University of Rzeszow</span>, Department of Art, Poland (2006 – 2009)", "<span class='text-blue'>Comprehensive School of Fine Arts</span>, Rzeszow, Poland (2000 – 2006)"],
+                de: ["<span class='text-blue'>Universität Rzeszów</span>, Fakultät für Kunst, Polen (2006 – 2009)", "<span class='text-blue'>Gesamtschule der Schönen Künste</span>, Rzeszów, Polen (2000 – 2006)"]
             },
-            {
-                role: "TIG Welder",
-                company: "Berkeley Stainless Fittings",
-                period: "Jun 2020 – Feb 2021",
-                description: "Fabricated hygienic components (tubes, valves, flanges) for the food and pharmaceutical industries.",
-                materials: ["Hygienic Stainless Steel (Tubes, Fittings, Valves)"],
-                tools: ["TIG Welder", "Rotating Table", "Robot Welder", "Polishing Tools"],
-                achievements: [
-                    "Significantly improved product welding quality and increased efficiency (rotary table speeds up by 50%) by developing a comprehensive welding settings data book and precision adapters."
-                ]
+            info_data: {
+                pl: ["<span class='text-blue'>języki:</span> Polski (Ojczysty), Angielski (Średniozaawansowany)", "<span class='text-blue'>zainteresowania:</span> Sport (koszykówka, lekkoatletyka), Komputery, Sztuka"],
+                en: ["<span class='text-blue'>languages:</span> Polish (Native), English (Intermediate)", "<span class='text-blue'>interests:</span> Sports (basketball, track athletics), Computers, Art"],
+                de: ["<span class='text-blue'>sprachen:</span> Polnisch (Muttersprache), Englisch (Mittelstufe)", "<span class='text-blue'>interessen:</span> Sport (Basketball, Leichtathletik), Computer, Kunst"]
             },
-            {
-                role: "Metalworker",
-                company: "Pangolin Editions Ltd",
-                period: "Oct 2015 – Apr 2019",
-                description: "Executed complex, multi-stage fabrication of large-scale bronze sculptures for world-renowned artists such as Damien Hirst. This role demanded exceptional precision, attention to detail, and advanced problem-solving skills.",
-                materials: ["Cast Bronze", "Brass", "Aluminum"],
-                tools: ["TIG/MIG Welder", "Plasma Cutter", "Electric/Air Grinders", "Manual Tools", "Floor-operated Crane (up to 20 ton)"],
-                achievements: [
-                    "Increased department work efficiency by developing and sharing new working methods, techniques and tools.",
-                    "Successfully repaired poorly casted bronze sculptures."
-                ]
+            footer_text: {
+                pl: "<span class='text-base01/70'>// Koniec pliku. &copy; 2025 Piotr Nowakowski.</span>",
+                en: "<span class='text-base01/70'>// End of file. &copy; 2025 Piotr Nowakowski.</span>",
+                de: "<span class='text-base01/70'>// Ende der Datei. &copy; 2025 Piotr Nowakowski.</span>"
             }
-        ];
+        };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const FONT_COLOR = '#586e75';
-            const GRID_COLOR = '#839496';
-            const LIGHT_GRID_COLOR = 'rgba(131, 148, 150, 0.4)';
-            const ACCENT_COLOR = '#2aa198';
-            const FONT_FAMILY = "'IBM Plex Mono', monospace";
-            const ANIMATION_DURATION = 2000;
+        let currentLang = localStorage.getItem('cv-lang') || 'en';
+        let skillsChart; // Declare chart variable in a higher scope
 
-            // --- SKILLS CHART (RADAR) ---
+        const applyTheme = (theme) => {
+            document.body.className = theme === 'default' ? '' : theme;
+            localStorage.setItem('cv-theme', theme);
+            
+            document.querySelectorAll('#theme-switcher .theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#theme-switcher .theme-btn[data-theme="${theme}"]`).classList.add('active');
+
+            renderSkillsChart(currentLang);
+        }
+
+        const loadTheme = () => {
+            const savedTheme = localStorage.getItem('cv-theme') || 'default';
+            applyTheme(savedTheme);
+        }
+
+        const translatePage = (lang) => {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            localStorage.setItem('cv-lang', lang);
+            
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations[key] && translations[key][lang]) {
+                    el.innerHTML = translations[key][lang];
+                }
+            });
+            
+            document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`#lang-switcher .lang-btn[data-lang="${lang}"]`).classList.add('active');
+
+
+            // Handle complex elements
+            const summaryText = document.getElementById('summary-text');
+            if (summaryText) {
+                summaryText.innerHTML = `<span class="text-magenta">const</span> <span class="text-blue">summary</span> = ${translations.summary_text[lang]};`;
+            }
+
+            renderQualifications(lang);
+            renderTimeline(lang);
+            renderAchievements(lang);
+            renderEducationAndInfo(lang);
+            renderSkillsChart(lang);
+            renderWeldingChart(lang);
+        };
+
+        const renderQualifications = (lang) => {
+            const container = document.getElementById('qualifications-list');
+            container.innerHTML = '';
+            translations.qualifications_data[lang].forEach(q => {
+                const div = document.createElement('div');
+                div.innerHTML = `<p><span class="text-green">${q.title}</span>: <span class="text-orange">${q.desc}</span>,</p>`;
+                container.appendChild(div);
+            });
+        };
+
+        const renderTimeline = (lang) => {
+            const timelineContainer = document.getElementById('timeline-container');
+            timelineContainer.innerHTML = '';
+            translations.work_history[lang].forEach((job) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item bg-base2';
+                
+                const header = document.createElement('div');
+                header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
+                header.innerHTML = `
+                    <div>
+                        <span class="font-bold text-blue">${job.role}</span>
+                        <span class="text-base01">@</span>
+                        <span class="text-green">${job.company}</span>
+                    </div>
+                    <span class="text-sm text-base01 flex-shrink-0">${job.period}</span>
+                `;
+
+                const content = document.createElement('div');
+                content.className = 'timeline-item-content hidden p-4 pt-0';
+                
+                let materialsHTML = job.materials.length > 0 ? `<p class="mt-2 text-magenta">materials: [</p><ul class="pl-6 text-base01">${job.materials.map(mat => `<li><span class="text-orange">'${mat}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>` : '';
+                let toolsHTML = job.tools.length > 0 ? `<p class="mt-2 text-magenta">tools: [</p><ul class="pl-6 text-base01">${job.tools.map(tool => `<li><span class="text-orange">'${tool}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>` : '';
+                let achievementsHTML = job.achievements.length > 0 ? `<p class="mt-2 text-magenta">achievements: [</p><ul class="pl-6 text-base01">${job.achievements.map(ach => `<li><span class="text-orange">'${ach}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>` : '';
+
+                content.innerHTML = `<div class="pl-6 border-l-2 border-base0"><p class="text-magenta">description: <span class="text-orange">\`${job.description}\`</span>,</p>${materialsHTML}${toolsHTML}${achievementsHTML}</div>`;
+                
+                item.appendChild(header);
+                item.appendChild(content);
+                timelineContainer.appendChild(item);
+
+                header.addEventListener('click', () => {
+                    item.classList.toggle('open');
+                    content.classList.toggle('hidden');
+                });
+            });
+        };
+        
+        const renderAchievements = (lang) => {
+            const achievementsContainer = document.getElementById('achievements-grid');
+            achievementsContainer.innerHTML = '';
+            translations.key_achievements[lang].forEach(ach => {
+                const card = document.createElement('div');
+                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition';
+                card.innerHTML = `<h3 class="font-bold text-green mb-2">## ${ach.title}</h3><p class="text-base01 text-sm">${ach.text}</p>`;
+                achievementsContainer.appendChild(card);
+            });
+        };
+
+        const renderEducationAndInfo = (lang) => {
+            const eduList = document.getElementById('education-list');
+            eduList.innerHTML = '';
+            translations.education_data[lang].forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="text-base01">- ${item}</span>`;
+                eduList.appendChild(li);
+            });
+
+            const infoList = document.getElementById('info-list');
+            infoList.innerHTML = '';
+            translations.info_data[lang].forEach(item => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="text-base01">- ${item}</span>`;
+                infoList.appendChild(li);
+            });
+        };
+
+        const renderSkillsChart = (lang) => {
             const skillsChartCanvas = document.getElementById('skillsChart');
+            if (skillsChart) {
+                skillsChart.destroy();
+            }
             const skillsChartCtx = skillsChartCanvas.getContext('2d');
+            
+            const computedStyle = getComputedStyle(document.body);
+            const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
+            const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
+            const ACCENT_COLOR = computedStyle.getPropertyValue('--cyan').trim();
+            const BG_COLOR_TICK = computedStyle.getPropertyValue('--base2').trim() + 'bf';
+
             const skillsChartData = {
-                labels: ['TIG Welding', 'Quality & Compliance', 'Artisanal Fabrication', 'Industrial Machining', 'Safety Procedures', 'Problem Solving'],
+                labels: translations.skills_chart_labels[lang],
                 datasets: [{
                     label: 'Proficiency',
                     data: [], // Initially empty
-                    backgroundColor: 'rgba(42, 161, 152, 0.2)',
+                    backgroundColor: ACCENT_COLOR + '33',
                     borderColor: ACCENT_COLOR,
                     pointBackgroundColor: ACCENT_COLOR,
                     pointBorderColor: '#fff',
@@ -310,49 +565,46 @@
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    animation: {
-                        duration: ANIMATION_DURATION,
-                    },
+                    animation: false, // Disable default animation
                     scales: {
                         r: {
                             angleLines: { color: GRID_COLOR },
                             grid: { color: GRID_COLOR },
-                            pointLabels: {
-                                font: { size: 12, family: FONT_FAMILY },
-                                color: FONT_COLOR
-                            },
-                            ticks: {
-                                backdropColor: 'rgba(238, 232, 213, 0.75)',
-                                color: FONT_COLOR,
-                                stepSize: 2,
-                                font: { family: FONT_FAMILY }
-                            },
+                            pointLabels: { font: { size: 12, family: "'IBM Plex Mono', monospace" }, color: FONT_COLOR },
+                            ticks: { backdropColor: BG_COLOR_TICK, color: FONT_COLOR, stepSize: 2, font: { family: "'IBM Plex Mono', monospace" } },
                             suggestedMin: 0,
                             suggestedMax: 10
                         }
                     },
-                    plugins: {
-                        legend: { display: false }
-                    }
+                    plugins: { legend: { display: false } }
                 }
             };
-            const skillsChart = new Chart(skillsChartCtx, skillsChartConfig);
+            skillsChart = new Chart(skillsChartCtx, skillsChartConfig);
 
             const skillsObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         skillsChart.data.datasets[0].data = [9, 9, 9, 3, 8, 9];
+                        skillsChart.options.animation = { duration: 2000 };
                         skillsChart.update();
                         observer.unobserve(skillsChartCanvas);
                     }
                 });
             }, { threshold: 0.5 });
             skillsObserver.observe(skillsChartCanvas);
+        };
 
-
-            // --- WELDING SKILLS BAR CHART & TIMELINE ---
+        const renderWeldingChart = (lang) => {
             const weldingChartPlaceholder = document.getElementById('welding-chart-placeholder');
+            weldingChartPlaceholder.innerHTML = '';
             
+            const computedStyle = getComputedStyle(document.body);
+            const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
+            const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
+            const LIGHT_GRID_COLOR = computedStyle.getPropertyValue('--base0').trim() + '66'; // 40% opacity
+            const FONT_FAMILY = "'IBM Plex Mono', monospace";
+            const ANIMATION_DURATION = 2000;
+
             const allWeldingSkills = [
                 { type: 'TIG', method: 'Manual - Stainless S.', experience: 36, proficiency: 9, companies: ['Fowlers', 'CKF', 'DKM', 'Active8', 'Berkeley']},
                 { type: 'MIG', method: 'Manual - Mild Steel', experience: 2, proficiency: 4, companies: ['CKF', 'Pangolin']},
@@ -364,56 +616,53 @@
                 { type: 'MIG', method: 'Manual - Aluminum', experience: 0.4, proficiency: 4, companies: ['Fowlers', 'Pangolin Editions']},
                 { type: 'TIG', method: 'Manual - Brass', experience: 0.5, proficiency: 5, companies: ['Pangolin Editions']}
             ];
-
+            
             const startYear = 2015;
             const endYear = 2026;
             const totalYears = endYear - startYear;
-            const CHART_AREA_HEIGHT = 450; // Fixed height for alignment
+            const CHART_AREA_HEIGHT = 450;
 
             const getMaterialColor = (material) => {
                 const lowerMaterial = material.toLowerCase();
-                if (lowerMaterial.includes('stainless') || lowerMaterial.includes('steel')) return 'rgba(108, 113, 196, 1)';
-                if (lowerMaterial.includes('aluminum')) return 'rgba(128, 128, 128, 1)';
-                if (lowerMaterial.includes('brass')) return 'rgba(181, 166, 66, 1)';
-                if (lowerMaterial.includes('bronze')) return 'rgba(205, 127, 50, 1)';
-                return 'rgba(42, 161, 152, 1)';
+                const style = getComputedStyle(document.body);
+                if (lowerMaterial.includes('stainless') || lowerMaterial.includes('steel')) return style.getPropertyValue('--violet').trim();
+                if (lowerMaterial.includes('aluminum')) return style.getPropertyValue('--base00').trim();
+                if (lowerMaterial.includes('brass')) return style.getPropertyValue('--yellow').trim();
+                if (lowerMaterial.includes('bronze')) return style.getPropertyValue('--orange').trim();
+                return style.getPropertyValue('--cyan').trim();
             };
 
-            // --- Build Chart Structure ---
             const scrollContainer = document.createElement('div');
             scrollContainer.className = 'overflow-x-auto';
             
             const mainContainer = document.createElement('div');
             mainContainer.className = 'flex flex-row';
-            mainContainer.style.minWidth = '768px'; // Force scroll on mobile
+            mainContainer.style.minWidth = '768px';
 
-            // 1. Chart Content Side (Left)
             const chartContentSide = document.createElement('div');
             chartContentSide.className = 'flex-grow flex flex-col';
 
-            // 1a. Header Row
             const headerRow = document.createElement('div');
             headerRow.className = 'flex text-xs font-bold';
             headerRow.style.color = FONT_COLOR;
             headerRow.style.fontFamily = FONT_FAMILY;
+            const headers = translations.welding_chart_headers[lang];
             headerRow.innerHTML = `
-                <div class="flex-shrink-0 pr-2" style="width: 50px;">Type</div>
-                <div class="flex-shrink-0 pr-2" style="width: 170px;">Method & Material</div>
-                <div class="flex-grow">Experience & Proficiency (1-10)</div>
+                <div class="flex-shrink-0 pr-2" style="width: 50px;">${headers.type}</div>
+                <div class="flex-shrink-0 pr-2" style="width: 170px;">${headers.method}</div>
+                <div class="flex-grow">${headers.exp}</div>
             `;
             chartContentSide.appendChild(headerRow);
             
-            // 1b. Chart Area (Grid + Bars)
             const chartArea = document.createElement('div');
             chartArea.className = 'relative flex-grow';
             chartArea.style.height = `${CHART_AREA_HEIGHT}px`;
             
-            // Grid is positioned behind the rows
             const gridLines = document.createElement('div');
             gridLines.className = 'absolute inset-0 pointer-events-none flex z-0 mt-2';
             const gridSpacer = document.createElement('div');
             gridSpacer.className = 'flex-shrink-0';
-            gridSpacer.style.width = '220px'; // 50px + 170px
+            gridSpacer.style.width = '220px';
             gridLines.appendChild(gridSpacer);
 
             const gridLineContainer = document.createElement('div');
@@ -432,7 +681,6 @@
             gridLines.appendChild(gridLineContainer);
             chartArea.appendChild(gridLines);
 
-            // Rows are positioned on top of the grid
             const chartRowsContainer = document.createElement('div');
             chartRowsContainer.className = 'absolute inset-0 flex flex-col justify-between space-y-3 mt-2 z-10';
             allWeldingSkills.forEach(skill => {
@@ -468,11 +716,11 @@
                 details.style.transitionDuration = '500ms';
                 details.style.transitionDelay = `${ANIMATION_DURATION - 500}ms`;
                 
-                const proficiencyText = `<span class="font-normal" style="color: ${FONT_COLOR}; font-size: 12px;">${skill.proficiency}/10</span>`;
+                const proficiencyText = `<span class="font-normal" style="font-size: 12px;">${skill.proficiency}/10</span>`;
                 const companyList = skill.companies.join(', ');
-                const maxCompanyChars = 25; // Always use desktop value
+                const maxCompanyChars = 25;
                 const truncatedCompanies = companyList.length > maxCompanyChars ? companyList.substring(0, maxCompanyChars) + '...' : companyList;
-                const detailsText = ` <span style="font-size: 11px; color: rgba(88, 110, 117, 0.85);">(@ ${truncatedCompanies})</span>`;
+                const detailsText = ` <span style="font-size: 11px; opacity: 0.85;">(@ ${truncatedCompanies})</span>`;
                 
                 details.innerHTML = proficiencyText + detailsText;
                 barWrapper.appendChild(details);
@@ -483,12 +731,11 @@
             chartArea.appendChild(chartRowsContainer);
             chartContentSide.appendChild(chartArea);
 
-            // 1c. X-Axis (Experience in months)
             const xAxisContainer = document.createElement('div');
             xAxisContainer.className = 'flex mt-2';
             const xAxisSpacer = document.createElement('div');
             xAxisSpacer.className = 'flex-shrink-0';
-            xAxisSpacer.style.width = '220px'; // 50px + 170px
+            xAxisSpacer.style.width = '220px';
             xAxisContainer.appendChild(xAxisSpacer);
 
             const xAxis = document.createElement('div');
@@ -509,7 +756,7 @@
             xAxisTitle.className = 'text-center text-sm mt-2';
             xAxisTitle.style.fontFamily = FONT_FAMILY;
             xAxisTitle.style.color = FONT_COLOR;
-            xAxisTitle.textContent = 'Effective Experience (months)';
+            xAxisTitle.textContent = translations.welding_chart_xaxis[lang];
             xAxis.appendChild(xAxisTitle);
             
             xAxisContainer.appendChild(xAxis);
@@ -517,7 +764,6 @@
 
             mainContainer.appendChild(chartContentSide);
 
-            // 2. Year Axis Side (Right)
             const yearAxisSide = document.createElement('div');
             yearAxisSide.className = 'w-16 flex-shrink-0 ml-16';
             
@@ -525,7 +771,7 @@
             yearAxisContainer.className = 'relative w-full h-full';
 
             const yearAxisHeaderSpacer = document.createElement('div');
-            yearAxisHeaderSpacer.className = 'h-6'; // Matches header height
+            yearAxisHeaderSpacer.className = 'h-6';
             yearAxisContainer.appendChild(yearAxisHeaderSpacer);
 
             const yearAxisItself = document.createElement('div');
@@ -546,11 +792,9 @@
             yearAxisSide.appendChild(yearAxisContainer);
             mainContainer.appendChild(yearAxisSide);
             
-            // Append all parts to the placeholder
             scrollContainer.appendChild(mainContainer);
             weldingChartPlaceholder.appendChild(scrollContainer);
 
-            // Observer for animation
             const weldingObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -565,74 +809,25 @@
                 });
             }, { threshold: 0.1 });
             weldingObserver.observe(weldingChartPlaceholder);
+        };
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            translatePage(currentLang);
 
-
-            // --- TIMELINE ACCORDION ---
-            const timelineContainer = document.getElementById('timeline-container');
-            workHistory.forEach((job, index) => {
-                const item = document.createElement('div');
-                item.className = 'timeline-item bg-base2';
-                
-                const header = document.createElement('div');
-                header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
-                header.innerHTML = `
-                    <div>
-                        <span class="font-bold text-blue">${job.role}</span>
-                        <span class="text-base01">@</span>
-                        <span class="text-green">${job.company}</span>
-                    </div>
-                    <span class="text-sm text-base01 flex-shrink-0">${job.period}</span>
-                `;
-
-                const content = document.createElement('div');
-                content.className = 'timeline-item-content hidden p-4 pt-0';
-                
-                let materialsHTML = '';
-                if (job.materials && job.materials.length > 0) {
-                    materialsHTML = `<p class="mt-2 text-magenta">materials: [</p><ul class="pl-6 text-base01">${job.materials.map(mat => `<li><span class="text-orange">'${mat}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
+            // Event Listeners
+            document.getElementById('lang-switcher').addEventListener('click', (e) => {
+                if (e.target.matches('.lang-btn')) {
+                    translatePage(e.target.dataset.lang);
                 }
-
-                let toolsHTML = '';
-                if (job.tools && job.tools.length > 0) {
-                    toolsHTML = `<p class="mt-2 text-magenta">tools: [</p><ul class="pl-6 text-base01">${job.tools.map(tool => `<li><span class="text-orange">'${tool}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
-                }
-
-                let achievementsHTML = '';
-                if (job.achievements.length > 0) {
-                    achievementsHTML = `<p class="mt-2 text-magenta">achievements: [</p><ul class="pl-6 text-base01">${job.achievements.map(ach => `<li><span class="text-orange">'${ach}'</span>,</li>`).join('')}</ul><p class="text-magenta">],</p>`;
-                }
-
-                content.innerHTML = `<div class="pl-6 border-l-2 border-base0"><p class="text-magenta">description: <span class="text-orange">\`${job.description}\`</span>,</p>${materialsHTML}${toolsHTML}${achievementsHTML}</div>`;
-                
-                item.appendChild(header);
-                item.appendChild(content);
-                timelineContainer.appendChild(item);
-
-                header.addEventListener('click', () => {
-                    item.classList.toggle('open');
-                    content.classList.toggle('hidden');
-                });
             });
-
-            // --- ACHIEVEMENTS ---
-            const achievementsContainer = document.getElementById('achievements-grid');
-            const keyAchievements = [
-                { title: 'Analytical Approach & Optimization', text: 'At Berkeley Stainless Fittings, I achieved superior results in rotating table welding by methodically documenting, testing, and refining settings. This data-driven approach allowed me to surpass the quality and efficiency of colleagues with decades more experience, demonstrating a core strength in process optimization.'},
-                { title: 'Rapid Skill Acquisition', text: 'Despite having only 6 months of intermittent experience with aluminum, I successfully passed the most difficult aerospace-grade fillet weld test (1.6mm). This highlights a natural aptitude and the ability to quickly master complex, high-precision tasks under pressure.'},
-                { title: 'Enabled Rolls-Royce Orders', text: 'Developed and implemented welding settings that enabled Fowlers of Bristol to secure new orders from Rolls-Royce, resolving previous technical challenges.'},
-                { title: 'Workshop Creation', text: 'At Active8 Robots, organised a fully functional and cost-effective metalwork department from scratch, enabling timely project completion for McCain Foods.'},
-                { title: 'Passed Difficult Weld Tests', text: 'Achieved aerospace coding for aluminium fillet welds with only 3 months of intermittent experience, a task colleagues with 20+ years of experience could not pass.'},
-                { title: '50% Efficiency Increase', text: 'At Berkeley Stainless Fittings, improved welding quality and increased rotary table speeds by up to 50% by developing a comprehensive welding settings data book.'}
-            ];
             
-            keyAchievements.forEach(ach => {
-                const card = document.createElement('div');
-                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition';
-                card.innerHTML = `<h3 class="font-bold text-green mb-2">## ${ach.title}</h3><p class="text-base01 text-sm">${ach.text}</p>`;
-                achievementsContainer.appendChild(card);
+            document.getElementById('theme-switcher').addEventListener('click', (e) => {
+                if (e.target.matches('.theme-btn')) {
+                    applyTheme(e.target.dataset.theme);
+                }
             });
 
-            // --- SMOOTH SCROLL ---
             document.querySelectorAll('#navbar a').forEach(link => {
                 link.addEventListener('click', e => {
                     e.preventDefault();
