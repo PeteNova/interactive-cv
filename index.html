@@ -92,7 +92,7 @@
     <div class="sticky top-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
         <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between">
             <nav id="navbar">
-                <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto">
+                <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto text-sm md:text-base">
                     <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
                     <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills">Skills</a></li>
                     <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career & Education</a></li>
@@ -127,9 +127,9 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-6 py-12">
+    <main class="container mx-auto px-6 py-12 text-sm md:text-base">
         <section id="summary" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="summary_title">Professional Summary</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="summary_title">Professional Summary</h2>
             <div class="bg-base2 p-6 shadow-lg">
                 <p id="summary-text" class="leading-relaxed"></p>
             </div>
@@ -138,7 +138,7 @@
         <div class="my-16"></div>
 
         <section id="qualifications" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="qualifications_title">Key Qualifications</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="qualifications_title">Key Qualifications</h2>
             <div id="qualifications-list" class="bg-base2 p-6 space-y-4 shadow-lg">
                 </div>
         </section>
@@ -146,7 +146,7 @@
         <div class="my-16"></div>
 
         <section id="skills" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills Chart</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills Chart</h2>
             <p class="text-center mb-8 text-base01" data-translate-key="skills_chart_desc">/* This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments. */</p>
             <div class="bg-base2 p-6 shadow-lg overflow-x-auto">
                 <div class="chart-container" style="min-width: 500px;">
@@ -158,7 +158,7 @@
         <div class="my-16"></div>
 
         <section id="welding-skills" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
             <div id="welding-chart-placeholder" class="bg-base2 p-6 pb-8 shadow-lg">
                 </div>
         </section>
@@ -166,7 +166,7 @@
         <div class="my-16"></div>
 
         <section id="timeline" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="timeline_title">Career Timeline</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="timeline_title">Career Timeline</h2>
             <p class="text-center mb-8 text-base01" data-translate-key="timeline_desc">/* Click on any role to expand and view detailed responsibilities and key achievements from that position. */</p>
             <div id="timeline-container" class="space-y-2">
                 </div>
@@ -175,7 +175,7 @@
         <div class="my-16"></div>
 
         <section id="achievements" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
             <p class="text-center mb-8 text-base01" data-translate-key="achievements_desc">/* A collection of key achievements that highlight my ability to deliver tangible results. */</p>
             <div class="grid md:grid-cols-2 gap-4" id="achievements-grid">
                 </div>
@@ -184,7 +184,7 @@
         <div class="my-16"></div>
 
         <section id="education" class="scroll-mt-24">
-            <h2 class="text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Education & Info</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Education & Info</h2>
             <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6 shadow-lg">
                 <div>
                     <p class="text-green" data-translate-key="education_heading">education:</p>
@@ -209,7 +209,7 @@
     <script>
         const translations = {
             subtitle: {
-                pl: "Spawacz TIG o wysokiej precyzji i niezawodności",
+                pl: "Spawacz TIG & Konstruktor Wysokiej Jakości",
                 en: "High-Integrity TIG Welder & Fabricator",
                 de: "Hochwertiger WIG-Schweißer & Fertiger"
             },
@@ -505,7 +505,7 @@
             translations.key_achievements[lang].forEach(ach => {
                 const card = document.createElement('div');
                 card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition';
-                card.innerHTML = `<h3 class="font-bold text-green mb-2">## ${ach.title}</h3><p class="text-base01 text-sm">${ach.text}</p>`;
+                card.innerHTML = `<h3 class="font-bold text-base text-green mb-2">## ${ach.title}</h3><p class="text-base01">${ach.text}</p>`;
                 achievementsContainer.appendChild(card);
             });
         };
