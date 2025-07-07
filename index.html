@@ -369,7 +369,6 @@
                 { type: 'TIG', method: 'Manual - Brass', experience: 0.5, proficiency: 5, companies: ['Pangolin Editions']}
             ];
 
-            const isMobile = window.innerWidth < 768;
             const startYear = 2015;
             const endYear = 2026;
             const totalYears = endYear - startYear;
@@ -385,9 +384,12 @@
             };
 
             // --- Build Chart Structure ---
+            const scrollContainer = document.createElement('div');
+            scrollContainer.className = 'overflow-x-auto';
             
             const mainContainer = document.createElement('div');
-            mainContainer.className = 'flex flex-col md:flex-row';
+            mainContainer.className = 'flex flex-row';
+            mainContainer.style.minWidth = '768px'; // Force scroll on mobile
 
             // 1. Chart Content Side (Left)
             const chartContentSide = document.createElement('div');
@@ -472,7 +474,7 @@
                 
                 const proficiencyText = `<span class="font-normal" style="color: ${FONT_COLOR}; font-size: 12px;">${skill.proficiency}/10</span>`;
                 const companyList = skill.companies.join(', ');
-                const maxCompanyChars = isMobile ? 10 : 25;
+                const maxCompanyChars = 25; // Always use desktop value
                 const truncatedCompanies = companyList.length > maxCompanyChars ? companyList.substring(0, maxCompanyChars) + '...' : companyList;
                 const detailsText = ` <span style="font-size: 11px; color: rgba(88, 110, 117, 0.85);">(@ ${truncatedCompanies})</span>`;
                 
@@ -521,7 +523,7 @@
 
             // 2. Year Axis Side (Right)
             const yearAxisSide = document.createElement('div');
-            yearAxisSide.className = 'w-full md:w-16 flex-shrink-0 md:ml-16';
+            yearAxisSide.className = 'w-16 flex-shrink-0 ml-16';
             
             const yearAxisContainer = document.createElement('div');
             yearAxisContainer.className = 'relative w-full h-full';
@@ -531,7 +533,7 @@
             yearAxisContainer.appendChild(yearAxisHeaderSpacer);
 
             const yearAxisItself = document.createElement('div');
-            yearAxisItself.className = 'relative w-full border-t-2 md:border-t-0 md:border-l-2';
+            yearAxisItself.className = 'relative w-full border-l-2';
             yearAxisItself.style.borderColor = 'var(--base0)';
             yearAxisItself.style.height = `${CHART_AREA_HEIGHT}px`;
 
@@ -539,15 +541,9 @@
                 if (year % 2 !== 0 && year !== endYear && year !== startYear) continue;
                 const marker = document.createElement('div');
                 marker.className = 'absolute';
-                if (isMobile) {
-                    const position = ((year - startYear) / totalYears) * 100;
-                    marker.style.left = `${position}%`;
-                    marker.innerHTML = `<span class="absolute bottom-full text-xs text-base01/70 pb-1 -translate-x-1/2">${year}</span><div class="w-px h-2 absolute bottom-0 -translate-x-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
-                } else {
-                    const position = ((endYear - year) / totalYears) * 100;
-                    marker.style.top = `${position}%`;
-                    marker.innerHTML = `<span class="absolute right-full text-xs text-base01/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
-                }
+                const position = ((endYear - year) / totalYears) * 100;
+                marker.style.top = `${position}%`;
+                marker.innerHTML = `<span class="absolute right-full text-xs text-base01/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
                 yearAxisItself.appendChild(marker);
             }
             yearAxisContainer.appendChild(yearAxisItself);
@@ -555,7 +551,8 @@
             mainContainer.appendChild(yearAxisSide);
             
             // Append all parts to the placeholder
-            weldingChartPlaceholder.appendChild(mainContainer);
+            scrollContainer.appendChild(mainContainer);
+            weldingChartPlaceholder.appendChild(scrollContainer);
 
             // Observer for animation
             const weldingObserver = new IntersectionObserver((entries, observer) => {
