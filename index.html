@@ -89,8 +89,32 @@
 </head>
 <body class="">
 
+    <div class="sticky top-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row md:items-center md:justify-between">
+            <nav id="navbar">
+                <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto">
+                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
+                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills">Skills</a></li>
+                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career & Education</a></li>
+                </ul>
+            </nav>
+            <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-t border-base0 md:border-t-0">
+                 <div id="theme-switcher" class="flex items-center space-x-2 text-xs">
+                    <button data-theme="default" class="theme-btn" data-translate-key="theme_light">Light Mode</button>
+                    <button data-theme="theme-atom-one-dark" class="theme-btn" data-translate-key="theme_dark">Dark Mode</button>
+                </div>
+                <div class="text-base00">|</div>
+                <div id="lang-switcher" class="flex items-center space-x-2 text-sm font-bold">
+                    <button data-lang="en" class="lang-btn">EN</button>
+                    <button data-lang="pl" class="lang-btn">PL</button>
+                    <button data-lang="de" class="lang-btn">DE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header class="bg-base2">
-        <div class="container mx-auto px-6 py-6 flex flex-col md:flex-row md:justify-between md:items-start">
+        <div class="container mx-auto px-6 py-6">
             <div>
                 <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
                 <p class="text-xl md:text-2xl mt-1 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
@@ -100,35 +124,8 @@
                     <span data-translate-key="email">// email: 'piotrrekas@gmail.com'</span>
                 </div>
             </div>
-            <div class="flex flex-col items-start mt-4 md:mt-0 md:items-end space-y-2">
-                <div id="theme-switcher" class="flex space-x-2 text-xs">
-                    <button data-theme="default" class="theme-btn">Solarized Light</button>
-                    <button data-theme="theme-atom-one-dark" class="theme-btn">Atom One Dark</button>
-                </div>
-                <div id="lang-switcher" class="flex space-x-2 text-sm font-bold">
-                    <button data-lang="en" class="lang-btn">EN</button>
-                    <button data-lang="pl" class="lang-btn">PL</button>
-                    <button data-lang="de" class="lang-btn">DE</button>
-                </div>
-            </div>
         </div>
     </header>
-
-    <nav id="navbar" class="backdrop-blur-sm sticky top-0 z-50 py-4">
-        <div class="container mx-auto px-6">
-            <div class="bg-base2 shadow-lg">
-                <ul class="flex justify-start space-x-6 px-4 py-2 text-base01 font-medium overflow-x-auto">
-                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_summary">summary</a></li>
-                    <li><a href="#qualifications" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_qualifications">qualifications</a></li>
-                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills_chart">skills-chart</a></li>
-                    <li><a href="#welding-skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_welding_breakdown">welding-breakdown</a></li>
-                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_timeline">timeline</a></li>
-                    <li><a href="#achievements" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_achievements">achievements</a></li>
-                    <li><a href="#education" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_education">education</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <main class="container mx-auto px-6 py-12">
         <section id="summary" class="scroll-mt-24">
@@ -231,13 +228,9 @@
                 en: "// email: 'piotrrekas@gmail.com'",
                 de: "// email: 'piotrrekas@gmail.com'"
             },
-            nav_summary: { pl: "podsumowanie", en: "summary", de: "zusammenfassung" },
-            nav_qualifications: { pl: "kwalifikacje", en: "qualifications", de: "qualifikationen" },
-            nav_skills_chart: { pl: "wykres-umiejętności", en: "skills-chart", de: "fähigkeitsdiagramm" },
-            nav_welding_breakdown: { pl: "analiza-spawania", en: "welding-breakdown", de: "schweißanalyse" },
-            nav_timeline: { pl: "oś-czasu", en: "timeline", de: "zeitleiste" },
-            nav_achievements: { pl: "osiągnięcia", en: "achievements", de: "erfolge" },
-            nav_education: { pl: "edukacja", en: "education", de: "bildung" },
+            nav_profile: { pl: "Profil", en: "Profile", de: "Profil" },
+            nav_skills: { pl: "Umiejętności", en: "Skills", de: "Fähigkeiten" },
+            nav_career: { pl: "Kariera i Edukacja", en: "Career & Education", de: "Karriere & Bildung" },
             summary_title: {
                 pl: "Podsumowanie Zawodowe",
                 en: "Professional Summary",
@@ -405,7 +398,9 @@
                 pl: "<span class='text-base01/70'>// Koniec pliku. &copy; 2025 Piotr Nowakowski.</span>",
                 en: "<span class='text-base01/70'>// End of file. &copy; 2025 Piotr Nowakowski.</span>",
                 de: "<span class='text-base01/70'>// Ende der Datei. &copy; 2025 Piotr Nowakowski.</span>"
-            }
+            },
+            theme_light: { en: "Light Mode", pl: "Tryb Jasny", de: "Heller Modus" },
+            theme_dark: { en: "Dark Mode", pl: "Tryb Ciemny", de: "Dunkler Modus" }
         };
 
         let currentLang = localStorage.getItem('cv-lang') || 'en';
