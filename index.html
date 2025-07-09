@@ -12,14 +12,15 @@
     
     <style>
         :root {
-            --base03: #002b36; /* dark slate for text */
+            --base03: #002b36; 
             --base02: #073642;
-            --base01: #586e75; /* secondary text */
+            --base01: #323540; /* Zmieniony kolor czcionki */
             --base00: #657b83;
-            --base0: #839496; /* Lighter gray for borders */
+            --base0: #839496; 
             --base1: #93a1a1;
-            --base2: #eee8d5; /* light background secondary */
-            --base3: #f6f3ea; /* main background */
+            --base2: #eee8d5; 
+            --base3: #fdf6e3; 
+            --base2-rgb: 238, 232, 213;
             --yellow: #b58900;
             --orange: #cb4b16;
             --red: #dc322f;
@@ -30,14 +31,15 @@
             --green: #859900;
         }
         body.theme-atom-one-dark {
-            --base03: #282c34; /* bg */
-            --base02: #2c313a; /* bg-alt */
-            --base01: #abb2bf; /* fg */
-            --base00: #5c6370; /* fg-alt */
-            --base0: #3e4451; /* borders */
-            --base1: #e06c75; /* red for base1 */
-            --base2: #21252b; /* bg-secondary */
-            --base3: #282c34; /* bg-main */
+            --base03: #282c34; 
+            --base02: #2c313a; 
+            --base01: #abb2bf; /* Kolor czcionki dla trybu ciemnego */
+            --base00: #5c6370; 
+            --base0: #3e4451; 
+            --base1: #e06c75; 
+            --base2: #21252b; 
+            --base3: #282c34; 
+            --base2-rgb: 33, 37, 43;
             --yellow: #e5c07b;
             --orange: #d19a66;
             --red: #e06c75;
@@ -72,7 +74,7 @@
         }
         .lang-btn, .theme-btn {
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 0;
             transition: background-color 0.3s, color 0.3s, border-color 0.3s;
             color: var(--base01);
             border: 1px solid transparent;
@@ -85,9 +87,53 @@
             color: var(--orange);
             cursor: default;
         }
+
+        /* --- NOWE STYLE DLA INTERAKTYWNEGO WYKRESU --- */
+        #skill-tooltip-container {
+            position: fixed;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            opacity: 0;
+            transform: translateY(10px) scale(0.95);
+            z-index: 100;
+        }
+
+        #skill-tooltip-container.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .skill-tooltip-card {
+            background-color: var(--base01);
+            color: var(--base3);
+            padding: 1rem;
+            box-shadow: none;
+            width: 280px;
+            border-radius: 0;
+            border: 1px solid var(--base0);
+        }
+
+        .skill-tooltip-card h3 {
+            color: inherit; /* Tytuł dziedziczy kolor po karcie */
+        }
+
+        /* Style dla tooltipa w trybie jasnym */
+        body:not(.theme-atom-one-dark) .skill-tooltip-card {
+            background-color: #fdf6e3; /* Identyczne z tłem strony */
+            color: var(--base01); /* Nowy kolor czcionki */
+            border: 1px solid var(--base1); /* Subtelny kontur dla widoczności */
+        }
+        
+        body:not(.theme-atom-one-dark) .skill-tooltip-card h3 {
+            color: inherit; /* Tytuł dziedziczy kolor po karcie */
+        }
+        /* --- KONIEC NOWYCH STYLI --- */
+
     </style>
 </head>
 <body class="">
+    <!-- Kontener na karty kwalifikacji, przeniesiony na poziom body dla poprawnego pozycjonowania -->
+    <div id="skill-tooltip-container"></div>
 
     <div class="sticky top-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
         <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row md:items-center md:justify-between">
@@ -128,7 +174,6 @@
     </header>
 
     <main class="container mx-auto px-6 py-12 text-sm md:text-base">
-        <!-- Zmieniono układ z grid na flex-col, aby sekcje układały się jedna pod drugą -->
         <div class="flex flex-col gap-y-16"> 
             <section id="summary" class="scroll-mt-24">
                 <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="summary_title">Professional Summary</h2>
@@ -136,20 +181,16 @@
                     <p id="summary-text" class="leading-relaxed"></p>
                 </div>
             </section>
-    
-            <section id="qualifications" class="scroll-mt-24">
-                <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="qualifications_title">Key Qualifications</h2>
-                <div id="qualifications-list" class="bg-base2 p-6 space-y-4 shadow-lg">
-                </div>
-            </section>
         </div>
 
         <div class="my-16"></div>
 
+        <!-- POŁĄCZONA SEKCJA UMIEJĘTNOŚCI I KWALIFIKACJI -->
         <section id="skills" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills Chart</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
             <p class="text-center mb-8 text-base01" data-translate-key="skills_chart_desc"></p>
-            <div class="bg-base2 p-6 shadow-lg overflow-x-auto">
+            <!-- Usunięto klasy bg-base2, p-6 i shadow-lg z tego kontenera -->
+            <div class="relative">
                 <div class="chart-container" style="min-width: 500px;">
                     <canvas id="skillsChart"></canvas>
                 </div>
@@ -176,7 +217,7 @@
         <div class="my-16"></div>
 
         <section id="achievements" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Kluczowe Mocne Strony i Osiągnięcia</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
             <p class="text-center mb-8 text-base01" data-translate-key="achievements_desc"></p>
             <div class="grid md:grid-cols-2 gap-4" id="achievements-grid">
                 </div>
@@ -185,7 +226,7 @@
         <div class="my-16"></div>
 
         <section id="education" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Edukacja i Informacje</h2>
+            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Education & Info</h2>
             <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6 shadow-lg">
                 <div>
                     <p class="font-bold text-green" data-translate-key="education_heading">Edukacja</p>
@@ -242,43 +283,41 @@
                 en: "A highly skilled and meticulous TIG Welder with extensive experience in stainless steel and aluminium fabrication for safety-critical, highly regulated sectors, including Aerospace, Defence, and Food Production. Proven ability to work on high-integrity components for demanding clients such as Rolls-Royce, consistently meeting the highest standards of quality and precision. Safety-focused, with a track record of developing and implementing robust welding procedures to ensure full penetration and compliance with stringent specifications. Seeking to leverage specialist skills within the UK nuclear industry to contribute to projects where safety, quality, and precision are paramount.",
                 de: "Ein hochqualifizierter i sorgfältiger WIG-Schweißer z umfassender Erfahrung w Herstellung von Edelstahl i Aluminium für sicherheitskritische, stark regulierte Sektoren, einschließlich Luft- i Raumfahrt, Verteidigung i Lebensmittelproduktion. Nachgewiesene Fähigkeit, an hochintegrierten Komponenten für anspruchsvolle Kunden wie Rolls-Royce zu arbeiten i dabei stets die höchsten Qualitäts- i Präzisionsstandards zu erfüllen. Sicherheitsorientiert, z einer Erfolgsbilanz bei der Entwicklung i Implementierung robuster Schweißverfahren, um eine vollständige Durchdringung i die Einhaltung strenger Spezifikationen zu gewährleisten. Bestrebt, Fachkenntnisse in der britischen Atomindustrie zu nutzen, um zu Projekten beizutragen, bei denen Sicherheit, Qualität i Präzision an erster Stelle stehen."
             },
-            qualifications_title: {
-                pl: "Kluczowe Kwalifikacje",
-                en: "Key Qualifications",
-                de: "Schlüsselqualifikationen"
+            skills_chart_title: {
+                pl: "Umiejętności i Kwalifikacje",
+                en: "Skills & Qualifications",
+                de: "Fähigkeiten & Qualifikationen"
             },
             qualifications_data: {
                 pl: [
                     { title: "Spawanie Specjalistyczne", desc: "Zaawansowana biegłość w spawaniu TIG stali nierdzewnej, stali miękkiej, aluminium, brązu odlewanego i mosiądzu." },
+                    { title: "Jakość i Zgodność", desc: "Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm)." },
                     { title: "Rzemiosło Artystyczne", desc: "Poziom ekspercki (9/10) w ręcznej, artystycznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu materiałów takich jak brąz odlewany i mosiądz, głównie z doświadczenia w rzeźbie artystycznej." },
                     { title: "Produkcja Techniczna", desc: "Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy konstrukcyjne, rurociągi i armatura przy użyciu spawarek TIG/MIG, szlifierek i przecinarek. Uwaga: Ograniczone doświadczenie w obsłudze ciężkich maszyn przemysłowych, takich jak tokarki." },
-                    { title: "Jakość i Zgodność", desc: "Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm)." },
                     { title: "Bezpieczeństwo i Procedury", desc: "Nienaganny rekord bezpieczeństwa z rygorystycznym przestrzeganiem wszystkich protokołów. Doświadczenie w tworzeniu książek danych spawalniczych i optymalizacji stanowisk pracy. Posiadacz Certyfikatu HACCP Poziom 2." },
+                    { title: "Rozwiązywanie Problemów", desc: "Biegłość w diagnozowaniu i rozwiązywaniu złożonych wyzwań produkcyjnych, od naprawy źle odlanych rzeźb po optymalizację procesów spawalniczych dla nowych, wymagających specyfikacji." }
                 ],
                 en: [
                     { title: "Specialist Welding", desc: "Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass." },
+                    { title: "Quality & Compliance", desc: "Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)." },
                     { title: "Artisanal Fabrication", desc: "Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture." },
                     { title: "Technical Fabrication", desc: "Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes." },
-                    { title: "Quality & Compliance", desc: "Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)." },
                     { title: "Safety & Procedures", desc: "Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate." },
+                    { title: "Problem Solving", desc: "Adept at diagnosing and resolving complex fabrication challenges, from repairing poorly casted sculptures to optimising welding processes for new, demanding specifications." }
                 ],
                 de: [
                     { title: "Spezialschweißen", desc: "Fortgeschrittene Kenntnisse im WIG-Schweißen von Edelstahl, Baustahl, Aluminium, Gussbronze und Messing." },
+                    { title: "Qualität & Konformität", desc: "Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- i Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl i Aluminium (1,6 mm, 3 mm i 6 mm) erhalten." },
                     { title: "Handwerkliche Fertigung", desc: "Expertenniveau (9/10) in manueller, künstlerischer Metallbearbeitung, einschließlich komplexer Formgebung, Texturierung und Veredelung von Materialien wie Gussbronze und Messing, hauptsächlich aus Erfahrung in der bildenden Kunst." },
                     { title: "Technische Fertigung", desc: "Kompetent in der Herstellung und Montage von Industriekomponenten wie Strukturrahmen, Rohrleitungen und Armaturen mit WIG/MIG-Schweißgeräten, Schleifmaschinen und Schneidgeräten. Hinweis: Begrenzte Erfahrung mit schweren Industriemaschinen wie Drehmaschinen." },
-                    { title: "Qualität & Konformität", desc: "Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- i Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl i Aluminium (1,6 mm, 3 mm i 6 mm) erhalten." },
                     { title: "Sicherheit & Verfahren", desc: "Tadellose Sicherheitsbilanz bei strikter Einhaltung aller Protokolle. Erfahrung in der Erstellung von Schweißdatenbüchern i der Optimierung von Arbeitsplätzen. Inhaber eines HACCP-Zertifikats Stufe 2." },
+                    { title: "Problemlösung", desc: "Geübt in der Diagnose und Lösung komplexer fertigungstechnischer Herausforderungen, von der Reparatur schlecht gegossener Skulpturen bis zur Optimierung von Schweißprozessen für neue, anspruchsvolle Spezifikationen." }
                 ]
             },
-            skills_chart_title: {
-                pl: "Wykres Umiejętności",
-                en: "Skills Chart",
-                de: "Fähigkeitsdiagramm"
-            },
             skills_chart_desc: {
-                pl: "Ten wykres przedstawia wizualny przegląd kluczowych kompetencji, demonstrując wszechstronny i solidny zestaw umiejętności dostosowany do środowisk produkcyjnych o wysokiej integralności.",
-                en: "This chart provides a visual overview of key competencies, demonstrating a well-rounded and robust skill set tailored for high-integrity fabrication environments.",
-                de: "Dieses Diagramm bietet einen visuellen Überblick über die Schlüsselkompetenzen i demonstriert abgerundetes i robustes Fähigkeitenset, das auf hochintegrierte Fertigungsumgebungen zugeschnitten ist."
+                pl: "Najedź kursorem na etykietę umiejętności, aby zobaczyć powiązaną kwalifikację.",
+                en: "Hover over a skill label to see the related qualification.",
+                de: "Bewegen Sie den Mauszeiger über eine Fähigkeitsbezeichnung, um die zugehörige Qualifikation anzuzeigen."
             },
             skills_chart_labels: {
                 pl: ['Spawanie TIG', 'Jakość i Zgodność', 'Rzemiosło Artystyczne', 'Obróbka Przemysłowa', 'Procedury Bezpieczeństwa', 'Rozwiązywanie Problemów'],
@@ -334,7 +373,7 @@
                 de: [
                     { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2024 – Jul 2025", description: "Weiterentwicklung spezialisierter Schweißkenntnisse in einer automatisierten Systemumgebung für die Lebensmittelindustrie.", materials: ["Edelstahl", "Stahlkonstruktionen"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: [] },
                     { role: "WIG/MIG-Schweißer", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Feb 2024 – Aug 2024", description: "Herstellung i Schweißen von Komponenten für Zulieferer der Luft- i Raumfahrt- sowie der Verteidigungsindustrie. Gewährleistung höchster Qualitäts- i Sicherheitsstandards bei Schweißarbeiten. Zusammenarbeit mit einem Team von qualifizierten Fachleuten, um Projekttermine i -spezifikationen einzuhalten. Durchführung von Sicht- i Qualitätsprüfungen an fertigen Schweißnähten.", materials: ["Edelstahl", "Aluminium"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät", "Inspektionswerkzeuge"], achievements: ["Positive Testergebnisse i Zertifizierungen in der Luft- i Raumfahrtindustrie für Kehlnähte an Edelstahl i Aluminium mit Dicken von 1,6 mm, 3 mm i 6 mm erzielt.", "Lösungen für Schweißeinstellungen identifiziert i implementiert, die die Annahme neuer Aufträge von Kunden wie Rolls-Royce ermöglichten.", "Schweißbucht erfolgreich modernisiert i gewartet, Schweißverfahren i -einstellungen entwickelt.", "Eine starke Sicherheitsbilanz aufrechterhalten i alle relevanten Sicherheitsprotokolle i -richtlinien eingehalten."] },
-                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Herstellung i Schweißen verschiedener Komponenten von Produktionslinien für die Lebensmittelindustrie. Gewährstellung höchster Qualitäts- i Sicherheitsstandards, Durchführung von Sichtprüfungen i Einhaltung strenger Verfahren.", materials: ["Edelstahl", "Stahlkonstrukcje"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: ["Kontinuierlich hochwertige Schweißnähte produziert, die zum erfolgreichen Abschluss komplexer Produktionslinienprojekte für Firmenkunden in der Lebensmittelindustrie beigetragen haben.", "Schweißbucht erfolgreich modernisiert i gewartet."] },
+                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Herstellung i Schweißen verschiedener Komponenten von Produktionslinien für die Lebensmittelindustrie. Gewährleistung höchster Qualitäts- i Sicherheitsstandards, Durchführung von Sichtprüfungen i Einhaltung strenger Verfahren.", materials: ["Edelstahl", "Stahlkonstrukcje"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: ["Kontinuierlich hochwertige Schweißnähte produziert, die zum erfolgreichen Abschluss komplexer Produktionslinienprojekte für Firmenkunden in der Lebensmittelindustrie beigetragen haben.", "Schweißbucht erfolgreich modernisiert i gewartet."] },
                     { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Jan 2022 – Sep 2022", description: "Projekt: EVERHOT-Öfen, Deckel, Scharniere, Grillteile. Zu den Aufgaben gehörten das Anpassen, Montieren von Produkten i das WIG-Schweißen von Teilen mit Klemmen i Vorrichtungen.", materials: ["Edelstahlblech (1-1,5 mm)", "Edelstahlplatte (5 mm)"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: ["Eine Methode für eine höhere Arbeitseffizienz entwickelt."] },
                     { role: "WIG-Schweißer", company: "Active8 Robots", period: "Mai 2021 – Sep 2021", description: "Projekt: Edelstahlrahmen für manuelle i robotergestützte Verpackungstische für McCain Foods. Zu den Aufgaben gehörten die Einrichtung der Werkstatt, die Herstellung, das Schneiden, Anpassen, WIG-Schweißen i Veredelung von Edelstahlelementen.", materials: ["Edelstahl-Kastenprofile", "Edelstahlrohre"], tools: ["WIG-Schweißgerät", "Schneidwerkzeuge", "Exzenterschleifer", "INOX-Finish-Werkzeuge"], achievements: ["Eine kostengünstige Metallbearbeitungsabteilung organisiert i geholfen, einen großen Teil des Projekts pünktlich abzuschließen, wobei eine hervorragende Metallbearbeitungsqualität erzielt wurde."] },
                     { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Projekt: EVERHOT-Öfen. Dieselben Aufgaben i Verantwortlichkeiten wie im späteren Zeitraum, mit Schwerpunkt auf dem Anpassen, Montieren i WIG-Schweißen von Edelstahlkomponenten.", materials: ["Edelstahlblech"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: [] },
@@ -408,8 +447,9 @@
         };
 
         let currentLang = localStorage.getItem('cv-lang') || 'en';
-        let skillsChart; // Declare chart variable in a higher scope
-        let animationFrameId = null; // To store the ID of the animation frame for skillsChart
+        let skillsChart;
+        let animationFrameId = null;
+        let isInitialChartAnimationDone = false; // Flaga do śledzenia animacji
 
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
@@ -433,10 +473,15 @@
             
             document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelector(`#lang-switcher .lang-btn[data-lang="${lang}"]`).classList.add('active');
+            
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations[key] && translations[key][lang]) {
+                    el.textContent = translations[key][lang];
+                }
+            });
 
-            // Now rendering the summary text
             renderSummary(lang);
-            renderQualifications(lang);
             renderTimeline(lang);
             renderAchievements(lang);
             renderEducationAndInfo(lang);
@@ -444,7 +489,6 @@
             renderWeldingChart(lang);
         };
 
-        // New function to render the summary text
         const renderSummary = (lang) => {
             const summaryTextElement = document.getElementById('summary-text');
             if (summaryTextElement && translations.summary_text[lang]) {
@@ -452,22 +496,12 @@
             }
         };
 
-        const renderQualifications = (lang) => {
-            const container = document.getElementById('qualifications-list');
-            container.innerHTML = '';
-            translations.qualifications_data[lang].forEach(q => {
-                const div = document.createElement('div');
-                div.innerHTML = `<p><strong class="text-green">${q.title}:</strong> ${q.desc}</p>`;
-                container.appendChild(div);
-            });
-        };
-
         const renderTimeline = (lang) => {
             const timelineContainer = document.getElementById('timeline-container');
             timelineContainer.innerHTML = '';
             translations.work_history[lang].forEach((job) => {
                 const item = document.createElement('div');
-                item.className = 'timeline-item bg-base2';
+                item.className = 'timeline-item bg-base2'; // Usunięto rounded-lg
                 
                 const header = document.createElement('div');
                 header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
@@ -510,7 +544,7 @@
             achievementsContainer.innerHTML = '';
             translations.key_achievements[lang].forEach(ach => {
                 const card = document.createElement('div');
-                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition';
+                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition'; // Usunięto rounded-lg
                 card.innerHTML = `<h3 class="font-bold text-base text-green mb-2">${ach.title}</h3><p class="text-base01">${ach.text}</p>`;
                 achievementsContainer.appendChild(card);
             });
@@ -536,14 +570,6 @@
 
         const renderSkillsChart = (lang) => {
             const skillsChartCanvas = document.getElementById('skillsChart');
-            if (skillsChart) {
-                skillsChart.destroy();
-                // Stop any ongoing animation frame before re-rendering
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId);
-                    animationFrameId = null; // Reset the ID
-                }
-            }
             const skillsChartCtx = skillsChartCanvas.getContext('2d');
             
             const computedStyle = getComputedStyle(document.body);
@@ -552,6 +578,27 @@
             const ACCENT_COLOR = computedStyle.getPropertyValue('--cyan').trim();
             const BG_COLOR_TICK = computedStyle.getPropertyValue('--base2').trim() + 'bf';
 
+            if (skillsChart) {
+                // Aktualizuj istniejący wykres zamiast go niszczyć
+                skillsChart.data.labels = translations.skills_chart_labels[lang];
+                const options = skillsChart.options;
+                options.scales.r.pointLabels.color = FONT_COLOR;
+                options.scales.r.angleLines.color = GRID_COLOR;
+                options.scales.r.grid.color = GRID_COLOR;
+                options.scales.r.ticks.color = FONT_COLOR;
+                options.scales.r.ticks.backdropColor = BG_COLOR_TICK;
+                
+                const dataset = skillsChart.data.datasets[0];
+                dataset.backgroundColor = ACCENT_COLOR + '33';
+                dataset.borderColor = ACCENT_COLOR;
+                dataset.pointBackgroundColor = ACCENT_COLOR;
+                
+                skillsChart.update();
+                initializeChartTooltipEvents(skillsChart, lang);
+                return;
+            }
+
+            // Utwórz wykres po raz pierwszy
             const skillsChartData = {
                 labels: translations.skills_chart_labels[lang],
                 datasets: [{
@@ -571,141 +618,167 @@
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    animation: false, // Disable Chart.js built-in animation for custom control
+                    animation: false,
                     scales: {
                         r: {
                             angleLines: { color: GRID_COLOR },
                             grid: { color: GRID_COLOR },
                             pointLabels: { 
-                                font: { 
-                                    size: 12, 
-                                    family: "'IBM Plex Mono', monospace" 
-                                }, 
+                                font: { size: 12, family: "'IBM Plex Mono', monospace" }, 
                                 color: FONT_COLOR,
-                                // Ensure labels are always single line
-                                callback: function(label) {
-                                    // If label is an array (e.g., ['Quality &', 'Compliance']), join it with a space.
-                                    // Otherwise, return the label as is.
-                                    if (Array.isArray(label)) {
-                                        return label.join(' ');
-                                    }
-                                    return label;
-                                }
+                                padding: 25
                             },
                             ticks: { 
                                 backdropColor: BG_COLOR_TICK, 
                                 color: FONT_COLOR, 
                                 stepSize: 2, 
-                                font: { 
-                                    family: "'IBM Plex Mono', monospace" 
-                                } 
+                                font: { family: "'IBM Plex Mono', monospace" } 
                             },
                             suggestedMin: 0,
                             suggestedMax: 10
                         }
                     },
-                    plugins: { legend: { display: false } }
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    }
                 }
             };
             skillsChart = new Chart(skillsChartCtx, skillsChartConfig);
+            
+            initializeChartTooltipEvents(skillsChart, lang);
 
-            // Docelowe wartości, które punkty mają osiągnąć na końcu początkowej animacji (maksymalna pozycja zewnętrzna)
-            const finalTargetValues = [9, 9, 9, 3, 8, 9]; 
-            const initialAnimationBaseDuration = 2000; // Ogólny bazowy czas trwania początkowej animacji
+            const finalTargetValues = [9, 9, 9, 4.5, 8, 9]; 
+            const initialAnimationBaseDuration = 2000;
             let initialAnimationStartTime = null;
 
-            // Define easing functions
-            const easeLinear = p => p; // Jednostajne tempo
-            // Funkcja easing, która zwalnia do zera na końcu (easeOutCubic)
             const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
-            // Funkcja easing, która przyspiesza, a potem zwalnia (easeInOutCubic)
             const easeInOutCubic = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
 
-
-            // Array to store chosen easing function for each skill for the *initial* animation
             const initialEasingFunctions = [
-                easeInOutCubic, // TIG Welding (index 0): wolny start, przyspieszenie, zwolnienie na końcu
-                easeOutCubic,   // Quality & Compliance (domyślne)
-                easeOutCubic,   // Artisanal Fabrication (domyślne)
-                easeOutCubic,   // Industrial Machining (domyślne)
-                easeOutCubic,   // Safety Procedures (index 4): przyspieszone, zwalnia do 0 na końcu
-                easeOutCubic    // Problem Solving (domyślne)
+                easeInOutCubic, easeOutCubic, easeOutCubic,
+                easeOutCubic, easeOutCubic, easeOutCubic
             ];
 
-            // Mnożniki prędkości dla początkowej animacji (różne tempo osiągania szczytu)
-            // Dla TIG Welding (index 0), zmieniono na 1.0, aby było szybsze na początku.
-            // Dla Quality & Compliance (index 1), zmieniono na 1.2, aby było szybsze.
-            // Dla Problem Solving (index 5), zmieniono na 1.8, aby było jeszcze szybsze.
             const initialSpeedMultipliers = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8]; 
-
-            // Parametry dla subtelnej oscylacji
-            // Amplitudy oscylacji dla każdego punktu. Dla Spawania TIG (indeks 0) 0.5 dla zakresu [8, 9]
-            const oscillationAmplitudes = [0.5, 0.4, 0.4, 0.4, 0.4, 0.4]; 
-            // Różne prędkości i przesunięcia fazowe dla każdego punktu, aby uzyskać zróżnicowany ruch
-            const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017]; // Zmienione prędkości oscylacji
-            // Przesunięcia fazowe ustawione na 0 dla Math.cos, aby oscylacja zaczynała się od szczytu
+            const oscillationAmplitudes = [0.25, 0.25, 0.25, 0.25, 0.25, 0.25]; 
+            const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017];
             const oscillationOffsets = [0, 0, 0, 0, 0, 0]; 
 
-            // Oblicz indywidualny czas osiągnięcia szczytu dla każdego punktu w początkowej animacji
             const individualPeakReachTime = finalTargetValues.map((_, index) => {
                 return initialAnimationBaseDuration / initialSpeedMultipliers[index];
             });
 
             function animateChart(timestamp) {
-                if (!initialAnimationStartTime) {
-                    initialAnimationStartTime = timestamp;
-                }
+                if (!initialAnimationStartTime) initialAnimationStartTime = timestamp;
                 const globalElapsedTime = timestamp - initialAnimationStartTime;
 
                 const newValues = finalTargetValues.map((targetValuePeak, index) => { 
                     let currentValue;
                     const amplitude = oscillationAmplitudes[index];
                     const peakReachTime = individualPeakReachTime[index];
-                    const easingFn = initialEasingFunctions[index]; // Get specific easing function for this index
+                    const easingFn = initialEasingFunctions[index];
 
                     if (globalElapsedTime < peakReachTime) {
-                        // Początkowa animacja do osiągnięcia szczytowej wartości docelowej
                         let progress = globalElapsedTime / peakReachTime;
-                        currentValue = easingFn(progress) * targetValuePeak; // Use specific easing function
+                        currentValue = easingFn(progress) * targetValuePeak;
                     } else {
-                        // Po zakończeniu początkowej animacji, dodaj subtelną oscylację
-                        // Czas oscylacji jest liczony od momentu osiągnięcia szczytu przez dany punkt
                         const oscillationTime = globalElapsedTime - peakReachTime; 
-                        
-                        // Oblicz środek oscylacji dla danego punktu (szczyt minus amplituda)
                         const oscillationCenter = targetValuePeak - amplitude; 
-                        
-                        // Użyj Math.cos, aby oscylacja zaczynała się od szczytu (1), zapewniając płynne przejście z targetValuePeak
                         const oscillation = amplitude * Math.cos(oscillationTime * oscillationSpeeds[index] + oscillationOffsets[index]);
                         currentValue = oscillationCenter + oscillation;
-                        
-                        // Upewnij się, że wartości pozostają w granicach wykresu (0-10)
-                        currentValue = Math.max(0, Math.min(10, currentValue)); // Użyj 10 jako maxChartValue
+                        currentValue = Math.max(0, Math.min(10, currentValue));
                     }
                     return currentValue;
                 });
 
                 skillsChart.data.datasets[0].data = newValues;
-                skillsChart.update('none'); // 'none' dla braku wbudowanej animacji Chart.js
-
-                // Kontynuuj pętlę animacji w nieskończoność
+                skillsChart.update('none');
                 animationFrameId = requestAnimationFrame(animateChart);
             }
-
-            // Obserwator, aby rozpocząć animację, gdy wykres jest widoczny
+            
             const skillsObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        if (!animationFrameId) { // Rozpocznij animację tylko, jeśli jeszcze nie działa
-                            initialAnimationStartTime = null; // Reset start time for fresh animation
+                        if (!isInitialChartAnimationDone) {
+                            isInitialChartAnimationDone = true;
                             animationFrameId = requestAnimationFrame(animateChart);
                         }
-                        observer.unobserve(skillsChartCanvas); // Przestań obserwować po rozpoczęciu animacji
+                        observer.unobserve(skillsChartCanvas);
                     }
                 });
             }, { threshold: 0.5 });
             skillsObserver.observe(skillsChartCanvas);
         };
+        
+        function initializeChartTooltipEvents(chart, lang) {
+            const canvas = chart.canvas;
+            const tooltipEl = document.getElementById('skill-tooltip-container');
+
+            const skillToQualificationMap = {
+                'TIG Welding': 'Specialist Welding',
+                'Quality & Compliance': 'Quality & Compliance',
+                'Artisanal Fabrication': 'Artisanal Fabrication',
+                'Industrial Machining': 'Technical Fabrication',
+                'Safety Procedures': 'Safety & Procedures',
+                'Problem Solving': 'Problem Solving'
+            };
+
+            const getQualificationByTitle = (title, lang) => {
+                const qualificationsInEN = translations.qualifications_data['en'];
+                const qualificationsInCurrentLang = translations.qualifications_data[lang];
+                const index = qualificationsInEN.findIndex(q => q.title === title);
+                return index !== -1 ? qualificationsInCurrentLang[index] : null;
+            };
+
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                let foundLabel = false;
+
+                const pointLabels = chart.scales.r._pointLabelItems;
+                for (let i = 0; i < pointLabels.length; i++) {
+                    const label = pointLabels[i];
+                    const {left, right, top, bottom} = label;
+                    
+                    if (x >= left && x <= right && y >= top && y <= bottom) {
+                        foundLabel = true;
+                        canvas.style.cursor = 'pointer';
+
+                        const skillLabelEN = translations.skills_chart_labels['en'][i];
+                        const qualificationTitleEN = skillToQualificationMap[skillLabelEN];
+                        const qualification = getQualificationByTitle(qualificationTitleEN, currentLang);
+
+                        if (qualification) {
+                            tooltipEl.innerHTML = `
+                                <div class="skill-tooltip-card">
+                                    <h3 class="font-bold mb-2">${qualification.title}</h3>
+                                    <p class="text-sm">${qualification.desc}</p>
+                                </div>
+                            `;
+                        }
+                        
+                        tooltipEl.style.left = `${e.clientX + 15}px`;
+                        tooltipEl.style.top = `${e.clientY + 15}px`;
+                        tooltipEl.classList.add('visible');
+                        
+                        break; 
+                    }
+                }
+
+                if (!foundLabel) {
+                    canvas.style.cursor = 'default';
+                    tooltipEl.classList.remove('visible');
+                }
+            });
+
+            canvas.addEventListener('mouseleave', () => {
+                canvas.style.cursor = 'default';
+                tooltipEl.classList.remove('visible');
+            });
+        }
 
         const renderWeldingChart = (lang) => {
             const weldingChartPlaceholder = document.getElementById('welding-chart-placeholder');
@@ -714,7 +787,7 @@
             const computedStyle = getComputedStyle(document.body);
             const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
             const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
-            const LIGHT_GRID_COLOR = computedStyle.getPropertyValue('--base0').trim() + '66'; // 40% opacity
+            const LIGHT_GRID_COLOR = computedStyle.getPropertyValue('--base0').trim() + '66';
             const FONT_FAMILY = "'IBM Plex Mono', monospace";
             const ANIMATION_DURATION = 2000;
 
@@ -817,7 +890,7 @@
                 
                 const bar = document.createElement('div');
                 const barWidth = (skill.experience / 60) * 100;
-                bar.className = 'skill-bar h-6 rounded-r-sm transition-all ease-out';
+                bar.className = 'skill-bar h-6 transition-all ease-out'; // Usunięto rounded-r-sm
                 bar.style.width = '0%';
                 bar.style.transitionDuration = `${ANIMATION_DURATION}ms`;
                 bar.style.backgroundColor = getMaterialColor(skill.method);
@@ -928,7 +1001,6 @@
             loadTheme();
             translatePage(currentLang);
 
-            // Event Listeners
             document.getElementById('lang-switcher').addEventListener('click', (e) => {
                 if (e.target.matches('.lang-btn')) {
                     translatePage(e.target.dataset.lang);
