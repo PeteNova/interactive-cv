@@ -8,52 +8,107 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --base03: #002b36; 
-            --base02: #073642;
-            --base01: #323540; /* Zmieniony kolor czcionki */
-            --base00: #657b83;
-            --base0: #839496; 
-            --base1: #93a1a1;
-            --base2: #eee8d5; 
-            --base3: #fdf6e3; 
-            --base2-rgb: 238, 232, 213;
-            --yellow: #b58900;
-            --orange: #cb4b16;
-            --red: #dc322f;
-            --magenta: #d33682;
-            --violet: #6c71c4;
-            --blue: #268bd2;
-            --cyan: #2aa198;
-            --green: #859900;
+            /* Paleta dla motywu jasnego */
+            --base03: #dee2e6;  /* Obramowania */
+            --base02: #f8f9fa;  /* Tło drugorzędne (bardzo jasny szary) */
+            --base01: #212529;  /* Główny tekst (ciemny grafit) */
+            --base00: #495057;  /* Tekst drugorzędny (szary) */
+            --base0:  #ced4da;  /* Linie pomocnicze */
+            --base1:  #6c757d;  /* Delikatny tekst */
+            --base2:  #ffffff;  /* Główne tło (biały) */
+            --base3:  #f8f9fa;  /* Tło najjaśniejsze (identyczne z drugorzędnym) */
+            --base2-rgb: 255, 255, 255; /* Wersja RGB dla przezroczystości */
+
+            /* Kolory akcentów */
+            --yellow: #ffc107;  /* Żółty */
+            --orange: #fd7e14;  /* Pomarańczowy */
+            --red:    #dc3545;  /* Czerwony */
+            --magenta:#d63384;  /* Magenta */
+            --violet: #4f46e5;  /* Fioletowy/Indygo */
+            --blue:   #0d6efd;  /* Niebieski */
+            --cyan:   #0dcaf0;  /* Cyjan */
+            --green:  #198754;  /* Zielony */
         }
         body.theme-atom-one-dark {
-            --base03: #282c34; 
-            --base02: #2c313a; 
-            --base01: #abb2bf; /* Kolor czcionki dla trybu ciemnego */
-            --base00: #5c6370; 
-            --base0: #3e4451; 
-            --base1: #e06c75; 
-            --base2: #21252b; 
-            --base3: #282c34; 
+            /* Paleta dla motywu ciemnego */
+            --base03: #282c34;
+            --base02: #21252b; /* Ciemniejsze tło */
+            --base01: #cbcfd6;
+            --base00: #5c6370;
+            --base0:  #5c6370;
+            --base1:  #e06c75;
+            --base2:  #21252b; /* Ciemniejsze tło */
+            --base3:  #282c34; /* Jaśniejsze tło */
             --base2-rgb: 33, 37, 43;
+            
             --yellow: #e5c07b;
             --orange: #d19a66;
-            --red: #e06c75;
-            --magenta: #c678dd;
+            --red:    #e06c75;
+            --magenta:#c678dd;
             --violet: #c678dd;
-            --blue: #61afef;
-            --cyan: #56b6c2;
-            --green: #98c379;
+            --blue:   #61afef;
+            --cyan:   #56b6c2;
+            --green:  #98c379;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         body {
-            background-color: var(--base3);
+            background-color: var(--base2);
             color: var(--base01);
-            font-family: 'IBM Plex Mono', monospace;
+            font-family: 'Lato', sans-serif;
+            scroll-snap-type: y mandatory;
+            height: 100vh;
+            overflow-y: scroll;
         }
+        
+        .full-page-section {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 4rem 1.5rem;
+        }
+        
+        /* Domyślne tła dla sekcji (dla motywu jasnego) */
+        #profile-section { background-color: var(--base2); }
+        #skills-section { background-color: var(--base3); }
+        #welding-skills-section { background-color: var(--base2); }
+        #timeline-section { background-color: var(--base3); }
+        #achievements-section { background-color: var(--base2); }
+        #education-section { background-color: var(--base3); }
+        
+        /* Nadpisanie teł dla motywu ciemnego, aby odwrócić kolejność */
+        body.theme-atom-one-dark #profile-section { background-color: var(--base3); }
+        body.theme-atom-one-dark #skills-section { background-color: var(--base2); }
+        body.theme-atom-one-dark #welding-skills-section { background-color: var(--base3); }
+        body.theme-atom-one-dark #timeline-section { background-color: var(--base2); }
+        body.theme-atom-one-dark #achievements-section { background-color: var(--base2); }
+        body.theme-atom-one-dark #education-section { background-color: var(--base3); }
+
+        /* Tła dla kart i kontenerów wewnątrz sekcji (Motyw Jasny) */
+        #welding-chart-placeholder { background-color: var(--base3); }
+        .timeline-item { background-color: var(--base2); }
+        #achievements-grid > div { background-color: var(--base3); }
+        #education-container { background-color: var(--base2); }
+
+        /* Tła dla kart i kontenerów (Motyw Ciemny) */
+        /* ZMIANA: Tło kontenera wykresu jest teraz takie samo jak tło sekcji w trybie ciemnym */
+        body.theme-atom-one-dark #welding-chart-placeholder { background-color: var(--base3); }
+        body.theme-atom-one-dark .timeline-item { background-color: var(--base3); }
+        body.theme-atom-one-dark #achievements-grid > div { background-color: var(--base3); }
+        body.theme-atom-one-dark #education-container { background-color: var(--base2); }
+
+
         .timeline-item-header::before {
             content: '▶';
             position: absolute;
@@ -70,7 +125,8 @@
         .chart-container {
             position: relative;
             width: 100%;
-            height: 350px;
+            max-width: 500px;
+            height: 400px;
         }
         .lang-btn, .theme-btn {
             padding: 2px 8px;
@@ -88,7 +144,6 @@
             cursor: default;
         }
 
-        /* --- NOWE STYLE DLA INTERAKTYWNEGO WYKRESU --- */
         #skill-tooltip-container {
             position: fixed;
             pointer-events: none;
@@ -114,34 +169,31 @@
         }
 
         .skill-tooltip-card h3 {
-            color: inherit; /* Tytuł dziedziczy kolor po karcie */
+            color: inherit;
         }
 
-        /* Style dla tooltipa w trybie jasnym */
         body:not(.theme-atom-one-dark) .skill-tooltip-card {
-            background-color: #fdf6e3; /* Identyczne z tłem strony */
-            color: var(--base01); /* Nowy kolor czcionki */
-            border: 1px solid var(--base1); /* Subtelny kontur dla widoczności */
+            background-color: var(--base2);
+            color: var(--base01);
+            border: 1px solid var(--base0);
         }
         
         body:not(.theme-atom-one-dark) .skill-tooltip-card h3 {
-            color: inherit; /* Tytuł dziedziczy kolor po karcie */
+            color: inherit;
         }
-        /* --- KONIEC NOWYCH STYLI --- */
 
     </style>
 </head>
-<body class="">
-    <!-- Kontener na karty kwalifikacji, przeniesiony na poziom body dla poprawnego pozycjonowania -->
+<body>
     <div id="skill-tooltip-container"></div>
 
-    <div class="sticky top-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
+    <div class="fixed top-0 left-0 right-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
         <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row md:items-center md:justify-between">
             <nav id="navbar">
                 <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto text-sm md:text-base">
-                    <li><a href="#summary" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
-                    <li><a href="#skills" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills">Skills</a></li>
-                    <li><a href="#timeline" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career & Education</a></li>
+                    <li><a href="#profile-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
+                    <li><a href="#skills-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills">Skills</a></li>
+                    <li><a href="#timeline-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career</a></li>
                 </ul>
             </nav>
             <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-b border-base0 md:border-b-0">
@@ -158,95 +210,87 @@
             </div>
         </div>
     </div>
-
-    <header class="bg-base2">
-        <div class="container mx-auto px-6 py-6">
-            <div>
-                <h1 class="text-3xl md:text-4xl text-blue">Piotr Nowakowski</h1>
-                <p class="text-xl md:text-2xl mt-1 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
-                <div class="mt-4 flex flex-col md:flex-row md:flex-wrap gap-y-1 md:gap-x-4 text-sm text-base01">
-                    <span data-translate-key="location"></span>
-                    <span data-translate-key="contact"></span>
-                    <span data-translate-key="email"></span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-6 py-12 text-sm md:text-base">
-        <div class="flex flex-col gap-y-16"> 
-            <section id="summary" class="scroll-mt-24">
-                <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="summary_title">Professional Summary</h2>
-                <div class="bg-base2 p-6 shadow-lg">
-                    <p id="summary-text" class="leading-relaxed"></p>
-                </div>
-            </section>
-        </div>
-
-        <div class="my-16"></div>
-
-        <!-- POŁĄCZONA SEKCJA UMIEJĘTNOŚCI I KWALIFIKACJI -->
-        <section id="skills" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
-            <p class="text-center mb-8 text-base01" data-translate-key="skills_chart_desc"></p>
-            <!-- Usunięto klasy bg-base2, p-6 i shadow-lg z tego kontenera -->
-            <div class="relative">
-                <div class="chart-container" style="min-width: 500px;">
-                    <canvas id="skillsChart"></canvas>
+    
+    <div id="page-container">
+        
+        <section id="profile-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full h-full flex items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                    <div class="text-center lg:text-left">
+                        <h1 class="text-5xl md:text-6xl text-blue font-bold">Piotr Nowakowski</h1>
+                        <p class="text-2xl md:text-3xl mt-4 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
+                        <div class="mt-6 flex flex-col justify-center lg:justify-start items-center lg:items-start md:flex-wrap gap-y-2 text-lg text-base00">
+                            <span data-translate-key="location"></span>
+                            <span data-translate-key="contact"></span>
+                            <span data-translate-key="email"></span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center">
+                        <h2 class="text-2xl md:text-3xl font-bold pb-2 text-violet text-center lg:text-left" data-translate-key="summary_title">Professional Summary</h2>
+                        <p id="summary-text" class="leading-relaxed mt-4 text-left"></p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <div class="my-16"></div>
-
-        <section id="welding-skills" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
-            <div id="welding-chart-placeholder" class="bg-base2 p-6 pb-8 shadow-lg">
+        <section id="skills-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
+                <h2 class="text-2xl md:text-3xl font-bold pb-2 text-violet text-center" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
+                <p class="text-center mt-6 mb-4 text-base00" data-translate-key="skills_chart_desc"></p>
+                <div class="relative flex justify-center items-center w-full">
+                    <div class="chart-container">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
                 </div>
+            </div>
         </section>
 
-        <div class="my-16"></div>
-
-        <section id="timeline" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="timeline_title">Career Timeline</h2>
-            <p class="text-center mb-8 text-base01" data-translate-key="timeline_desc"></p>
-            <div id="timeline-container" class="space-y-2">
-                </div>
+        <section id="welding-skills-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full">
+                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
+                <div id="welding-chart-placeholder" class="p-6 pb-8 shadow-lg"></div>
+            </div>
         </section>
 
-        <div class="my-16"></div>
+        <section id="timeline-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full">
+                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="timeline_title">Career Timeline</h2>
+                <p class="text-center mb-8 text-base00" data-translate-key="timeline_desc"></p>
+                <div id="timeline-container" class="space-y-2 max-h-[60vh] overflow-y-auto pr-4 w-full max-w-4xl"></div>
+            </div>
+        </section>
 
-        <section id="achievements" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-4 text-violet" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
-            <p class="text-center mb-8 text-base01" data-translate-key="achievements_desc"></p>
-            <div class="grid md:grid-cols-2 gap-4" id="achievements-grid">
-                </div>
+        <section id="achievements-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full">
+                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
+                <p class="text-center mb-8 text-base00" data-translate-key="achievements_desc"></p>
+                <div class="grid md:grid-cols-2 gap-4 w-full max-w-5xl" id="achievements-grid"></div>
+            </div>
         </section>
         
-        <div class="my-16"></div>
-
-        <section id="education" class="scroll-mt-24">
-            <h2 class="text-xl md:text-2xl font-bold pb-2 mb-8 text-violet" data-translate-key="education_title">Education & Info</h2>
-            <div class="bg-base2 p-6 grid md:grid-cols-2 gap-6 shadow-lg">
-                <div>
-                    <p class="font-bold text-green" data-translate-key="education_heading">Edukacja</p>
-                    <ul id="education-list" class="pl-4 mt-2 space-y-1 list-disc list-inside">
-                        </ul>
-                </div>
-                <div>
-                    <p class="font-bold text-green" data-translate-key="info_heading">Dodatkowe Informacje</p>
-                     <ul id="info-list" class="pl-4 mt-2 space-y-1 list-disc list-inside">
-                        </ul>
+        <section id="education-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full max-w-4xl flex flex-col justify-center items-center flex-grow">
+                <div class="w-full">
+                    <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="education_title">Education & Info</h2>
+                    <div id="education-container" class="p-6 grid md:grid-cols-2 gap-6 shadow-lg w-full">
+                        <div>
+                            <p class="font-bold text-green" data-translate-key="education_heading">Edukacja</p>
+                            <ul id="education-list" class="pl-4 mt-2 space-y-1 list-disc list-inside"></ul>
+                        </div>
+                        <div>
+                            <p class="font-bold text-green" data-translate-key="info_heading">Dodatkowe Informacje</p>
+                            <ul id="info-list" class="pl-4 mt-2 space-y-1 list-disc list-inside"></ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <footer class="w-full text-center py-8 text-sm text-base00">
+                <p data-translate-key="footer_text"></p>
+            </footer>
         </section>
-    </main>
 
-    <footer class="bg-base2 mt-16">
-        <div class="container mx-auto px-6 py-6 text-center text-base01">
-            <p data-translate-key="footer_text"></p>
-        </div>
-    </footer>
+    </div>
+
 
     <script>
         const translations = {
@@ -272,7 +316,7 @@
             },
             nav_profile: { pl: "Profil", en: "Profile", de: "Profil" },
             nav_skills: { pl: "Umiejętności", en: "Skills", de: "Fähigkeiten" },
-            nav_career: { pl: "Kariera i Edukacja", en: "Career & Education", de: "Karriere & Bildung" },
+            nav_career: { pl: "Kariera", en: "Career", de: "Karriere" },
             summary_title: {
                 pl: "Podsumowanie Zawodowe",
                 en: "Professional Summary",
@@ -320,9 +364,9 @@
                 de: "Bewegen Sie den Mauszeiger über eine Fähigkeitsbezeichnung, um die zugehörige Qualifikation anzuzeigen."
             },
             skills_chart_labels: {
-                pl: ['Spawanie TIG', 'Jakość i Zgodność', 'Rzemiosło Artystyczne', 'Obróbka Przemysłowa', 'Procedury Bezpieczeństwa', 'Rozwiązywanie Problemów'],
-                en: ['TIG Welding', 'Quality & Compliance', 'Artisanal Fabrication', 'Industrial Machining', 'Safety Procedures', 'Problem Solving'],
-                de: ['WIG-Schweißen', 'Qualität & Konformität', 'Handwerkliche Fertigung', 'Industrielle Bearbeitung', 'Sicherheitsverfahren', 'Problemlösung']
+                pl: [['Spawanie', 'TIG'], ['Jakość i', 'Zgodność'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Rozwiązywanie', 'Problemów']],
+                en: [['TIG', 'Welding'], ['Quality &', 'Compliance'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Problem', 'Solving']],
+                de: [['WIG-', 'Schweißen'], ['Qualität &', 'Konformität'], ['Handwerkliche', 'Fertigung'], ['Industrielle', 'Bearbeitung'], ['Sicherheits-', 'verfahren'], ['Problem-', 'lösung']]
             },
             welding_skills_title: {
                 pl: "Analiza Umiejętności Spawalniczych",
@@ -449,7 +493,7 @@
         let currentLang = localStorage.getItem('cv-lang') || 'en';
         let skillsChart;
         let animationFrameId = null;
-        let isInitialChartAnimationDone = false; // Flaga do śledzenia animacji
+        let isInitialChartAnimationDone = false;
 
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
@@ -477,7 +521,10 @@
             document.querySelectorAll('[data-translate-key]').forEach(el => {
                 const key = el.dataset.translateKey;
                 if (translations[key] && translations[key][lang]) {
-                    el.textContent = translations[key][lang];
+                    if (Array.isArray(translations[key][lang])) {
+                    } else {
+                        el.textContent = translations[key][lang];
+                    }
                 }
             });
 
@@ -501,17 +548,17 @@
             timelineContainer.innerHTML = '';
             translations.work_history[lang].forEach((job) => {
                 const item = document.createElement('div');
-                item.className = 'timeline-item bg-base2'; // Usunięto rounded-lg
+                item.className = 'timeline-item p-2 shadow-sm';
                 
                 const header = document.createElement('div');
                 header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
                 header.innerHTML = `
                     <div>
                         <span class="font-bold text-blue">${job.role}</span>
-                        <span class="text-base01">@</span>
+                        <span class="text-base00">@</span>
                         <span class="text-green">${job.company}</span>
                     </div>
-                    <span class="text-sm text-base01 flex-shrink-0">${job.period}</span>
+                    <span class="text-sm text-base00 flex-shrink-0">${job.period}</span>
                 `;
 
                 const content = document.createElement('div');
@@ -544,7 +591,7 @@
             achievementsContainer.innerHTML = '';
             translations.key_achievements[lang].forEach(ach => {
                 const card = document.createElement('div');
-                card.className = 'bg-base2 p-4 shadow-lg hover:shadow-xl transition'; // Usunięto rounded-lg
+                card.className = 'p-4 shadow-lg hover:shadow-xl transition';
                 card.innerHTML = `<h3 class="font-bold text-base text-green mb-2">${ach.title}</h3><p class="text-base01">${ach.text}</p>`;
                 achievementsContainer.appendChild(card);
             });
@@ -576,10 +623,9 @@
             const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
             const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
             const ACCENT_COLOR = computedStyle.getPropertyValue('--cyan').trim();
-            const BG_COLOR_TICK = computedStyle.getPropertyValue('--base2').trim() + 'bf';
+            const BG_COLOR_TICK = `rgba(${computedStyle.getPropertyValue('--base2-rgb').trim()}, 0.75)`;
 
             if (skillsChart) {
-                // Aktualizuj istniejący wykres zamiast go niszczyć
                 skillsChart.data.labels = translations.skills_chart_labels[lang];
                 const options = skillsChart.options;
                 options.scales.r.pointLabels.color = FONT_COLOR;
@@ -598,7 +644,6 @@
                 return;
             }
 
-            // Utwórz wykres po raz pierwszy
             const skillsChartData = {
                 labels: translations.skills_chart_labels[lang],
                 datasets: [{
@@ -747,7 +792,7 @@
                         foundLabel = true;
                         canvas.style.cursor = 'pointer';
 
-                        const skillLabelEN = translations.skills_chart_labels['en'][i];
+                        const skillLabelEN = translations.skills_chart_labels['en'][i].join(' ');
                         const qualificationTitleEN = skillToQualificationMap[skillLabelEN];
                         const qualification = getQualificationByTitle(qualificationTitleEN, currentLang);
 
@@ -890,7 +935,7 @@
                 
                 const bar = document.createElement('div');
                 const barWidth = (skill.experience / 60) * 100;
-                bar.className = 'skill-bar h-6 transition-all ease-out'; // Usunięto rounded-r-sm
+                bar.className = 'skill-bar h-6 transition-all ease-out';
                 bar.style.width = '0%';
                 bar.style.transitionDuration = `${ANIMATION_DURATION}ms`;
                 bar.style.backgroundColor = getMaterialColor(skill.method);
@@ -971,7 +1016,7 @@
                 marker.className = 'absolute';
                 const position = ((endYear - year) / totalYears) * 100;
                 marker.style.top = `${position}%`;
-                marker.innerHTML = `<span class="absolute right-full text-xs text-base01/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
+                marker.innerHTML = `<span class="absolute right-full text-xs text-base00/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
                 yearAxisItself.appendChild(marker);
             }
             yearAxisContainer.appendChild(yearAxisItself);
@@ -1017,7 +1062,7 @@
                 link.addEventListener('click', e => {
                     e.preventDefault();
                     const targetId = e.currentTarget.getAttribute('href');
-                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
                 });
             });
         });
