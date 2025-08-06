@@ -70,17 +70,19 @@
             scroll-snap-type: y mandatory;
         }
 
+        /* === ZMIANA KLUCZOWA DLA RESPONSYWNOŚCI === */
         .full-page-section {
-            height: 100vh;
+            min-height: 100vh; /* ZMIANA: Zapewnia, że sekcja ma co najmniej wysokość ekranu */
+            height: auto;       /* ZMIANA: Pozwala sekcji rosnąć w zależności od zawartości */
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 5rem 1.5rem; /* Increased top padding to avoid navbar overlap */
+            /* ZMIANA: Dostosowano padding dla lepszego wyglądu na mobilkach */
+            padding: 7rem 1.5rem 3rem 1.5rem; 
             scroll-snap-align: start;
-            min-height: 600px; /* Ensure sections have a minimum height */
         }
         
         /* Domyślne tła dla sekcji (dla motywu jasnego) */
@@ -121,11 +123,13 @@
         .timeline-item.open .timeline-item-header::before {
             transform: translateY(-50%) rotate(90deg);
         }
+        /* === ZMIANA DLA WYKRESU UMIEJĘTNOŚCI === */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
-            height: 400px;
+            max-width: 450px; /* Zmniejszono, aby lepiej pasował do mniejszych ekranów */
+            height: 380px;    /* Zmniejszono, aby lepiej pasował do mniejszych ekranów */
+            margin-top: 2rem; /* Dodano margines, aby oddzielić go od treści powyżej na mobilkach */
         }
         .lang-btn, .theme-btn {
             padding: 2px 8px;
@@ -246,7 +250,8 @@
 
                     <!-- Right Column: Skills Chart -->
                     <div class="flex flex-col">
-                        <div class="bg-base3/50 p-6 rounded-lg h-full flex flex-col items-center">
+                        <!-- ZMIANA: Usunięto klasę "h-full", aby wykres był widoczny na mobilkach -->
+                        <div class="bg-base3/50 p-6 rounded-lg flex flex-col items-center">
                             <h2 class="text-xl font-bold text-violet mb-4 text-center" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
                             <p class="text-center mt-2 mb-4 text-base00" data-translate-key="skills_chart_desc"></p>
                             <div class="relative flex justify-center items-center w-full flex-grow">
