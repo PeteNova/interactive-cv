@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" class="scroll-smooth">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,38 +62,38 @@
             background-color: var(--base2);
             color: var(--base01);
             font-family: 'Lato', sans-serif;
-            scroll-snap-type: y mandatory;
-            height: 100vh;
-            overflow-y: scroll;
         }
         
+        main {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+        }
+
         .full-page-section {
             height: 100vh;
             width: 100%;
-            scroll-snap-align: start;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 4rem 1.5rem;
+            padding: 5rem 1.5rem; /* Increased top padding to avoid navbar overlap */
+            scroll-snap-align: start;
+            min-height: 600px; /* Ensure sections have a minimum height */
         }
         
         /* Domyślne tła dla sekcji (dla motywu jasnego) */
         #profile-section { background-color: var(--base2); }
-        #skills-section { background-color: var(--base3); }
-        #welding-skills-section { background-color: var(--base2); }
-        #timeline-section { background-color: var(--base3); }
-        #achievements-section { background-color: var(--base2); }
+        #welding-skills-section { background-color: var(--base3); }
+        #career-section { background-color: var(--base2); }
         #education-section { background-color: var(--base3); }
         
         /* Nadpisanie teł dla motywu ciemnego, aby odwrócić kolejność */
         body.theme-atom-one-dark #profile-section { background-color: var(--base3); }
-        body.theme-atom-one-dark #skills-section { background-color: var(--base2); }
-        body.theme-atom-one-dark #welding-skills-section { background-color: var(--base3); }
-        body.theme-atom-one-dark #timeline-section { background-color: var(--base2); }
-        body.theme-atom-one-dark #achievements-section { background-color: var(--base2); }
-        body.theme-atom-one-dark #education-section { background-color: var(--base3); }
+        body.theme-atom-one-dark #welding-skills-section { background-color: var(--base2); }
+        body.theme-atom-one-dark #career-section { background-color: var(--base3); }
+        body.theme-atom-one-dark #education-section { background-color: var(--base2); }
 
         /* Tła dla kart i kontenerów wewnątrz sekcji (Motyw Jasny) */
         #welding-chart-placeholder { background-color: var(--base3); }
@@ -102,7 +102,6 @@
         #education-container { background-color: var(--base2); }
 
         /* Tła dla kart i kontenerów (Motyw Ciemny) */
-        /* ZMIANA: Tło kontenera wykresu jest teraz takie samo jak tło sekcji w trybie ciemnym */
         body.theme-atom-one-dark #welding-chart-placeholder { background-color: var(--base3); }
         body.theme-atom-one-dark .timeline-item { background-color: var(--base3); }
         body.theme-atom-one-dark #achievements-grid > div { background-color: var(--base3); }
@@ -192,8 +191,9 @@
             <nav id="navbar">
                 <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto text-sm md:text-base">
                     <li><a href="#profile-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
-                    <li><a href="#skills-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_skills">Skills</a></li>
-                    <li><a href="#timeline-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career">Career</a></li>
+                    <li><a href="#welding-skills-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="welding_skills_title">Welding</a></li>
+                    <li><a href="#career-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career_achievements">Career</a></li>
+                    <li><a href="#education-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="education_title">Education</a></li>
                 </ul>
             </nav>
             <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-b border-base0 md:border-b-0">
@@ -211,35 +211,51 @@
         </div>
     </div>
     
-    <div id="page-container">
+    <main id="page-container">
         
         <section id="profile-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full h-full flex items-center">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <div class="text-center lg:text-left">
-                        <h1 class="text-5xl md:text-6xl text-blue font-bold">Piotr Nowakowski</h1>
-                        <p class="text-2xl md:text-3xl mt-4 text-cyan" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
-                        <div class="mt-6 flex flex-col justify-center lg:justify-start items-center lg:items-start md:flex-wrap gap-y-2 text-lg text-base00">
-                            <span data-translate-key="location"></span>
-                            <span data-translate-key="contact"></span>
-                            <span data-translate-key="email"></span>
-                        </div>
-                    </div>
-                    <div class="flex flex-col justify-center">
-                        <h2 class="text-2xl md:text-3xl font-bold pb-2 text-violet text-center lg:text-left" data-translate-key="summary_title">Professional Summary</h2>
-                        <p id="summary-text" class="leading-relaxed mt-4 text-left"></p>
+            <div class="container mx-auto px-6 w-full h-full flex flex-col justify-center">
+                <!-- Centered Header -->
+                <div class="text-center mb-10">
+                    <div class="inline-block">
+                        <h1 class="text-4xl md:text-5xl text-blue font-bold">Piotr Nowakowski</h1>
+                        <p class="text-lg md:text-xl mt-1 text-cyan tracking-wide" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="skills-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
-                <h2 class="text-2xl md:text-3xl font-bold pb-2 text-violet text-center" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
-                <p class="text-center mt-6 mb-4 text-base00" data-translate-key="skills_chart_desc"></p>
-                <div class="relative flex justify-center items-center w-full">
-                    <div class="chart-container">
-                        <canvas id="skillsChart"></canvas>
+                <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10 items-start w-full max-w-7xl mx-auto">
+                    <!-- Vertical Divider -->
+                    <div class="hidden lg:block absolute left-1/2 top-0 h-full w-px bg-base0/30 transform -translate-x-1/2"></div>
+                    
+                    <!-- Left Column: Profile Info -->
+                    <div class="flex flex-col">
+                        <div class="bg-base3/50 p-6 rounded-lg">
+                            <h2 class="text-xl font-bold text-violet mb-4" data-translate-key="summary_title">Professional Summary</h2>
+                            <p id="summary-text" class="leading-relaxed text-left"></p>
+                        </div>
+
+                        <div class="mt-6 bg-base3/50 p-6 rounded-lg">
+                             <h2 class="text-xl font-bold text-violet mb-4" data-translate-key="contact_details">Contact Details</h2>
+                             <div class="flex flex-col space-y-3 text-base text-base00">
+                                <span data-translate-key="location">Location: Stonehouse, GL</span>
+                                <span data-translate-key="contact">Contact: 07858925933</span>
+                                <span data-translate-key="email">Email: piotrrekas@gmail.com</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Skills Chart -->
+                    <div class="flex flex-col">
+                        <div class="bg-base3/50 p-6 rounded-lg h-full flex flex-col items-center">
+                            <h2 class="text-xl font-bold text-violet mb-4 text-center" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
+                            <p class="text-center mt-2 mb-4 text-base00" data-translate-key="skills_chart_desc"></p>
+                            <div class="relative flex justify-center items-center w-full flex-grow">
+                                <div class="chart-container">
+                                    <canvas id="skillsChart"></canvas>
+                                </div>
+                            </div>
+                            <p class="text-center mt-4 text-base00 text-sm" data-translate-key="welding_fabrication">Welding & Fabrication</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -251,20 +267,28 @@
                 <div id="welding-chart-placeholder" class="p-6 pb-8 shadow-lg"></div>
             </div>
         </section>
+        
+        <section id="career-section" class="full-page-section">
+            <div class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
+                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-4 text-violet text-center" data-translate-key="career_achievements_title">Career & Achievements</h2>
+                
+                <div class="w-full max-w-7xl p-2 md:p-6 rounded-lg bg-base2/30">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
+                        <!-- Left Column: Timeline -->
+                        <div>
+                            <h3 class="text-xl font-bold text-green mb-4" data-translate-key="timeline_title">Career Timeline</h3>
+                            <p class="mb-6 text-base00 text-sm" data-translate-key="timeline_desc"></p>
+                            <div id="timeline-container" class="space-y-2 max-h-[55vh] overflow-y-auto pr-4 w-full"></div>
+                        </div>
 
-        <section id="timeline-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full">
-                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="timeline_title">Career Timeline</h2>
-                <p class="text-center mb-8 text-base00" data-translate-key="timeline_desc"></p>
-                <div id="timeline-container" class="space-y-2 max-h-[60vh] overflow-y-auto pr-4 w-full max-w-4xl"></div>
-            </div>
-        </section>
-
-        <section id="achievements-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full">
-                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="achievements_title">Key Strengths & Achievements</h2>
-                <p class="text-center mb-8 text-base00" data-translate-key="achievements_desc"></p>
-                <div class="grid md:grid-cols-2 gap-4 w-full max-w-5xl" id="achievements-grid"></div>
+                        <!-- Right Column: Achievements -->
+                        <div>
+                            <h3 class="text-xl font-bold text-green mb-4" data-translate-key="achievements_title">Key Strengths & Achievements</h3>
+                             <p class="mb-6 text-base00 text-sm" data-translate-key="achievements_desc"></p>
+                            <div class="grid md:grid-cols-1 gap-4 w-full max-h-[55vh] overflow-y-auto pr-4" id="achievements-grid"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -289,7 +313,7 @@
             </footer>
         </section>
 
-    </div>
+    </main>
 
 
     <script>
@@ -314,9 +338,13 @@
                 en: "Email: piotrrekas@gmail.com",
                 de: "Email: piotrrekas@gmail.com"
             },
+            contact_details: {
+                pl: "Dane Kontaktowe",
+                en: "Contact Details",
+                de: "Kontaktdetails"
+            },
             nav_profile: { pl: "Profil", en: "Profile", de: "Profil" },
-            nav_skills: { pl: "Umiejętności", en: "Skills", de: "Fähigkeiten" },
-            nav_career: { pl: "Kariera", en: "Career", de: "Karriere" },
+            nav_career_achievements: { pl: "Kariera i Osiągnięcia", en: "Career & Achievements", de: "Karriere & Erfolge" },
             summary_title: {
                 pl: "Podsumowanie Zawodowe",
                 en: "Professional Summary",
@@ -363,6 +391,11 @@
                 en: "Hover over a skill label to see the related qualification.",
                 de: "Bewegen Sie den Mauszeiger über eine Fähigkeitsbezeichnung, um die zugehörige Qualifikation anzuzeigen."
             },
+            welding_fabrication: {
+                pl: "Spawanie i Produkcja",
+                en: "Welding & Fabrication",
+                de: "Schweißen & Fertigung"
+            },
             skills_chart_labels: {
                 pl: [['Spawanie', 'TIG'], ['Jakość i', 'Zgodność'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Rozwiązywanie', 'Problemów']],
                 en: [['TIG', 'Welding'], ['Quality &', 'Compliance'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Problem', 'Solving']],
@@ -382,6 +415,11 @@
                 pl: "Efektywne Doświadczenie (miesiące)",
                 en: "Effective Experience (months)",
                 de: "Effektive Erfahrung (Monate)"
+            },
+            career_achievements_title: {
+                pl: "Kariera i Osiągnięcia",
+                en: "Career & Achievements",
+                de: "Karriere & Erfolge"
             },
             timeline_title: {
                 pl: "Oś Czasu Kariery",
@@ -441,7 +479,7 @@
                     { title: 'Szybkie Przyswajanie Umiejętności', text: 'Mimo zaledwie 6 miesięcy sporadycznego doświadczenia z aluminium, pomyślnie zdałem najtrudniejszy test spoiny pachwinowej klasy lotniczej (1.6mm). To podkreśla naturalne predyspozycje i zdolność do szybkiego opanowywania złożonych, precyzyjnych zadań pod presją.'},
                     { title: 'Umożliwienie Zamówień od Rolls-Royce', text: 'Opracowałem i wdrożyłem ustawienia spawalnicze, które umożliwiły Fowlers of Bristol pozyskanie nowych zamówień od Rolls-Royce, rozwiązując wcześniejsze problemy techniczne.'},
                     { title: 'Stworzenie Warsztatu', text: 'W Active8 Robots zorganizowałem od podstaw w pełni funkcjonalny i opłacalny dział obróbki metalu, co umożliwiło terminowe ukończenie projektu dla McCain Foods.'},
-                    { title: 'Zdanie Trudnych Testów Spawalniczych', text: 'Uzyskałem uprawnienia lotnicze na spoiny pachwinowe z aluminium po zaledwie 3 miesiącach sporadycznego doświadczenia, zadanie, którego nie mogli zaliczyć koledzy z ponad 20-letnim doświadczeniem.'},
+                    { title: 'Zdanie Trudnych Testów Spawalniczych', text: 'Uzyskałem uprawnienia lotnicze na spoiny pachwinowe z aluminium po zalediwe 3 miesiącach sporadycznego doświadczenia, zadanie, którego nie mogli zaliczyć koledzy z ponad 20-letnim doświadczeniem.'},
                     { title: 'Wzrost Wydajności o 50%', text: 'W Berkeley Stainless Fittings poprawiłem jakość spawania i zwiększyłem prędkość stołu obrotowego nawet o 50% dzięki opracowaniu kompleksowej książki danych ustawień spawalniczych.'}
                 ],
                 en: [
@@ -1058,13 +1096,42 @@
                 }
             });
 
-            document.querySelectorAll('#navbar a').forEach(link => {
-                link.addEventListener('click', e => {
-                    e.preventDefault();
-                    const targetId = e.currentTarget.getAttribute('href');
-                    document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+            // --- SCROLLING & NAV LOGIC ---
+            const sections = document.querySelectorAll('.full-page-section');
+            const navLinks = document.querySelectorAll('#navbar a');
+
+            function updateActiveNav(id) {
+                navLinks.forEach(link => {
+                    const linkHref = link.getAttribute('href');
+                    if (linkHref === `#${id}`) {
+                        link.classList.add('border-orange');
+                        link.classList.remove('border-transparent');
+                    } else {
+                        link.classList.remove('border-orange');
+                        link.classList.add('border-transparent');
+                    }
                 });
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateActiveNav(entry.target.id);
+                    }
+                });
+            }, {
+                root: document.querySelector('main'),
+                threshold: 0.5 
             });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Initial active nav link
+            if (sections.length > 0) {
+                 updateActiveNav(sections[0].id);
+            }
         });
     </script>
 </body>
