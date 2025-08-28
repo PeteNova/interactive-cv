@@ -1,1142 +1,512 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piotr Nowakowski - High-Integrity TIG Welder & Fabricator</title>
+    <title>Piotr Nowakowski - Profil</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- STYLE PODSTAWOWE (WIDOK DOMYŚLNY / KOMPUTERY) --- */
+        body { 
+            font-family: 'Inter', sans-serif;
+            min-width: 1200px; 
+        }
+        
         :root {
-            /* Paleta dla motywu jasnego */
-            --base03: #dee2e6;  /* Obramowania */
-            --base02: #f8f9fa;  /* Tło drugorzędne (bardzo jasny szary) */
-            --base01: #212529;  /* Główny tekst (ciemny grafit) */
-            --base00: #495057;  /* Tekst drugorzędny (szary) */
-            --base0:  #ced4da;  /* Linie pomocnicze */
-            --base1:  #6c757d;  /* Delikatny tekst */
-            --base2:  #ffffff;  /* Główne tło (biały) */
-            --base3:  #f8f9fa;  /* Tło najjaśniejsze (identyczne z drugorzędnym) */
-            --base2-rgb: 255, 255, 255; /* Wersja RGB dla przezroczystości */
-
-            /* Kolory akcentów */
-            --yellow: #ffc107;  /* Żółty */
-            --orange: #fd7e14;  /* Pomarańczowy */
-            --red:    #dc3545;  /* Czerwony */
-            --magenta:#d63384;  /* Magenta */
-            --violet: #4f46e5;  /* Fioletowy/Indygo */
-            --blue:   #0d6efd;  /* Niebieski */
-            --cyan:   #0dcaf0;  /* Cyjan */
-            --green:  #198754;  /* Zielony */
+            --base03: #dee2e6; --base02: #f8f9fa; --base01: #212529; --base00: #495057;
+            --base0:  #ced4da; --base1:  #6c757d; --base2:  #ffffff; --base3:  #f8f9fa;
+            --base2-rgb: 255, 255, 255; --yellow: #ffc107; --orange: #fd7e14;
+            --red:    #dc3545; --magenta:#d63384; --violet: #4f46e5; --blue:   #0d6efd;
+            --cyan:   #0dcaf0; --green:  #198754; --contact-color: var(--base1);
         }
+        
         body.theme-atom-one-dark {
-            /* Paleta dla motywu ciemnego */
-            --base03: #282c34;
-            --base02: #21252b; /* Ciemniejsze tło */
-            --base01: #cbcfd6;
-            --base00: #5c6370;
-            --base0:  #5c6370;
-            --base1:  #e06c75;
-            --base2:  #21252b; /* Ciemniejsze tło */
-            --base3:  #282c34; /* Jaśniejsze tło */
-            --base2-rgb: 33, 37, 43;
-            
-            --yellow: #e5c07b;
-            --orange: #d19a66;
-            --red:    #e06c75;
-            --magenta:#c678dd;
-            --violet: #c678dd;
-            --blue:   #61afef;
-            --cyan:   #56b6c2;
-            --green:  #98c379;
+            --base03: #282c34; --base02: #21252b; --base01: #cbcfd6; --base00: #5c6370;
+            --base0:  #5c6370; --base1:  #e06c75; --base2:  #21252b; --base3:  #282c34;
+            --base2-rgb: 33, 37, 43; --yellow: #e5c07b; --orange: #d19a66;
+            --red:    #e06c75; --magenta:#c678dd; --violet: #c678dd; --blue:   #61afef;
+            --cyan:   #56b6c2; --green:  #98c379; --contact-color: var(--base00);
         }
         
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            background-color: var(--base2);
-            color: var(--base01);
-            font-family: 'Lato', sans-serif;
-        }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--base2); color: var(--base01); }
         
-        main {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-        }
-
-        /* === ZMIANA KLUCZOWA DLA RESPONSYWNOŚCI === */
         .full-page-section {
-            min-height: 100vh; /* ZMIANA: Zapewnia, że sekcja ma co najmniej wysokość ekranu */
-            height: auto;       /* ZMIANA: Pozwala sekcji rosnąć w zależności od zawartości */
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            /* ZMIANA: Dostosowano padding dla lepszego wyglądu na mobilkach */
-            padding: 7rem 1.5rem 3rem 1.5rem; 
-            scroll-snap-align: start;
+            min-height: 100vh; width: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; position: relative; padding: 2rem;
         }
         
-        /* Domyślne tła dla sekcji (dla motywu jasnego) */
+        #layout-wrapper { display: flex; justify-content: center; width: 100%; max-width: 1200px; }
         #profile-section { background-color: var(--base2); }
-        #welding-skills-section { background-color: var(--base3); }
-        #career-section { background-color: var(--base2); }
-        #education-section { background-color: var(--base3); }
-        
-        /* Nadpisanie teł dla motywu ciemnego, aby odwrócić kolejność */
         body.theme-atom-one-dark #profile-section { background-color: var(--base3); }
-        body.theme-atom-one-dark #welding-skills-section { background-color: var(--base2); }
-        body.theme-atom-one-dark #career-section { background-color: var(--base3); }
-        body.theme-atom-one-dark #education-section { background-color: var(--base2); }
 
-        /* Tła dla kart i kontenerów wewnątrz sekcji (Motyw Jasny) */
-        #welding-chart-placeholder { background-color: var(--base3); }
-        .timeline-item { background-color: var(--base2); }
-        #achievements-grid > div { background-color: var(--base3); }
-        #education-container { background-color: var(--base2); }
-
-        /* Tła dla kart i kontenerów (Motyw Ciemny) */
-        body.theme-atom-one-dark #welding-chart-placeholder { background-color: var(--base3); }
-        body.theme-atom-one-dark .timeline-item { background-color: var(--base3); }
-        body.theme-atom-one-dark #achievements-grid > div { background-color: var(--base3); }
-        body.theme-atom-one-dark #education-container { background-color: var(--base2); }
-
-
-        .timeline-item-header::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%) rotate(0deg);
-            transition: transform 0.3s ease;
-            color: var(--blue);
-            font-size: 0.8em;
+        .profile-image-container {
+            width: 240px; height: 240px; border-radius: 50%;
+            overflow: hidden; border: none; margin: 0 auto;
         }
-        .timeline-item.open .timeline-item-header::before {
-            transform: translateY(-50%) rotate(90deg);
+        .profile-image { width: 100%; height: 100%; object-fit: cover; }
+        
+        .lang-btn {
+            padding: 2px 8px; border-radius: 0; transition: color 0.3s;
+            color: var(--base1); border: 1px solid transparent; cursor: pointer;
         }
-        /* === ZMIANA DLA WYKRESU UMIEJĘTNOŚCI === */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 450px; /* Zmniejszono, aby lepiej pasował do mniejszych ekranów */
-            height: 380px;    /* Zmniejszono, aby lepiej pasował do mniejszych ekranów */
-            margin-top: 2rem; /* Dodano margines, aby oddzielić go od treści powyżej na mobilkach */
+        body.theme-atom-one-dark .lang-btn:not(.active):not(:hover) { color: var(--base00); }
+        .lang-btn:hover, #navbar a:hover { color: var(--base01); }
+        .lang-btn.active, #navbar a.active { color: var(--base01); cursor: default; }
+        #navbar a { color: var(--contact-color); transition: color 0.3s; }
+
+        #main-container { max-width: 1200px; width: 100%; margin-left: auto; margin-right: auto; }
+
+        .tab-title { transition: color 0.3s; cursor: pointer; }
+        .tab-title.active { color: var(--base01); cursor: default; }
+        .tab-title.inactive { color: var(--contact-color); }
+        .tab-content {
+            display: none; max-height: 13rem; 
+            overflow-y: auto; padding-right: 1em;
         }
-        .lang-btn, .theme-btn {
-            padding: 2px 8px;
-            border-radius: 0;
-            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        .tab-content.active { display: block; }
+        .tab-content::-webkit-scrollbar { width: 8px; }
+        .tab-content::-webkit-scrollbar-track { background: transparent; }
+        .tab-content::-webkit-scrollbar-thumb {
+            background-color: var(--base00); border-radius: 20px; border: 3px solid transparent;
+        }
+        .tab-content::-webkit-scrollbar-thumb:hover { background-color: var(--base01); }
+
+        .mobile-title { display: none; }
+        .mobile-separator { display: none; }
+
+        .contact-info { color: var(--contact-color); }
+        .copy-btn {
+            background: none; border: none; padding: 0.25rem;
+            cursor: pointer; color: var(--contact-color);
+            transition: color 0.2s, transform 0.2s;
+        }
+        .copy-btn:hover {
             color: var(--base01);
-            border: 1px solid transparent;
-            cursor: pointer;
+            transform: scale(1.1);
         }
-        .lang-btn:hover, .theme-btn:hover {
-            color: var(--orange);
-        }
-        .lang-btn.active, .theme-btn.active {
-            color: var(--orange);
-            cursor: default;
-        }
-
-        #skill-tooltip-container {
-            position: fixed;
-            pointer-events: none;
-            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+        #toast-notification {
             opacity: 0;
-            transform: translateY(10px) scale(0.95);
-            z-index: 100;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
         }
-
-        #skill-tooltip-container.visible {
+        #toast-notification.show {
             opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .skill-tooltip-card {
-            background-color: var(--base01);
-            color: var(--base3);
-            padding: 1rem;
-            box-shadow: none;
-            width: 280px;
-            border-radius: 0;
-            border: 1px solid var(--base0);
-        }
-
-        .skill-tooltip-card h3 {
-            color: inherit;
-        }
-
-        body:not(.theme-atom-one-dark) .skill-tooltip-card {
-            background-color: var(--base2);
-            color: var(--base01);
-            border: 1px solid var(--base0);
         }
         
-        body:not(.theme-atom-one-dark) .skill-tooltip-card h3 {
-            color: inherit;
+        .desktop-separator { border-right: 1px solid var(--base0); }
+        
+        /* --- Style przełącznika motywu --- */
+        .theme-toggle-btn {
+            padding: 0.25rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--base00);
+            transition: color 0.3s;
+        }
+        .theme-toggle-btn:hover {
+            color: var(--base01);
+        }
+        .theme-toggle-btn .sun-circle {
+            transition: fill 0.3s ease-in-out;
+        }
+        body:not(.theme-atom-one-dark) .theme-toggle-btn {
+            color: var(--base01);
+        }
+        body:not(.theme-atom-one-dark) .sun-circle {
+            fill: currentColor;
+        }
+        body.theme-atom-one-dark .sun-circle {
+            fill: none;
+        }
+        #mobile-theme-switcher .theme-toggle-btn {
+            color: var(--base00);
+        }
+        body:not(.theme-atom-one-dark) #mobile-theme-switcher .theme-toggle-btn {
+            color: var(--base01);
         }
 
+        /* --- NOWA REGUŁA SKALOWANIA --- */
+        @media (min-width: 768px) {
+            #layout-wrapper {
+                transform: scale(0.95);
+            }
+        }
+
+        /* --- MEDIA QUERIES DLA RESPONSYWNOŚCI --- */
+        @media (max-width: 1199px) and (min-width: 768px) {
+            body { min-width: 768px; }
+            #main-container, #layout-wrapper { max-width: 100%; padding-left: 1.5rem; padding-right: 1.5rem; }
+            .full-page-section { padding: 1rem; }
+            .flex-col-right { padding-left: 1.5rem; }
+            .flex-col-left { padding-right: 2.5rem; }
+            h1 { font-size: 2rem; }
+            p.text-xl { font-size: 1.125rem; }
+        }
+
+        @media (max-width: 767px) {
+            body { min-width: 100%; }
+            .fixed.top-0 { padding: 0.5rem 1rem; background-color: rgba(var(--base2-rgb), 0.85); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+            
+            #navbar, #desktop-nav-right { display: none; }
+            #mobile-nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 28px; }
+            #mobile-logo { font-size: 1rem; font-weight: 500; color: var(--base01); text-decoration: none; }
+            #mobile-theme-switcher { display: flex; align-items: center; }
+            #mobile-lang-switcher { display: flex; align-items: center; font-size: 1rem; font-weight: 500; }
+            #mobile-lang-switcher .lang-btn { padding: 0.25rem 0.35rem; color: var(--base00); }
+            #mobile-lang-switcher .lang-btn.active { color: var(--base01); }
+            #mobile-lang-switcher .separator { color: var(--base00); margin: 0 0.2rem; }
+
+            .full-page-section { padding: 5rem 1rem 2rem 1rem; min-height: auto; }
+            .profile-image-container { width: 145px; height: 145px; }
+            
+            .profile-header-flex, .content-flex { flex-direction: column; }
+            
+            .flex-col-left, .flex-col-right { width: 100% !important; padding: 0 !important; text-align: center; }
+            .desktop-separator { border-right: none; }
+            .flex-col-left { margin-bottom: 2rem; }
+            .flex-col-right .flex.justify-between { flex-direction: column; align-items: center; }
+
+            .flex.flex-col.items-start, .flex.flex-col.text-right { align-items: center; text-align: center; padding-right: 0 !important; }
+            
+            .flex.flex-col.items-start h1, .flex.flex-col.text-right > p.desktop-contact-title { font-size: 1.2rem; line-height: 1.2; }
+            .flex.flex-col.items-start p, .flex.flex-col.text-right p, .flex.flex-col.text-right div { line-height: 1.3; margin-top: 0.2rem; }
+            .flex.flex-col.items-start p.text-xl, .flex.flex-col.text-right div.text-xl { font-size: 0.9rem; margin-top: 0.25rem; }
+            .flex.flex-col.items-start p.text-base { font-size: 0.75rem; }
+            .flex.flex-col.text-right > p:not(.desktop-contact-title), .flex.flex-col.text-right > div { font-size: 0.9rem; }
+            .flex.flex-col.text-right { margin-top: 1.5rem; }
+
+            .mobile-hidden-info { display: none; }
+            #info-container h2, #summary-container h2 { font-size: 1rem; }
+            .tab-content p { font-size: 14px; }
+            
+            .desktop-contact-title { display: none; }
+            .mobile-separator { display: none; }
+
+            [data-tab="edu"], [data-content="edu"], [data-tab="other-exp"], [data-content="other-exp"], #info-container .flex.space-x-6, #summary-container .flex.space-x-6 { display: none; }
+            [data-content="summary"], [data-content="info"] { display: block !important; max-height: none; overflow-y: visible; padding-right: 0; }
+            
+            .content-flex { margin-top: 2rem; }
+            #mobile-col-summary { order: 1; }
+            #mobile-col-info { order: 2; margin-top: 2rem; }
+            
+            #info-container, #summary-container { align-items: center; }
+            
+            .mt-4.leading-relaxed { text-align: left; padding: 0 0.5rem; margin-top: 0; }
+            [data-content="summary"] .text-justify { text-align: left; }
+            .mobile-title { display: block; color: var(--base01); font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; text-align: center; }
+            .contact-info { color: var(--base01); }
+            
+            .flex.flex-col.items-start h1 {
+                width: -webkit-max-content; width: -moz-max-content; width: max-content;
+                max-width: 100%; margin-left: auto; margin-right: auto;
+                padding-bottom: 0.5rem; margin-bottom: 0.5rem;   
+                border-bottom: 1px solid var(--base00);
+            }
+            .flex.flex-col.text-right .contact-info { color: var(--base00); }
+            .flex.flex-col.text-right .copy-btn { color: var(--blue); }
+        }
+        
+        @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+            #profile-section {
+                padding-top: 5rem;
+                transform: scale(0.85);
+                transform-origin: top center;
+            }
+        }
     </style>
 </head>
-<body>
-    <div id="skill-tooltip-container"></div>
+<body class="theme-atom-one-dark">
 
-    <div class="fixed top-0 left-0 right-0 z-50 bg-base2/80 backdrop-blur-sm shadow-lg">
-        <div class="container mx-auto px-6 flex flex-col-reverse md:flex-row md:items-center md:justify-between">
-            <nav id="navbar">
-                <ul class="flex justify-center md:justify-start space-x-6 py-2 text-base01 font-medium overflow-x-auto text-sm md:text-base">
-                    <li><a href="#profile-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_profile">Profile</a></li>
-                    <li><a href="#welding-skills-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="welding_skills_title">Welding</a></li>
-                    <li><a href="#career-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="nav_career_achievements">Career</a></li>
-                    <li><a href="#education-section" class="hover:text-orange transition duration-300 py-2 border-b-2 border-transparent hover:border-orange" data-translate-key="education_title">Education</a></li>
-                </ul>
-            </nav>
-            <div class="flex justify-center md:justify-end items-center space-x-4 py-2 md:py-0 border-b border-base0 md:border-b-0">
-                 <div id="theme-switcher" class="flex items-center space-x-2 text-xs">
-                    <button data-theme="default" class="theme-btn" data-translate-key="theme_light">Light Mode</button>
-                    <button data-theme="theme-atom-one-dark" class="theme-btn" data-translate-key="theme_dark">Dark Mode</button>
-                </div>
-                <div class="text-base00">|</div>
-                <div id="lang-switcher" class="flex items-center space-x-2 text-sm font-bold">
-                    <button data-lang="en" class="lang-btn">EN</button>
-                    <button data-lang="pl" class="lang-btn">PL</button>
-                    <button data-lang="de" class="lang-btn">DE</button>
-                </div>
+    <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4">
+        <nav id="navbar" class="flex items-center space-x-6 text-sm font-medium">
+            <a href="#" class="active">Profil</a>
+            <a href="#">Umiejętności</a>
+            <a href="#">Kariera</a>
+            <a href="#">Kontakt</a>
+        </nav>
+        <div id="desktop-nav-right" class="flex-shrink-0 flex items-center space-x-4 ml-auto">
+            <div id="theme-switcher" class="flex items-center text-sm">
+                <button class="theme-toggle-btn" aria-label="Zmień motyw">
+                    <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="22" height="22">
+                        <path class="sun-circle" stroke-linecap="round" stroke-linejoin="round" d="M16.25 12a4.25 4.25 0 1 1-8.5 0 4.25 4.25 0 0 1 8.5 0Z" />
+                        <path class="sun-rays" stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636" />
+                    </svg>
+                </button>
+            </div>
+            <div class="text-base00" style="color: var(--base0);">|</div>
+            <div id="lang-switcher" class="flex items-center space-x-2 text-sm font-bold">
+                <button data-lang="en" class="lang-btn">EN</button>
+                <button data-lang="pl" class="lang-btn active">PL</button>
             </div>
         </div>
-    </div>
+
+        <div id="mobile-nav" class="hidden">
+            <div class="flex items-center space-x-4">
+                <a href="#" id="mobile-logo">P.N.</a>
+                <div id="mobile-theme-switcher">
+                     <button class="theme-toggle-btn" aria-label="Zmień motyw">
+                        <svg class="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="22" height="22">
+                            <path class="sun-circle" stroke-linecap="round" stroke-linejoin="round" d="M16.25 12a4.25 4.25 0 1 1-8.5 0 4.25 4.25 0 0 1 8.5 0Z" />
+                            <path class="sun-rays" stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-lang-switcher">
+                <button data-lang="en" class="lang-btn">EN</button>
+                <span class="separator">/</span>
+                <button data-lang="pl" class="lang-btn active">PL</button>
+            </div>
+        </div>
+    </header>
     
-    <main id="page-container">
-        
-        <section id="profile-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full h-full flex flex-col justify-center">
-                <!-- Centered Header -->
-                <div class="text-center mb-10">
-                    <div class="inline-block">
-                        <h1 class="text-4xl md:text-5xl text-blue font-bold">Piotr Nowakowski</h1>
-                        <p class="text-lg md:text-xl mt-1 text-cyan tracking-wide" data-translate-key="subtitle">High-Integrity TIG Welder & Fabricator</p>
+    <section id="profile-section" class="full-page-section">
+        <div id="layout-wrapper">
+            <div id="main-container" class="container mx-auto w-full">
+                
+                <div class="profile-header-flex flex items-center">
+                    <div class="flex-col-left w-1/4 pr-10 desktop-separator">
+                         <div class="profile-image-container">
+                            <img src="profile.jpg" alt="Piotr Nowakowski" class="profile-image" onerror="this.onerror=null;this.src='https://placehold.co/240x240/21252B/CBDFD6?text=PN';">
+                        </div>
+                    </div>
+                    <div class="flex-col-right w-3/4 pl-4">
+                        <div class="flex justify-between items-center w-full">
+                            <div class="flex flex-col items-start text-left">
+                                <h1 class="text-3xl md:text-4xl text-blue font-bold">PIOTR <span class="font-normal">NOWAKOWSKI</span></h1>
+                                <p class="text-base text-base00 mt-1 mobile-hidden-info">Wiek: 38 lat</p>
+                                <p class="text-xl md:text-2xl mt-4 text-cyan font-normal">Spawacz TIG/MIG & Ślusarz</p>
+                                <p class="text-base text-base00 mt-1 mobile-hidden-info">Ponad 9 lat doświadczenia zawodowego</p>
+                            </div>
+                            <div class="flex flex-col text-right pr-[1em]">
+                                <p class="text-3xl md:text-4xl font-normal desktop-contact-title contact-info">KONTAKT</p>
+                                <div class="mobile-separator"></div>
+                                <p class="text-base mt-1 contact-info">Lokalizacja: Stonehouse, GL</p>
+                                <div class="text-xl md:text-2xl mt-4 flex items-center justify-end contact-info">
+                                    <span>Tel: <a href="tel:+447858925933" style="color: inherit; text-decoration: none;">+44 7858925933</a></span>
+                                    <button data-copy-value="+447858925933" class="copy-btn ml-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5-.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                    </button>
+                                </div>
+                                <div class="text-base mt-1 flex items-center justify-end contact-info">
+                                    <span>Email: piotrrekas@gmail.com</span>
+                                    <button data-copy-value="piotrrekas@gmail.com" class="copy-btn ml-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5-.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                    </button>
+                                </div>
+                             </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10 items-start w-full max-w-7xl mx-auto">
-                    <!-- Vertical Divider -->
-                    <div class="hidden lg:block absolute left-1/2 top-0 h-full w-px bg-base0/30 transform -translate-x-1/2"></div>
-                    
-                    <!-- Left Column: Profile Info -->
-                    <div class="flex flex-col">
-                        <div class="bg-base3/50 p-6 rounded-lg">
-                            <h2 class="text-xl font-bold text-violet mb-4" data-translate-key="summary_title">Professional Summary</h2>
-                            <p id="summary-text" class="leading-relaxed text-left"></p>
-                        </div>
-
-                        <div class="mt-6 bg-base3/50 p-6 rounded-lg">
-                             <h2 class="text-xl font-bold text-violet mb-4" data-translate-key="contact_details">Contact Details</h2>
-                             <div class="flex flex-col space-y-3 text-base text-base00">
-                                <span data-translate-key="location">Location: Stonehouse, GL</span>
-                                <span data-translate-key="contact">Contact: 07858925933</span>
-                                <span data-translate-key="email">Email: piotrrekas@gmail.com</span>
+                <div class="content-flex flex items-stretch pt-12">
+                    <div id="mobile-col-info" class="flex-col-left w-1/4 pr-10 desktop-separator">
+                        <div id="info-container" class="flex flex-col text-left">
+                            <h3 class="mobile-title">Informacje dodatkowe</h3>
+                            <div class="flex space-x-6 text-2xl md:text-3xl font-medium pb-2 justify-start">
+                                <h2 data-tab="edu" class="tab-title">EDUKACJA</h2>
+                                <h2 data-tab="info" class="tab-title">INNE</h2>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Skills Chart -->
-                    <div class="flex flex-col">
-                        <!-- ZMIANA: Usunięto klasę "h-full", aby wykres był widoczny na mobilkach -->
-                        <div class="bg-base3/50 p-6 rounded-lg flex flex-col items-center">
-                            <h2 class="text-xl font-bold text-violet mb-4 text-center" data-translate-key="skills_chart_title">Skills & Qualifications</h2>
-                            <p class="text-center mt-2 mb-4 text-base00" data-translate-key="skills_chart_desc"></p>
-                            <div class="relative flex justify-center items-center w-full flex-grow">
-                                <div class="chart-container">
-                                    <canvas id="skillsChart"></canvas>
+                            <div class="mt-4 leading-relaxed">
+                                <div data-content="edu" class="tab-content">
+                                    <p>Uniwersytet Rzeszowski, Wydział Sztuki, Polska (2006 – 2009)</p>
+                                    <p>Zespół Szkół Plastycznych, Rzeszów, Polska (2000 – 2006)</p>
+                                </div>
+                                <div data-content="info" class="tab-content">
+                                    <p>Języki: Angielski (B1), Polski (Ojczysty)</p>
+                                    <p>Certyfikat: 2 Level HACCP (Food Hygiene Production)</p>
+                                    <p>Umiejętności komputerowe</p>
+                                    <p>Prawo jazdy: Full UK Driving License</p>
                                 </div>
                             </div>
-                            <p class="text-center mt-4 text-base00 text-sm" data-translate-key="welding_fabrication">Welding & Fabrication</p>
+                        </div>
+                    </div>
+                    
+                    <div id="mobile-col-summary" class="flex-col-right w-3/4 pl-4">
+                        <div id="summary-container" class="flex flex-col">
+                            <h3 class="mobile-title">PODSUMOWANIE</h3>
+                            <div class="flex space-x-6 text-2xl md:text-3xl font-medium pb-2 justify-start">
+                                <h2 data-tab="summary" class="tab-title">PODSUMOWANIE ZAWODOWE</h2>
+                                <h2 data-tab="other-exp" class="tab-title">INNE</h2>
+                            </div>
+                            <div class="mt-4 leading-relaxed text-left">
+                                <div data-content="summary" class="tab-content">
+                                    <p class="text-justify">Wszechstronny rzemieślnik z artystycznym doświadczeniem, specjalizujący się w obróbce metali i spawaniu metodą TIG, z dużym doświadczeniem w obróbce stali nierdzewnej oraz udokumentowaną zdolnością do dostarczania wysokiej jakości spoin w środowiskach o krytycznym znaczeniu dla bezpieczeństwa. Doświadczony w pracy według wymagających standardów dla sektorów takich jak lotnictwo, obronność i produkcja żywności. Chociaż doświadczenie w spawaniu aluminium jest bardziej ograniczone, wczesne projekty wykazały obiecujące wyniki i dużą zdolność do szybkiej adaptacji i postępów. Skupiony na bezpieczeństwie, dokładności i ciągłym doskonaleniu, poszukuje możliwości dalszego rozwoju i wkładu w projekty o wysokiej integralności.</p>
+                                </div>
+                                <div data-content="other-exp" class="tab-content">
+                                    <p><strong>Fabricator</strong>, Customade Group (09.2019 - 06.2020)</p>
+                                    <p><strong>Office Worker</strong>, The Gloucestershire Chilli Farm (04.2019 - 09.2019)</p>
+                                    <p><strong>Restoration Technician</strong>, Arkada Budownictwo i Zabytki Sp. zo.o. (08.2014 - 09.2015)</p>
+                                    <p><strong>Restoration Technician</strong>, Restoart Sp. z o.o. (08.2011 - 06.2012)</p>
+                                    <p><strong>Fish Process Operative</strong>, SNOPAC Products Inc. (07.2009 - 10.2009)</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="welding-skills-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full">
-                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="welding_skills_title">Welding Skills Breakdown</h2>
-                <div id="welding-chart-placeholder" class="p-6 pb-8 shadow-lg"></div>
             </div>
-        </section>
-        
-        <section id="career-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
-                <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-4 text-violet text-center" data-translate-key="career_achievements_title">Career & Achievements</h2>
-                
-                <div class="w-full max-w-7xl p-2 md:p-6 rounded-lg bg-base2/30">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-10">
-                        <!-- Left Column: Timeline -->
-                        <div>
-                            <h3 class="text-xl font-bold text-green mb-4" data-translate-key="timeline_title">Career Timeline</h3>
-                            <p class="mb-6 text-base00 text-sm" data-translate-key="timeline_desc"></p>
-                            <div id="timeline-container" class="space-y-2 max-h-[55vh] overflow-y-auto pr-4 w-full"></div>
-                        </div>
+        </div>
+    </section>
 
-                        <!-- Right Column: Achievements -->
-                        <div>
-                            <h3 class="text-xl font-bold text-green mb-4" data-translate-key="achievements_title">Key Strengths & Achievements</h3>
-                             <p class="mb-6 text-base00 text-sm" data-translate-key="achievements_desc"></p>
-                            <div class="grid md:grid-cols-1 gap-4 w-full max-h-[55vh] overflow-y-auto pr-4" id="achievements-grid"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="education-section" class="full-page-section">
-            <div class="container mx-auto px-6 w-full max-w-4xl flex flex-col justify-center items-center flex-grow">
-                <div class="w-full">
-                    <h2 class="text-2xl md:text-3xl font-bold pb-2 mb-8 text-violet text-center" data-translate-key="education_title">Education & Info</h2>
-                    <div id="education-container" class="p-6 grid md:grid-cols-2 gap-6 shadow-lg w-full">
-                        <div>
-                            <p class="font-bold text-green" data-translate-key="education_heading">Edukacja</p>
-                            <ul id="education-list" class="pl-4 mt-2 space-y-1 list-disc list-inside"></ul>
-                        </div>
-                        <div>
-                            <p class="font-bold text-green" data-translate-key="info_heading">Dodatkowe Informacje</p>
-                            <ul id="info-list" class="pl-4 mt-2 space-y-1 list-disc list-inside"></ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <footer class="w-full text-center py-8 text-sm text-base00">
-                <p data-translate-key="footer_text"></p>
-            </footer>
-        </section>
-
-    </main>
-
+    <div id="toast-notification" class="fixed bottom-5 right-5 bg-green-600 text-white py-2 px-4 rounded-lg shadow-lg">
+        Skopiowano do schowka!
+    </div>
 
     <script>
-        const translations = {
-            subtitle: {
-                pl: "Spawacz TIG & Konstruktor Wysokiej Jakości",
-                en: "High-Integrity TIG Welder & Fabricator",
-                de: "Hochwertiger WIG-Schweißer & Fertiger"
-            },
-            location: {
-                pl: "Lokalizacja: Stonehouse, GL",
-                en: "Location: Stonehouse, GL",
-                de: "Standort: Stonehouse, GL"
-            },
-            contact: {
-                pl: "Kontakt: 07858925933",
-                en: "Contact: 07858925933",
-                de: "Kontakt: 07858925933"
-            },
-            email: {
-                pl: "Email: piotrrekas@gmail.com",
-                en: "Email: piotrrekas@gmail.com",
-                de: "Email: piotrrekas@gmail.com"
-            },
-            contact_details: {
-                pl: "Dane Kontaktowe",
-                en: "Contact Details",
-                de: "Kontaktdetails"
-            },
-            nav_profile: { pl: "Profil", en: "Profile", de: "Profil" },
-            nav_career_achievements: { pl: "Kariera i Osiągnięcia", en: "Career & Achievements", de: "Karriere & Erfolge" },
-            summary_title: {
-                pl: "Podsumowanie Zawodowe",
-                en: "Professional Summary",
-                de: "Berufliche Zusammenfassung"
-            },
-            summary_text: {
-                pl: "Wysoce wykwalifikowany i skrupulatny Spawacz TIG z bogatym doświadczeniem w obróbce stali nierdzewnej i aluminium dla sektorów o krytycznym znaczeniu dla bezpieczeństwa, w tym lotniczego, obronnego i spożywczego. Udokumentowana zdolność do pracy nad komponentami o wysokiej integralności dla wymagających klientów, takich jak Rolls-Royce, konsekwentnie spełniając najwyższe standardy jakości i precyzji. Skoncentrowany na bezpieczeństwie, z historią opracowywania i wdrażania solidnych procedur spawalniczych w celu zapewnienia pełnej penetracji i zgodności z rygorystycznymi specyfikacjami. Chce wykorzystać specjalistyczne umiejętności w brytyjskimjskim przemyśle jądrowym, aby przyczynić się do projektów, w których bezpieczeństwo, jakość i precyzja są najważniejsze.",
-                en: "A highly skilled and meticulous TIG Welder with extensive experience in stainless steel and aluminium fabrication for safety-critical, highly regulated sectors, including Aerospace, Defence, and Food Production. Proven ability to work on high-integrity components for demanding clients such as Rolls-Royce, consistently meeting the highest standards of quality and precision. Safety-focused, with a track record of developing and implementing robust welding procedures to ensure full penetration and compliance with stringent specifications. Seeking to leverage specialist skills within the UK nuclear industry to contribute to projects where safety, quality, and precision are paramount.",
-                de: "Ein hochqualifizierter i sorgfältiger WIG-Schweißer z umfassender Erfahrung w Herstellung von Edelstahl i Aluminium für sicherheitskritische, stark regulierte Sektoren, einschließlich Luft- i Raumfahrt, Verteidigung i Lebensmittelproduktion. Nachgewiesene Fähigkeit, an hochintegrierten Komponenten für anspruchsvolle Kunden wie Rolls-Royce zu arbeiten i dabei stets die höchsten Qualitäts- i Präzisionsstandards zu erfüllen. Sicherheitsorientiert, z einer Erfolgsbilanz bei der Entwicklung i Implementierung robuster Schweißverfahren, um eine vollständige Durchdringung i die Einhaltung strenger Spezifikationen zu gewährleisten. Bestrebt, Fachkenntnisse in der britischen Atomindustrie zu nutzen, um zu Projekten beizutragen, bei denen Sicherheit, Qualität i Präzision an erster Stelle stehen."
-            },
-            skills_chart_title: {
-                pl: "Umiejętności i Kwalifikacje",
-                en: "Skills & Qualifications",
-                de: "Fähigkeiten & Qualifikationen"
-            },
-            qualifications_data: {
-                pl: [
-                    { title: "Spawanie Specjalistyczne", desc: "Zaawansowana biegłość w spawaniu TIG stali nierdzewnej, stali miękkiej, aluminium, brązu odlewanego i mosiądzu." },
-                    { title: "Jakość i Zgodność", desc: "Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym. Pomyślnie uzyskał uprawnienia/certyfikaty na spoiny pachwinowe ze stali nierdzewnej i aluminium (1.6mm, 3mm i 6mm)." },
-                    { title: "Rzemiosło Artystyczne", desc: "Poziom ekspercki (9/10) w ręcznej, artystycznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu materiałów takich jak brąz odlewany i mosiądz, głównie z doświadczenia w rzeźbie artystycznej." },
-                    { title: "Produkcja Techniczna", desc: "Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy konstrukcyjne, rurociągi i armatura przy użyciu spawarek TIG/MIG, szlifierek i przecinarek. Uwaga: Ograniczone doświadczenie w obsłudze ciężkich maszyn przemysłowych, takich jak tokarki." },
-                    { title: "Bezpieczeństwo i Procedury", desc: "Nienaganny rekord bezpieczeństwa z rygorystycznym przestrzeganiem wszystkich protokołów. Doświadczenie w tworzeniu książek danych spawalniczych i optymalizacji stanowisk pracy. Posiadacz Certyfikatu HACCP Poziom 2." },
-                    { title: "Rozwiązywanie Problemów", desc: "Biegłość w diagnozowaniu i rozwiązywaniu złożonych wyzwań produkcyjnych, od naprawy źle odlanych rzeźb po optymalizację procesów spawalniczych dla nowych, wymagających specyfikacji." }
-                ],
-                en: [
-                    { title: "Specialist Welding", desc: "Advanced proficiency in TIG welding of stainless steel, mild steel, aluminium, cast bronze, and brass." },
-                    { title: "Quality & Compliance", desc: "Proven ability to pass difficult, aerospace-grade qualification tests. Successfully gained coding/certification for both stainless steel and aluminium fillet welds (1.6mm, 3mm, and 6mm)." },
-                    { title: "Artisanal Fabrication", desc: "Expert-level skill (9/10) in manual, artistic metalwork, including complex shaping, texturing, and finishing of materials like cast bronze and brass, primarily from experience in fine art sculpture." },
-                    { title: "Technical Fabrication", desc: "Proficient in the fabrication and assembly of industrial components like structural frames, pipework, and fittings using TIG/MIG welders, grinders, and cutters. Note: Limited experience with heavy industrial machinery like lathes." },
-                    { title: "Safety & Procedures", desc: "Impeccable safety record with strict adherence to all protocols. Experienced in creating welding data books and optimising workstation setups. Holder of a Level 2 HACCP Certificate." },
-                    { title: "Problem Solving", desc: "Adept at diagnosing and resolving complex fabrication challenges, from repairing poorly casted sculptures to optimising welding processes for new, demanding specifications." }
-                ],
-                de: [
-                    { title: "Spezialschweißen", desc: "Fortgeschrittene Kenntnisse im WIG-Schweißen von Edelstahl, Baustahl, Aluminium, Gussbronze und Messing." },
-                    { title: "Qualität & Konformität", desc: "Nachgewiesene Fähigkeit, schwierige Qualifikationstests auf Luft- i Raumfahrtniveau zu bestehen. Erfolgreich Zertifizierungen für Kehlnähte aus Edelstahl i Aluminium (1,6 mm, 3 mm i 6 mm) erhalten." },
-                    { title: "Handwerkliche Fertigung", desc: "Expertenniveau (9/10) in manueller, künstlerischer Metallbearbeitung, einschließlich komplexer Formgebung, Texturierung und Veredelung von Materialien wie Gussbronze und Messing, hauptsächlich aus Erfahrung in der bildenden Kunst." },
-                    { title: "Technische Fertigung", desc: "Kompetent in der Herstellung und Montage von Industriekomponenten wie Strukturrahmen, Rohrleitungen und Armaturen mit WIG/MIG-Schweißgeräten, Schleifmaschinen und Schneidgeräten. Hinweis: Begrenzte Erfahrung mit schweren Industriemaschinen wie Drehmaschinen." },
-                    { title: "Sicherheit & Verfahren", desc: "Tadellose Sicherheitsbilanz bei strikter Einhaltung aller Protokolle. Erfahrung in der Erstellung von Schweißdatenbüchern i der Optimierung von Arbeitsplätzen. Inhaber eines HACCP-Zertifikats Stufe 2." },
-                    { title: "Problemlösung", desc: "Geübt in der Diagnose und Lösung komplexer fertigungstechnischer Herausforderungen, von der Reparatur schlecht gegossener Skulpturen bis zur Optimierung von Schweißprozessen für neue, anspruchsvolle Spezifikationen." }
-                ]
-            },
-            skills_chart_desc: {
-                pl: "Najedź kursorem na etykietę umiejętności, aby zobaczyć powiązaną kwalifikację.",
-                en: "Hover over a skill label to see the related qualification.",
-                de: "Bewegen Sie den Mauszeiger über eine Fähigkeitsbezeichnung, um die zugehörige Qualifikation anzuzeigen."
-            },
-            welding_fabrication: {
-                pl: "Spawanie i Produkcja",
-                en: "Welding & Fabrication",
-                de: "Schweißen & Fertigung"
-            },
-            skills_chart_labels: {
-                pl: [['Spawanie', 'TIG'], ['Jakość i', 'Zgodność'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Rozwiązywanie', 'Problemów']],
-                en: [['TIG', 'Welding'], ['Quality &', 'Compliance'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Problem', 'Solving']],
-                de: [['WIG-', 'Schweißen'], ['Qualität &', 'Konformität'], ['Handwerkliche', 'Fertigung'], ['Industrielle', 'Bearbeitung'], ['Sicherheits-', 'verfahren'], ['Problem-', 'lösung']]
-            },
-            welding_skills_title: {
-                pl: "Analiza Umiejętności Spawalniczych",
-                en: "Welding Skills Breakdown",
-                de: "Analyse der Schweißfähigkeiten"
-            },
-            welding_chart_headers: {
-                pl: { type: "Typ", method: "Metoda i Materiał", exp: "Doświadczenie i Biegłość (1-10)" },
-                en: { type: "Type", method: "Method & Material", exp: "Experience & Proficiency (1-10)" },
-                de: { type: "Typ", method: "Methode & Material", exp: "Erfahrung & Kenntnisse (1-10)" }
-            },
-            welding_chart_xaxis: {
-                pl: "Efektywne Doświadczenie (miesiące)",
-                en: "Effective Experience (months)",
-                de: "Effektive Erfahrung (Monate)"
-            },
-            career_achievements_title: {
-                pl: "Kariera i Osiągnięcia",
-                en: "Career & Achievements",
-                de: "Karriere & Erfolge"
-            },
-            timeline_title: {
-                pl: "Oś Czasu Kariery",
-                en: "Career Timeline",
-                de: "Beruflicher Werdegang"
-            },
-            timeline_desc: {
-                pl: "Kliknij na dowolną rolę, aby rozwinąć i zobaczyć szczegółowe obowiązki i kluczowe osiągnięcia z tego stanowiska.",
-                en: "Click on any role to expand and view detailed responsibilities and key achievements from that position.",
-                de: "Klicken Sie na eine beliebity Rolle, um detaillierte Verantwortlichkeiten i wichtige Erfolge aus dieser Position anzuzeigen."
-            },
-            work_history: {
-                pl: [
-                    { role: "Spawacz TIG/MIG", company: "CKF Systems Limited", period: "Wrz 2024 – Lip 2025", description: "Dalsze rozwijanie specjalistycznych umiejętności spawalniczych w środowisku zautomatyzowanych systemów dla przemysłu spożywczego.", materials: ["Stal Nierdzewna", "Konstrukcje Stalowe"], tools: ["Spawarka TIG", "Spawarka MIG"], achievements: [] },
-                    { role: "Spawacz TIG/MIG", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Lut 2024 – Sie 2024", description: "Produkcja i spawanie komponentów dla dostawców przemysłu lotniczego i obronnego. Zapewnienie najwyższych standardów jakości i bezpieczeństwa w operacjach spawalniczych. Współpraca z zespołem wykwalifikowanych specjalistów w celu dotrzymania terminów i specyfikacji projektowych. Przeprowadzanie kontroli wizualnych i jakościowych ukończonych spoin.", materials: ["Stal Nierdzewna", "Aluminium"], tools: ["Spawarka TIG", "Spawarka MIG", "Narzędzia Inspekcyjne"], achievements: ["Osiągnięto pozytywne wyniki testów i certyfikaty w przemyśle lotniczym dla spoin pachwinowych na stali nierdzewnej i aluminium o grubościach 1.6mm, 3mm i 6mm.", "Zidentyfikowano i wdrożono rozwiązania dla ustawień spawalniczych, które umożliwiły przyjmowanie nowych zamówień od klientów takich jak Rolls-Royce.", "Pomyślnie zmodernizowano i utrzymano stanowisko spawalnicze, opracowując procedury i ustawienia spawalnicze.", "Utrzymano wysoki poziom bezpieczeństwa i przestrzegano wszystkich odpowiednich protokołów i wytycznych bezpieczeństwa."] },
-                    { role: "Spawacz TIG/MIG", company: "CKF Systems Limited", period: "Wrz 2022 – Lut 2024", description: "Produkcja i spawanie różnych komponentów linii produkcyjnych dla przemysłu spożywczego. Zapewnienie najwyższych standardów jakości i bezpieczeństwa, przeprowadzanie kontroli wizualnych i przestrzeganie ścisłych procedur.", materials: ["Stal Nierdzewna", "Konstrukcje Stalowe"], tools: ["Spawarka TIG", "Spawarka MIG"], achievements: ["Konsekwentnie produkował wysokiej jakości spoiny, przyczyniając się do pomyślnego ukończenia złożonych projektów linii produkcyjnych dla klientów korporacyjnych w przemyśle spożywczym.", "Pomyślnie zmodernizowano i utrzymano stanowisko spawalnicze."] },
-                    { role: "Spawacz TIG", company: "DKM Sheetmetal Ltd", period: "Sty 2022 – Wrz 2022", description: "Projekt: piece EVERHOT, pokrywy, zawiasy, części grilla. Obowiązki obejmowały dopasowywanie, montaż produktów oraz spawanie części TIG za pomocą zacisków i przyrządów.", materials: ["Blacha Nierdzewna (1-1.5mm)", "Płyta Nierdzewna (5mm)"], tools: ["Spawarka TIG", "Zaciski", "Przyrządy"], achievements: ["Opracowano metodę pracy o wyższej wydajności."] },
-                    { role: "Spawacz TIG", company: "Active8 Robots", period: "Maj 2021 – Wrz 2021", description: "Projekt: ramy ze stali nierdzewnej do ręcznego i zrobotyzowanego stołu pakującego dla McCain Foods. Obowiązki obejmowały przygotowanie warsztatu, produkcję, cięcie, dopasowywanie, spawanie TIG i wykańczanie elementów ze stali nierdzewnej.", materials: ["Profile Pudełkowe Nierdzewne", "Rury Nierdzewne"], tools: ["Spawarka TIG", "Narzędzia Tnące", "Szlifierka Orbitalna", "Narzędzia do Wykończenia INOX"], achievements: ["Zorganizowano opłacalny dział obróbki metalu i pomógł ukończyć główną część projektu na czas, zapewniając wyjątkową jakość obróbki metalu."] },
-                    { role: "Spawacz TIG", company: "DKM Sheetmetal Ltd", period: "Lut 2021 – Kwi 2021", description: "Projekt: piece EVERHOT. Te same obowiązki co w późniejszym okresie, skoncentrowane na dopasowywaniu, montażu i spawaniu TIG komponentów ze stali nierdzewnej.", materials: ["Blacha Nierdzewna"], tools: ["Spawarka TIG", "Zaciski", "Przyrządy"], achievements: [] },
-                    { role: "Spawacz TIG", company: "Berkeley Stainless Fittings", period: "Cze 2020 – Lut 2021", description: "Produkcja higienicznych komponentów (rury, zawory, kołnierze) dla przemysłu spożywczego i farmaceutycznego.", materials: ["Higieniczna Stal Nierdzewna (Rury, Armatura, Zawory)"], tools: ["Spawarka TIG", "Stół Obrotowy", "Robot Spawalniczy", "Narzędzia Polerskie"], achievements: ["Znacząco poprawiono jakość spawania produktów i zwiększono wydajność (prędkości stołu obrotowego o 50%) poprzez opracowanie kompleksowej książki danych ustawień spawalniczych i precyzyjnych adapterów."] },
-                    { role: "Metaloplastyk", company: "Pangolin Editions Ltd", period: "Paź 2015 – Kwi 2019", description: "Wykonywanie złożonych, wieloetapowych produkcji wielkoskalowych rzeźb z brązu dla światowej sławy artystów, takich jak Damien Hirst. Rola ta wymagała wyjątkowej precyzji, dbałości o szczegóły i zaawansowanych umiejętności rozwiązywania problemów.", materials: ["Brąz Odlewany", "Mosiądz", "Aluminium"], tools: ["Spawarka TIG/MIG", "Przecinarka Plazmowa", "Szlifierki Elektryczne/Pneumatyczne", "Narzędzia Ręczne", "Suwnica (do 20 ton)"], achievements: ["Zwiększono wydajność pracy działu poprzez opracowanie i udostępnienie nowych metod pracy, technik i narzędzi.", "Pomyślnie naprawiono źle odlane rzeźby z brązu."] }
-                ],
-                en: [
-                    { role: "TIG/MIG Welder", company: "CKF Systems Limited", period: "Sep 2024 – Jul 2025", description: "Continuing to build on specialist welding skills in an automated systems environment for the food industry.", materials: ["Stainless Steel", "Steel Structures"], tools: ["TIG Welder", "MIG Welder"], achievements: [] },
-                    { role: "TIG/MIG Welder", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Feb 2024 – Aug 2024", description: "Fabricating and welding components for Aerospace & Defence industry Suppliers. Ensuring the highest quality and safety standards in welding operations. Collaborating with a team of skilled professionals to meet project deadlines and specifications. Conducting visual inspections and quality checks on completed welds.", materials: ["Stainless Steel", "Aluminum"], tools: ["TIG Welder", "MIG Welder", "Inspection Tools"], achievements: ["Achieved positive test results and certifications in the aerospace industry for fillet welds on stainless steel and aluminum with thicknesses of 1.6mm, 3mm, and 6mm.", "Identified and implemented solutions for welding settings that enabled the acceptance of new orders from clients such as Rolls-Royce.", "Successfully upgraded and maintained the welding bay setup, developing welding procedures and settings.", "Maintained a strong safety record and adhered to all relevant safety protocols and guidelines."] },
-                    { role: "TIG Welder", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Fabricating and welding various components of production lines for the food industry. Ensuring the highest quality and safety standards, conducting visual inspections, and adhering to strict procedures.", materials: ["Stainless Steel", "Steel Structures"], tools: ["TIG Welder", "MIG Welder"], achievements: ["Consistently produced high-quality welds, contributing to the successful completion of complex production line projects for corporate clients in the food industry.", "Successfully upgraded and maintained the welding bay setup."] },
-                    { role: "TIG Welder", company: "DKM Sheetmetal Ltd", period: "Jan 2022 – Sep 2022", description: "Project: EVERHOT ovens, lids, hinges, grill parts. Responsibilities included fitting, assembling products, and TIG welding parts with clamps and jigs.", materials: ["Stainless Steel Sheet (1-1.5mm)", "Stainless Steel Plate (5mm)"], tools: ["TIG Welder", "Clamps", "Jigs"], achievements: ["Developed a method for working at a higher efficiency."] },
-                    { role: "TIG Welder", company: "Active8 Robots", period: "May 2021 – Sep 2021", description: "Project: Stainless steel frames for manual and robot pack-off table for McCain Foods. Responsibilities included setting up the workshop, fabricating, cutting, fitting, TIG welding, and finishing stainless steel elements.", materials: ["Stainless Steel Box Sections", "Stainless Steel Tubes"], tools: ["TIG Welder", "Cutting Tools", "Orbital Sander", "INOX Finish Tools"], achievements: ["Organized a cost-efficient metalwork department and helped to finish a major part of the project on time, providing outstanding metalwork quality."] },
-                    { role: "TIG Welder", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Project: EVERHOT ovens. Same role and responsibilities as the later period, focused on fitting, assembling, and TIG welding stainless steel components.", materials: ["Stainless Steel Sheet"], tools: ["TIG Welder", "Clamps", "Jigs"], achievements: [] },
-                    { role: "TIG Welder", company: "Berkeley Stainless Fittings", period: "Jun 2020 – Feb 2021", description: "Fabricated hygienic components (tubes, valves, flanges) for the food and pharmaceutical industries.", materials: ["Hygienic Stainless Steel (Tubes, Fittings, Valves)"], tools: ["TIG Welder", "Rotating Table", "Robot Welder", "Polishing Tools"], achievements: ["Significantly improved product welding quality and increased rotary table speeds by up to 50%) by developing a comprehensive welding settings data book and precision adapters."] },
-                    { role: "Metalworker", company: "Pangolin Editions Ltd", period: "Oct 2015 – Apr 2019", description: "Executed complex, multi-stage fabrication of large-scale bronze sculptures for world-renowned artists such as Damien Hirst. This role demanded exceptional precision, attention to detail, and advanced problem-solving skills.", materials: ["Cast Bronze", "Brass", "Aluminum"], tools: ["TIG/MIG Welder", "Plasma Cutter", "Electric/Air Grinders", "Manual Tools", "Floor-operated Crane (up to 20 ton)"], achievements: ["Increased department work efficiency by developing and sharing new working methods, techniques and tools.", "Successfully repaired poorly casted bronze sculptures."] }
-                ],
-                de: [
-                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2024 – Jul 2025", description: "Weiterentwicklung spezialisierter Schweißkenntnisse in einer automatisierten Systemumgebung für die Lebensmittelindustrie.", materials: ["Edelstahl", "Stahlkonstruktionen"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: [] },
-                    { role: "WIG/MIG-Schweißer", company: "Fowlers Of Bristol (Engineers) Ltd.", period: "Feb 2024 – Aug 2024", description: "Herstellung i Schweißen von Komponenten für Zulieferer der Luft- i Raumfahrt- sowie der Verteidigungsindustrie. Gewährleistung höchster Qualitäts- i Sicherheitsstandards bei Schweißarbeiten. Zusammenarbeit mit einem Team von qualifizierten Fachleuten, um Projekttermine i -spezifikationen einzuhalten. Durchführung von Sicht- i Qualitätsprüfungen an fertigen Schweißnähten.", materials: ["Edelstahl", "Aluminium"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät", "Inspektionswerkzeuge"], achievements: ["Positive Testergebnisse i Zertifizierungen in der Luft- i Raumfahrtindustrie für Kehlnähte an Edelstahl i Aluminium mit Dicken von 1,6 mm, 3 mm i 6 mm erzielt.", "Lösungen für Schweißeinstellungen identifiziert i implementiert, die die Annahme neuer Aufträge von Kunden wie Rolls-Royce ermöglichten.", "Schweißbucht erfolgreich modernisiert i gewartet, Schweißverfahren i -einstellungen entwickelt.", "Eine starke Sicherheitsbilanz aufrechterhalten i alle relevanten Sicherheitsprotokolle i -richtlinien eingehalten."] },
-                    { role: "WIG/MIG-Schweißer", company: "CKF Systems Limited", period: "Sep 2022 – Feb 2024", description: "Herstellung i Schweißen verschiedener Komponenten von Produktionslinien für die Lebensmittelindustrie. Gewährleistung höchster Qualitäts- i Sicherheitsstandards, Durchführung von Sichtprüfungen i Einhaltung strenger Verfahren.", materials: ["Edelstahl", "Stahlkonstrukcje"], tools: ["WIG-Schweißgerät", "MIG-Schweißgerät"], achievements: ["Kontinuierlich hochwertige Schweißnähte produziert, die zum erfolgreichen Abschluss komplexer Produktionslinienprojekte für Firmenkunden in der Lebensmittelindustrie beigetragen haben.", "Schweißbucht erfolgreich modernisiert i gewartet."] },
-                    { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Jan 2022 – Sep 2022", description: "Projekt: EVERHOT-Öfen, Deckel, Scharniere, Grillteile. Zu den Aufgaben gehörten das Anpassen, Montieren von Produkten i das WIG-Schweißen von Teilen mit Klemmen i Vorrichtungen.", materials: ["Edelstahlblech (1-1,5 mm)", "Edelstahlplatte (5 mm)"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: ["Eine Methode für eine höhere Arbeitseffizienz entwickelt."] },
-                    { role: "WIG-Schweißer", company: "Active8 Robots", period: "Mai 2021 – Sep 2021", description: "Projekt: Edelstahlrahmen für manuelle i robotergestützte Verpackungstische für McCain Foods. Zu den Aufgaben gehörten die Einrichtung der Werkstatt, die Herstellung, das Schneiden, Anpassen, WIG-Schweißen i Veredelung von Edelstahlelementen.", materials: ["Edelstahl-Kastenprofile", "Edelstahlrohre"], tools: ["WIG-Schweißgerät", "Schneidwerkzeuge", "Exzenterschleifer", "INOX-Finish-Werkzeuge"], achievements: ["Eine kostengünstige Metallbearbeitungsabteilung organisiert i geholfen, einen großen Teil des Projekts pünktlich abzuschließen, wobei eine hervorragende Metallbearbeitungsqualität erzielt wurde."] },
-                    { role: "WIG-Schweißer", company: "DKM Sheetmetal Ltd", period: "Feb 2021 – Apr 2021", description: "Projekt: EVERHOT-Öfen. Dieselben Aufgaben i Verantwortlichkeiten wie im späteren Zeitraum, mit Schwerpunkt auf dem Anpassen, Montieren i WIG-Schweißen von Edelstahlkomponenten.", materials: ["Edelstahlblech"], tools: ["WIG-Schweißgerät", "Klemmen", "Vorrichtungen"], achievements: [] },
-                    { role: "WIG-Schweißer", company: "Berkeley Stainless Fittings", period: "Jun 2020 – Feb 2021", description: "Herstellung von Hygienekomponentem (Rohre, Ventile, Flansche) dla przemysłu spożywczego i farmaceutycznego.", materials: ["Hygienischer Edelstahl (Rohre, Fittings, Ventile)"], tools: ["WIG-Schweißgerät", "Drehtisch", "Schweißroboter", "Polierwerkzeuge"], achievements: ["Die Schweißqualität der Produkte erheblich verbessert i die Drehtischgeschwindigkeiten um bis zu 50 % erhöht, indem ein umfassendes Datenbuch für Schweißeinstellungen entwickelt wurde."] },
-                    { role: "Metallbauer", company: "Pangolin Editions Ltd", period: "Okt 2015 – Apr 2019", description: "Ausführung komplexer, wieloetapowych produkcji wielkoskalowych rzeźb z brązu dla światowej sławy artystów such as Damien Hirst. Diese Rolle erforderte außergewöhnliche Präzision, Liebe zum Detail i fortgeschrittene Problemlösungsfähigkeiten.", materials: ["Brąz Odlewany", "Mosiądz", "Aluminium"], tools: ["Spawarka TIG/MIG", "Przecinarka Plazmowa", "Szlifierki Elektryczne/Pneumatyczne", "Narzędzia Ręczne", "Suwnica (do 20 ton)"], achievements: ["Die Arbeitseffizienz der Abteilung durch die Entwicklung i den Austausch neuer Arbeitsmethoden, Techniken i Werkzeuge gesteigert.", "Schlecht gegossene Bronzeskulpturen erfolgreich repariert."] }
-                ]
-            },
-            achievements_title: {
-                pl: "Kluczowe Mocne Strony i Osiągnięcia",
-                en: "Key Strengths & Achievements",
-                de: "Wichtigste Stärken und Erfolge"
-            },
-            achievements_desc: {
-                pl: "Zbiór kluczowych osiągnięć, które podkreślają moją zdolność do dostarczania wymiernych rezultatów.",
-                en: "A collection of key achievements that highlight my ability to deliver tangible results.",
-                de: "Eine Sammlung von Schlüsselerfolgen, die meine Fähigkeit unterstreichen, greifbare Ergebnisse zu liefern."
-            },
-            key_achievements: {
-                pl: [
-                    { title: 'Podejście Analityczne i Optymalizacja', text: 'W Berkeley Stainless Fittings osiągnąłem doskonałe wyniki w spawaniu na stole obrotowym poprzez metodyczne dokumentowanie, testowanie i udoskonalanie ustawień. To podejście oparte na danych pozwoliło mi przewyższyć jakość i wydajność kolegów z wieloletnim doświadczeniem, co świadczy o mojej sile w optymalizacji procesów.'},
-                    { title: 'Szybkie Przyswajanie Umiejętności', text: 'Mimo zaledwie 6 miesięcy sporadycznego doświadczenia z aluminium, pomyślnie zdałem najtrudniejszy test spoiny pachwinowej klasy lotniczej (1.6mm). To podkreśla naturalne predyspozycje i zdolność do szybkiego opanowywania złożonych, precyzyjnych zadań pod presją.'},
-                    { title: 'Umożliwienie Zamówień od Rolls-Royce', text: 'Opracowałem i wdrożyłem ustawienia spawalnicze, które umożliwiły Fowlers of Bristol pozyskanie nowych zamówień od Rolls-Royce, rozwiązując wcześniejsze problemy techniczne.'},
-                    { title: 'Stworzenie Warsztatu', text: 'W Active8 Robots zorganizowałem od podstaw w pełni funkcjonalny i opłacalny dział obróbki metalu, co umożliwiło terminowe ukończenie projektu dla McCain Foods.'},
-                    { title: 'Zdanie Trudnych Testów Spawalniczych', text: 'Uzyskałem uprawnienia lotnicze na spoiny pachwinowe z aluminium po zalediwe 3 miesiącach sporadycznego doświadczenia, zadanie, którego nie mogli zaliczyć koledzy z ponad 20-letnim doświadczeniem.'},
-                    { title: 'Wzrost Wydajności o 50%', text: 'W Berkeley Stainless Fittings poprawiłem jakość spawania i zwiększyłem prędkość stołu obrotowego nawet o 50% dzięki opracowaniu kompleksowej książki danych ustawień spawalniczych.'}
-                ],
-                en: [
-                    { title: 'Analytical Approach & Optimization', text: 'At Berkeley Stainless Fittings, I achieved superior results in rotating table welding by methodically documenting, testing, and refining settings. This data-driven approach allowed me to surpass the quality and efficiency of colleagues with decades more experience, demonstrating a core strength in process optimization.'},
-                    { title: 'Rapid Skill Acquisition', text: 'Despite having only 6 months of intermittent experience with aluminum, I successfully passed the most difficult aerospace-grade fillet weld test (1.6mm). This highlights a natural aptitude and the ability to quickly master complex, high-precision tasks under pressure.'},
-                    { title: 'Enabled Rolls-Royce Orders', text: 'Developed and implemented welding settings that enabled Fowlers of Bristol to secure new orders from Rolls-Royce, resolving previous technical challenges.'},
-                    { title: 'Workshop Creation', text: 'At Active8 Robots, organised a fully functional and cost-effective metalwork department from scratch, enabling timely project completion for McCain Foods.'},
-                    { title: 'Passed Difficult Weld Tests', text: 'Achieved aerospace coding for aluminium fillet welds with only 3 months of intermittent experience, a task colleagues with 20+ years of experience could not pass.'},
-                    { title: '50% Efficiency Increase', text: 'At Berkeley Stainless Fittings, improved welding quality and increased rotary table speeds by up to 50% by developing a comprehensive welding settings data book.'}
-                ],
-                de: [
-                    { title: 'Analytischer Ansatz & Optimierung', text: 'Bei Berkeley Stainless Fittings erzielte ich hervorragende Ergebnisse beim Drehtischschweißen, indem ich Einstellungen methodisch dokumentierte, testete und verfeinerte. Dieser datengesteuerte Ansatz ermöglichte es mir, die Qualität und Effizienz von Kollegen mit jahrzehntelanger Erfahrung zu übertreffen, was eine Kernstärke in der Prozessoptimierung demonstriert.'},
-                    { title: 'Schnelle Aneignung von Fähigkeiten', text: 'Trotz nur 6 Monaten sporadischer Erfahrung mit Aluminium habe ich den schwierigsten Kehlnaht-Test auf Luft- i Raumfahrtniveau (1,6 mm) erfolgreich bestanden. Dies unterstreicht eine natürliche Begabung i die Fähigkeit, komplexe, hochpräzise Aufgaben unter Druck schnell zu meistern.'},
-                    { title: 'Ermöglichte Rolls-Royce-Aufträge', text: 'Entwickelte i implementierte Schweißeinstellungen, die es Fowlers of Bristol ermöglichten, neue Aufträge von Rolls-Royce zu sichern i frühere technische Herausforderungen zu lösen.'},
-                    { title: 'Werkstatterstellung', text: 'Bei Active8 Robots eine voll funktionsfähige i kostengünstige Metallbearbeitungsabteilung von Grund auf organisiert, was eine rechtzeitige Projektabwicklung für McCain Foods ermöglichte.'},
-                    { title: 'Schwierige Schweißtests bestanden', text: 'Luft- i Raumfahrtzertifizierung für Aluminium-Kehlnähte mit nur 3 Monaten sporadischer Erfahrung erhalten, eine Aufgabe, die Kollegen mit über 20 Jahren Erfahrung nicht bestehen konnten.'},
-                    { title: '50% Effizienzsteigerung', text: 'Bei Berkeley Stainless Fittings die Schweißqualität verbessert i die Drehtischgeschwindigkeiten um bis zu 50 % erhöht, indem ein umfassendes Datenbuch für Schweißeinstellungen entwickelt wurde.'}
-                ]
-            },
-            education_title: {
-                pl: "Edukacja i Informacje",
-                en: "Education & Info",
-                de: "Bildung & Informationen"
-            },
-            education_heading: { pl: "Edukacja", en: "Education", de: "Bildung" },
-            info_heading: { pl: "Dodatkowe Informacje", en: "Additional Info", de: "Zusätzne Informationen" },
-            education_data: {
-                pl: ["Uniwersytet Rzeszowski, Wydział Sztuki, Polska (2006 – 2009)", "Zespół Szkół Plastycznych, Rzeszów, Polska (2000 – 2006)"],
-                en: ["University of Rzeszow, Department of Art, Poland (2006 – 2009)", "Comprehensive School of Fine Arts, Rzeszow, Poland (2000 – 2006)"],
-                de: ["Universität Rzeszów, Fakultät für Kunst, Polen (2006 – 2009)", "Gesamtschule der Schönen Künsti, Rzeszów, Polen (2000 – 2006)"]
-            },
-            info_data: {
-                pl: ["Języki: Polski (Ojczysty), Angielski (Średniozaawansowany)", "Zainteresowania: Sport (koszykówka, lekkoatletyka), Komputery, Sztuka"],
-                en: ["Languages: Polish (Native), English (Intermediate)", "Interests: Sports (basketball, track athletics), Computers, Art"],
-                de: ["Sprachen: Polonais (Native), Angielski (Mittelstufe)", "Interessen: Sport (Basketball, Leichtathletik), Computer, Kunst"]
-            },
-            footer_text: {
-                pl: "© 2025 Piotr Nowakowski.",
-                en: "© 2025 Piotr Nowakowski.",
-                de: "© 2025 Piotr Nowakowski."
-            },
-            theme_light: { en: "Light Mode", pl: "Tryb Jasny", de: "Heller Modus" },
-            theme_dark: { en: "Dark Mode", pl: "Tryb Ciemny", de: "Dunkler Modus" },
-            materials_label: { pl: "Materiały", en: "Materials", de: "Materialien"},
-            tools_label: { pl: "Narzędzia", en: "Tools", de: "Werkzeuge"},
-            achievements_label: { pl: "Osiągnięcia", en: "Achievements", de: "Erfolge"}
-        };
-
-        let currentLang = localStorage.getItem('cv-lang') || 'en';
-        let skillsChart;
-        let animationFrameId = null;
-        let isInitialChartAnimationDone = false;
-
+        // --- SEKCJA 1: Funkcje pomocnicze i narzędziowe ---
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
             localStorage.setItem('cv-theme', theme);
-            
-            document.querySelectorAll('#theme-switcher .theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#theme-switcher .theme-btn[data-theme="${theme}"]`).classList.add('active');
-
-            renderSkillsChart(currentLang);
-        }
+        };
 
         const loadTheme = () => {
-            const savedTheme = localStorage.getItem('cv-theme') || 'default';
+            const savedTheme = localStorage.getItem('cv-theme') || 'theme-atom-one-dark';
             applyTheme(savedTheme);
-        }
-
-        const translatePage = (lang) => {
-            currentLang = lang;
-            document.documentElement.lang = lang;
-            localStorage.setItem('cv-lang', lang);
-            
-            document.querySelectorAll('#lang-switcher .lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`#lang-switcher .lang-btn[data-lang="${lang}"]`).classList.add('active');
-            
-            document.querySelectorAll('[data-translate-key]').forEach(el => {
-                const key = el.dataset.translateKey;
-                if (translations[key] && translations[key][lang]) {
-                    if (Array.isArray(translations[key][lang])) {
-                    } else {
-                        el.textContent = translations[key][lang];
-                    }
-                }
-            });
-
-            renderSummary(lang);
-            renderTimeline(lang);
-            renderAchievements(lang);
-            renderEducationAndInfo(lang);
-            renderSkillsChart(lang);
-            renderWeldingChart(lang);
         };
 
-        const renderSummary = (lang) => {
-            const summaryTextElement = document.getElementById('summary-text');
-            if (summaryTextElement && translations.summary_text[lang]) {
-                summaryTextElement.textContent = translations.summary_text[lang];
-            }
+        const showToast = (message) => {
+            const toast = document.getElementById('toast-notification');
+            if (!toast) return;
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         };
 
-        const renderTimeline = (lang) => {
-            const timelineContainer = document.getElementById('timeline-container');
-            timelineContainer.innerHTML = '';
-            translations.work_history[lang].forEach((job) => {
-                const item = document.createElement('div');
-                item.className = 'timeline-item p-2 shadow-sm';
-                
-                const header = document.createElement('div');
-                header.className = 'timeline-item-header relative pl-6 pr-4 py-3 cursor-pointer flex justify-between items-center flex-wrap gap-2';
-                header.innerHTML = `
-                    <div>
-                        <span class="font-bold text-blue">${job.role}</span>
-                        <span class="text-base00">@</span>
-                        <span class="text-green">${job.company}</span>
-                    </div>
-                    <span class="text-sm text-base00 flex-shrink-0">${job.period}</span>
-                `;
-
-                const content = document.createElement('div');
-                content.className = 'timeline-item-content hidden p-4 pt-0';
-                
-                let materialsHTML = job.materials.length > 0 ? `<p class="mt-2"><strong class="text-magenta">${translations.materials_label[lang]}:</strong> ${job.materials.join(', ')}</p>` : '';
-                let toolsHTML = job.tools.length > 0 ? `<p class="mt-2"><strong class="text-magenta">${translations.tools_label[lang]}:</strong> ${job.tools.join(', ')}</p>` : '';
-                let achievementsHTML = job.achievements.length > 0 ? `<div class="mt-2"><strong class="text-magenta">${translations.achievements_label[lang]}:</strong><ul class="list-disc list-inside pl-2 mt-1 space-y-1">${job.achievements.map(ach => `<li>${ach}</li>`).join('')}</ul></div>` : '';
-
-                content.innerHTML = `<div class="pl-6 border-l-2 border-base0 space-y-2">
-                    <p>${job.description}</p>
-                    ${materialsHTML}
-                    ${toolsHTML}
-                    ${achievementsHTML}
-                </div>`;
-                
-                item.appendChild(header);
-                item.appendChild(content);
-                timelineContainer.appendChild(item);
-
-                header.addEventListener('click', () => {
-                    item.classList.toggle('open');
-                    content.classList.toggle('hidden');
-                });
-            });
-        };
-        
-        const renderAchievements = (lang) => {
-            const achievementsContainer = document.getElementById('achievements-grid');
-            achievementsContainer.innerHTML = '';
-            translations.key_achievements[lang].forEach(ach => {
-                const card = document.createElement('div');
-                card.className = 'p-4 shadow-lg hover:shadow-xl transition';
-                card.innerHTML = `<h3 class="font-bold text-base text-green mb-2">${ach.title}</h3><p class="text-base01">${ach.text}</p>`;
-                achievementsContainer.appendChild(card);
-            });
-        };
-
-        const renderEducationAndInfo = (lang) => {
-            const eduList = document.getElementById('education-list');
-            eduList.innerHTML = '';
-            translations.education_data[lang].forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                eduList.appendChild(li);
-            });
-
-            const infoList = document.getElementById('info-list');
-            infoList.innerHTML = '';
-            translations.info_data[lang].forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                infoList.appendChild(li);
-            });
-        };
-
-        const renderSkillsChart = (lang) => {
-            const skillsChartCanvas = document.getElementById('skillsChart');
-            const skillsChartCtx = skillsChartCanvas.getContext('2d');
-            
-            const computedStyle = getComputedStyle(document.body);
-            const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
-            const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
-            const ACCENT_COLOR = computedStyle.getPropertyValue('--cyan').trim();
-            const BG_COLOR_TICK = `rgba(${computedStyle.getPropertyValue('--base2-rgb').trim()}, 0.75)`;
-
-            if (skillsChart) {
-                skillsChart.data.labels = translations.skills_chart_labels[lang];
-                const options = skillsChart.options;
-                options.scales.r.pointLabels.color = FONT_COLOR;
-                options.scales.r.angleLines.color = GRID_COLOR;
-                options.scales.r.grid.color = GRID_COLOR;
-                options.scales.r.ticks.color = FONT_COLOR;
-                options.scales.r.ticks.backdropColor = BG_COLOR_TICK;
-                
-                const dataset = skillsChart.data.datasets[0];
-                dataset.backgroundColor = ACCENT_COLOR + '33';
-                dataset.borderColor = ACCENT_COLOR;
-                dataset.pointBackgroundColor = ACCENT_COLOR;
-                
-                skillsChart.update();
-                initializeChartTooltipEvents(skillsChart, lang);
+        // --- SEKCJA 2: Funkcje związane z układem strony (Layout) ---
+        /**
+         * Oblicza i ustawia maksymalną wymaganą wysokość dla kontenera,
+         * aby zapobiec "skakaniu" layoutu przy zmianie zakładek.
+         */
+        const stabilizeLayoutHeight = () => {
+            const layoutWrapper = document.getElementById('layout-wrapper');
+            if (!layoutWrapper || window.innerWidth < 768) {
+                if(layoutWrapper) layoutWrapper.style.height = 'auto';
                 return;
             }
 
-            const skillsChartData = {
-                labels: translations.skills_chart_labels[lang],
-                datasets: [{
-                    label: 'Proficiency',
-                    data: [0, 0, 0, 0, 0, 0], 
-                    backgroundColor: ACCENT_COLOR + '33',
-                    borderColor: ACCENT_COLOR,
-                    pointBackgroundColor: ACCENT_COLOR,
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: ACCENT_COLOR
-                }]
-            };
-            const skillsChartConfig = {
-                type: 'radar',
-                data: skillsChartData,
-                options: {
-                    maintainAspectRatio: false,
-                    responsive: true,
-                    animation: false,
-                    scales: {
-                        r: {
-                            angleLines: { color: GRID_COLOR },
-                            grid: { color: GRID_COLOR },
-                            pointLabels: { 
-                                font: { size: 12, family: "'IBM Plex Mono', monospace" }, 
-                                color: FONT_COLOR,
-                                padding: 25
-                            },
-                            ticks: { 
-                                backdropColor: BG_COLOR_TICK, 
-                                color: FONT_COLOR, 
-                                stepSize: 2, 
-                                font: { family: "'IBM Plex Mono', monospace" } 
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 10
-                        }
-                    },
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            };
-            skillsChart = new Chart(skillsChartCtx, skillsChartConfig);
-            
-            initializeChartTooltipEvents(skillsChart, lang);
+            const profileHeader = document.querySelector('.profile-header-flex');
+            const contentFlex = document.querySelector('.content-flex');
+            const infoContents = document.querySelectorAll('#info-container .tab-content');
+            const summaryContents = document.querySelectorAll('#summary-container .tab-content');
 
-            const finalTargetValues = [9, 9, 9, 4.5, 8, 9]; 
-            const initialAnimationBaseDuration = 2000;
-            let initialAnimationStartTime = null;
+            const originalActiveInfo = document.querySelector('#info-container .tab-content.active');
+            const originalActiveSummary = document.querySelector('#summary-container .tab-content.active');
+            let maxContentHeight = 0;
 
-            const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
-            const easeInOutCubic = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-
-            const initialEasingFunctions = [
-                easeInOutCubic, easeOutCubic, easeOutCubic,
-                easeOutCubic, easeOutCubic, easeOutCubic
-            ];
-
-            const initialSpeedMultipliers = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8]; 
-            const oscillationAmplitudes = [0.25, 0.25, 0.25, 0.25, 0.25, 0.25]; 
-            const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017];
-            const oscillationOffsets = [0, 0, 0, 0, 0, 0]; 
-
-            const individualPeakReachTime = finalTargetValues.map((_, index) => {
-                return initialAnimationBaseDuration / initialSpeedMultipliers[index];
+            infoContents.forEach(infoTab => {
+                summaryContents.forEach(summaryTab => {
+                    infoContents.forEach(c => c.classList.remove('active'));
+                    summaryContents.forEach(c => c.classList.remove('active'));
+                    infoTab.classList.add('active');
+                    summaryTab.classList.add('active');
+                    maxContentHeight = Math.max(maxContentHeight, contentFlex.offsetHeight);
+                });
             });
 
-            function animateChart(timestamp) {
-                if (!initialAnimationStartTime) initialAnimationStartTime = timestamp;
-                const globalElapsedTime = timestamp - initialAnimationStartTime;
-
-                const newValues = finalTargetValues.map((targetValuePeak, index) => { 
-                    let currentValue;
-                    const amplitude = oscillationAmplitudes[index];
-                    const peakReachTime = individualPeakReachTime[index];
-                    const easingFn = initialEasingFunctions[index];
-
-                    if (globalElapsedTime < peakReachTime) {
-                        let progress = globalElapsedTime / peakReachTime;
-                        currentValue = easingFn(progress) * targetValuePeak;
-                    } else {
-                        const oscillationTime = globalElapsedTime - peakReachTime; 
-                        const oscillationCenter = targetValuePeak - amplitude; 
-                        const oscillation = amplitude * Math.cos(oscillationTime * oscillationSpeeds[index] + oscillationOffsets[index]);
-                        currentValue = oscillationCenter + oscillation;
-                        currentValue = Math.max(0, Math.min(10, currentValue));
-                    }
-                    return currentValue;
-                });
-
-                skillsChart.data.datasets[0].data = newValues;
-                skillsChart.update('none');
-                animationFrameId = requestAnimationFrame(animateChart);
+            infoContents.forEach(c => c.classList.remove('active'));
+            summaryContents.forEach(c => c.classList.remove('active'));
+            if (originalActiveInfo) {
+                originalActiveInfo.classList.add('active');
+            } else if (infoContents.length > 0) {
+                infoContents[0].classList.add('active');
             }
-            
-            const skillsObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        if (!isInitialChartAnimationDone) {
-                            isInitialChartAnimationDone = true;
-                            animationFrameId = requestAnimationFrame(animateChart);
-                        }
-                        observer.unobserve(skillsChartCanvas);
-                    }
+            if (originalActiveSummary) {
+                originalActiveSummary.classList.add('active');
+            } else if (summaryContents.length > 0) {
+                summaryContents[0].classList.add('active');
+            }
+
+            const totalHeight = profileHeader.offsetHeight + maxContentHeight;
+            layoutWrapper.style.height = totalHeight + 'px';
+        };
+
+        // --- SEKCJA 3: Funkcje inicjalizujące ---
+        const initThemeSwitcher = () => {
+            document.querySelectorAll('.theme-toggle-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const isDarkMode = document.body.classList.contains('theme-atom-one-dark');
+                    applyTheme(isDarkMode ? 'default' : 'theme-atom-one-dark');
                 });
-            }, { threshold: 0.5 });
-            skillsObserver.observe(skillsChartCanvas);
+            });
+        };
+
+        const initLangSwitcher = () => {
+            const handleLangSwitch = (e) => {
+                 if (e.target.matches('.lang-btn')) {
+                    const selectedLang = e.target.dataset.lang;
+                    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll(`.lang-btn[data-lang="${selectedLang}"]`).forEach(btn => btn.classList.add('active'));
+                }
+            };
+            document.getElementById('lang-switcher')?.addEventListener('click', handleLangSwitch);
+            document.getElementById('mobile-lang-switcher')?.addEventListener('click', handleLangSwitch);
+        };
+
+        const initTabs = () => {
+            const setupTabs = (containerId) => {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const tabTitles = container.querySelectorAll('.tab-title');
+                const tabContents = container.querySelectorAll('.tab-content');
+                const activateTab = (tabId) => {
+                    tabTitles.forEach(title => {
+                        const isActive = title.getAttribute('data-tab') === tabId;
+                        title.classList.toggle('active', isActive);
+                        title.classList.toggle('inactive', !isActive);
+                    });
+                    tabContents.forEach(content => {
+                        const isActive = content.getAttribute('data-content') === tabId;
+                        content.classList.toggle('active', isActive);
+                    });
+                };
+                tabTitles.forEach(title => {
+                    title.addEventListener('click', () => activateTab(title.getAttribute('data-tab')));
+                });
+                if (tabTitles.length > 0) {
+                    activateTab(tabTitles[0].getAttribute('data-tab'));
+                }
+            };
+            setupTabs('info-container');
+            setupTabs('summary-container');
+        };
+
+        const initCopyButtons = () => {
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const valueToCopy = button.dataset.copyValue;
+                    if (!valueToCopy) return;
+                    navigator.clipboard.writeText(valueToCopy).then(() => {
+                        showToast('Skopiowano!');
+                    }).catch(err => {
+                        console.error('Błąd kopiowania:', err);
+                        showToast('Błąd kopiowania');
+                    });
+                });
+            });
         };
         
-        function initializeChartTooltipEvents(chart, lang) {
-            const canvas = chart.canvas;
-            const tooltipEl = document.getElementById('skill-tooltip-container');
-
-            const skillToQualificationMap = {
-                'TIG Welding': 'Specialist Welding',
-                'Quality & Compliance': 'Quality & Compliance',
-                'Artisanal Fabrication': 'Artisanal Fabrication',
-                'Industrial Machining': 'Technical Fabrication',
-                'Safety Procedures': 'Safety & Procedures',
-                'Problem Solving': 'Problem Solving'
-            };
-
-            const getQualificationByTitle = (title, lang) => {
-                const qualificationsInEN = translations.qualifications_data['en'];
-                const qualificationsInCurrentLang = translations.qualifications_data[lang];
-                const index = qualificationsInEN.findIndex(q => q.title === title);
-                return index !== -1 ? qualificationsInCurrentLang[index] : null;
-            };
-
-            canvas.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                let foundLabel = false;
-
-                const pointLabels = chart.scales.r._pointLabelItems;
-                for (let i = 0; i < pointLabels.length; i++) {
-                    const label = pointLabels[i];
-                    const {left, right, top, bottom} = label;
-                    
-                    if (x >= left && x <= right && y >= top && y <= bottom) {
-                        foundLabel = true;
-                        canvas.style.cursor = 'pointer';
-
-                        const skillLabelEN = translations.skills_chart_labels['en'][i].join(' ');
-                        const qualificationTitleEN = skillToQualificationMap[skillLabelEN];
-                        const qualification = getQualificationByTitle(qualificationTitleEN, currentLang);
-
-                        if (qualification) {
-                            tooltipEl.innerHTML = `
-                                <div class="skill-tooltip-card">
-                                    <h3 class="font-bold mb-2">${qualification.title}</h3>
-                                    <p class="text-sm">${qualification.desc}</p>
-                                </div>
-                            `;
-                        }
-                        
-                        tooltipEl.style.left = `${e.clientX + 15}px`;
-                        tooltipEl.style.top = `${e.clientY + 15}px`;
-                        tooltipEl.classList.add('visible');
-                        
-                        break; 
-                    }
-                }
-
-                if (!foundLabel) {
-                    canvas.style.cursor = 'default';
-                    tooltipEl.classList.remove('visible');
-                }
-            });
-
-            canvas.addEventListener('mouseleave', () => {
-                canvas.style.cursor = 'default';
-                tooltipEl.classList.remove('visible');
-            });
-        }
-
-        const renderWeldingChart = (lang) => {
-            const weldingChartPlaceholder = document.getElementById('welding-chart-placeholder');
-            weldingChartPlaceholder.innerHTML = '';
-            
-            const computedStyle = getComputedStyle(document.body);
-            const FONT_COLOR = computedStyle.getPropertyValue('--base01').trim();
-            const GRID_COLOR = computedStyle.getPropertyValue('--base0').trim();
-            const LIGHT_GRID_COLOR = computedStyle.getPropertyValue('--base0').trim() + '66';
-            const FONT_FAMILY = "'IBM Plex Mono', monospace";
-            const ANIMATION_DURATION = 2000;
-
-            const allWeldingSkills = [
-                { type: 'TIG', method: 'Manual - Stainless S.', experience: 36, proficiency: 9, companies: ['Fowlers', 'CKF', 'DKM', 'Active8', 'Berkeley']},
-                { type: 'MIG', method: 'Manual - Mild Steel', experience: 2, proficiency: 4, companies: ['CKF', 'Pangolin']},
-                { type: 'TIG', method: 'Manual - Aluminum', experience: 3, proficiency: 8, companies: ['Fowlers', 'Pangolin Editions']},
-                { type: 'TIG', method: 'Rotating Table - Stainless S.', experience: 7.6, proficiency: 9, companies: ['Berkeley Fittings']},
-                { type: 'TIG', method: 'Robot Operator - Stainless S.', experience: 0.8, proficiency: 3, companies: ['Berkeley Fittings']},
-                { type: 'TIG', method: 'Manual - Bronze', experience: 18, proficiency: 8, companies: ['Pangolin Editions']},
-                { type: 'MIG', method: 'Manual - Bronze', experience: 0.25, proficiency: 5, companies: ['Pangolin Editions']},
-                { type: 'MIG', method: 'Manual - Aluminum', experience: 0.4, proficiency: 4, companies: ['Fowlers', 'Pangolin Editions']},
-                { type: 'TIG', method: 'Manual - Brass', experience: 0.5, proficiency: 5, companies: ['Pangolin Editions']}
-            ];
-            
-            const startYear = 2015;
-            const endYear = 2026;
-            const totalYears = endYear - startYear;
-            const CHART_AREA_HEIGHT = 450;
-
-            const getMaterialColor = (material) => {
-                const lowerMaterial = material.toLowerCase();
-                const style = getComputedStyle(document.body);
-                if (lowerMaterial.includes('stainless') || lowerMaterial.includes('steel')) return style.getPropertyValue('--violet').trim();
-                if (lowerMaterial.includes('aluminum')) return style.getPropertyValue('--base00').trim();
-                if (lowerMaterial.includes('brass')) return style.getPropertyValue('--yellow').trim();
-                if (lowerMaterial.includes('bronze')) return style.getPropertyValue('--orange').trim();
-                return style.getPropertyValue('--cyan').trim();
-            };
-
-            const scrollContainer = document.createElement('div');
-            scrollContainer.className = 'overflow-x-auto';
-            
-            const mainContainer = document.createElement('div');
-            mainContainer.className = 'flex flex-row';
-            mainContainer.style.minWidth = '768px';
-
-            const chartContentSide = document.createElement('div');
-            chartContentSide.className = 'flex-grow flex flex-col';
-
-            const headerRow = document.createElement('div');
-            headerRow.className = 'flex text-xs font-bold';
-            headerRow.style.color = FONT_COLOR;
-            headerRow.style.fontFamily = FONT_FAMILY;
-            const headers = translations.welding_chart_headers[lang];
-            headerRow.innerHTML = `
-                <div class="flex-shrink-0 pr-2" style="width: 50px;">${headers.type}</div>
-                <div class="flex-shrink-0 pr-2" style="width: 170px;">${headers.method}</div>
-                <div class="flex-grow">${headers.exp}</div>
-            `;
-            chartContentSide.appendChild(headerRow);
-            
-            const chartArea = document.createElement('div');
-            chartArea.className = 'relative flex-grow';
-            chartArea.style.height = `${CHART_AREA_HEIGHT}px`;
-            
-            const gridLines = document.createElement('div');
-            gridLines.className = 'absolute inset-0 pointer-events-none flex z-0 mt-2';
-            const gridSpacer = document.createElement('div');
-            gridSpacer.className = 'flex-shrink-0';
-            gridSpacer.style.width = '220px';
-            gridLines.appendChild(gridSpacer);
-
-            const gridLineContainer = document.createElement('div');
-            gridLineContainer.className = 'flex-grow relative';
-            const innerGrid = document.createElement('div');
-            innerGrid.className = 'absolute top-0 left-0 w-full h-full flex justify-between';
-            for (let i = 0; i <= 60; i += 6) {
-                const line = document.createElement('div');
-                line.style.height = '100%';
-                line.style.width = '1px';
-                line.style.backgroundColor = GRID_COLOR;
-                line.style.opacity = '0.2';
-                innerGrid.appendChild(line);
-            }
-            gridLineContainer.appendChild(innerGrid);
-            gridLines.appendChild(gridLineContainer);
-            chartArea.appendChild(gridLines);
-
-            const chartRowsContainer = document.createElement('div');
-            chartRowsContainer.className = 'absolute inset-0 flex flex-col justify-between space-y-3 mt-2 z-10';
-            allWeldingSkills.forEach(skill => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center';
-
-                const typeCol = document.createElement('div');
-                typeCol.className = 'flex-shrink-0 text-left text-xs pr-2';
-                typeCol.style.width = '50px';
-                typeCol.textContent = skill.type;
-                row.appendChild(typeCol);
-
-                const methodCol = document.createElement('div');
-                methodCol.className = 'flex-shrink-0 text-left text-xs pr-2';
-                methodCol.style.width = '170px';
-                methodCol.textContent = skill.method;
-                row.appendChild(methodCol);
-                
-                const barWrapper = document.createElement('div');
-                barWrapper.className = 'flex-grow flex items-center';
-                
-                const bar = document.createElement('div');
-                const barWidth = (skill.experience / 60) * 100;
-                bar.className = 'skill-bar h-6 transition-all ease-out';
-                bar.style.width = '0%';
-                bar.style.transitionDuration = `${ANIMATION_DURATION}ms`;
-                bar.style.backgroundColor = getMaterialColor(skill.method);
-                bar.dataset.width = `${barWidth}%`;
-                barWrapper.appendChild(bar);
-
-                const details = document.createElement('span');
-                details.className = 'skill-details ml-2 opacity-0 transition-opacity whitespace-nowrap';
-                details.style.transitionDuration = '500ms';
-                details.style.transitionDelay = `${ANIMATION_DURATION - 500}ms`;
-                
-                const proficiencyText = `<span class="font-normal" style="font-size: 12px;">${skill.proficiency}/10</span>`;
-                const companyList = skill.companies.join(', ');
-                const maxCompanyChars = 25;
-                const truncatedCompanies = companyList.length > maxCompanyChars ? companyList.substring(0, maxCompanyChars) + '...' : companyList;
-                const detailsText = ` <span style="font-size: 11px; opacity: 0.85;">(@ ${truncatedCompanies})</span>`;
-                
-                details.innerHTML = proficiencyText + detailsText;
-                barWrapper.appendChild(details);
-                
-                row.appendChild(barWrapper);
-                chartRowsContainer.appendChild(row);
-            });
-            chartArea.appendChild(chartRowsContainer);
-            chartContentSide.appendChild(chartArea);
-
-            const xAxisContainer = document.createElement('div');
-            xAxisContainer.className = 'flex mt-2';
-            const xAxisSpacer = document.createElement('div');
-            xAxisSpacer.className = 'flex-shrink-0';
-            xAxisSpacer.style.width = '220px';
-            xAxisContainer.appendChild(xAxisSpacer);
-
-            const xAxis = document.createElement('div');
-            xAxis.className = 'flex-grow';
-            
-            const xAxisTicks = document.createElement('div');
-            xAxisTicks.className = 'flex justify-between border-t pt-1';
-            xAxisTicks.style.borderColor = GRID_COLOR;
-            for(let i=0; i<=60; i+=6) {
-                const tick = document.createElement('span');
-                tick.className = 'text-xs';
-                tick.textContent = i;
-                xAxisTicks.appendChild(tick);
-            }
-            xAxis.appendChild(xAxisTicks);
-
-            const xAxisTitle = document.createElement('div');
-            xAxisTitle.className = 'text-center text-sm mt-2';
-            xAxisTitle.style.fontFamily = FONT_FAMILY;
-            xAxisTitle.style.color = FONT_COLOR;
-            xAxisTitle.textContent = translations.welding_chart_xaxis[lang];
-            xAxis.appendChild(xAxisTitle);
-            
-            xAxisContainer.appendChild(xAxis);
-            chartContentSide.appendChild(xAxisContainer);
-
-            mainContainer.appendChild(chartContentSide);
-
-            const yearAxisSide = document.createElement('div');
-            yearAxisSide.className = 'w-16 flex-shrink-0 ml-16';
-            
-            const yearAxisContainer = document.createElement('div');
-            yearAxisContainer.className = 'relative w-full h-full';
-
-            const yearAxisHeaderSpacer = document.createElement('div');
-            yearAxisHeaderSpacer.className = 'h-6';
-            yearAxisContainer.appendChild(yearAxisHeaderSpacer);
-
-            const yearAxisItself = document.createElement('div');
-            yearAxisItself.className = 'relative w-full border-l-2';
-            yearAxisItself.style.borderColor = 'var(--base0)';
-            yearAxisItself.style.height = `${CHART_AREA_HEIGHT}px`;
-
-            for (let year = endYear; year >= startYear; year--) {
-                if (year % 2 !== 0 && year !== endYear && year !== startYear) continue;
-                const marker = document.createElement('div');
-                marker.className = 'absolute';
-                const position = ((endYear - year) / totalYears) * 100;
-                marker.style.top = `${position}%`;
-                marker.innerHTML = `<span class="absolute right-full text-xs text-base00/70 pr-2 -translate-y-1/2">${year}</span><div class="h-px w-2 absolute right-0 -translate-y-1/2" style="background-color: ${LIGHT_GRID_COLOR};"></div>`;
-                yearAxisItself.appendChild(marker);
-            }
-            yearAxisContainer.appendChild(yearAxisItself);
-            yearAxisSide.appendChild(yearAxisContainer);
-            mainContainer.appendChild(yearAxisSide);
-            
-            scrollContainer.appendChild(mainContainer);
-            weldingChartPlaceholder.appendChild(scrollContainer);
-
-            const weldingObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        document.querySelectorAll('.skill-bar').forEach(bar => {
-                            bar.style.width = bar.dataset.width;
-                        });
-                        document.querySelectorAll('.skill-details').forEach(detail => {
-                            detail.style.opacity = '1';
-                        });
-                        observer.unobserve(weldingChartPlaceholder);
-                    }
-                });
-            }, { threshold: 0.1 });
-            weldingObserver.observe(weldingChartPlaceholder);
+        /**
+         * Inicjalizuje logikę związaną z układem strony, w tym stabilizację wysokości.
+         */
+        const initLayout = () => {
+            setTimeout(stabilizeLayoutHeight, 100);
+            window.addEventListener('resize', stabilizeLayoutHeight);
         };
-        
+
+        // --- SEKCJA 4: Główny punkt wejścia ---
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
-            translatePage(currentLang);
-
-            document.getElementById('lang-switcher').addEventListener('click', (e) => {
-                if (e.target.matches('.lang-btn')) {
-                    translatePage(e.target.dataset.lang);
-                }
-            });
-            
-            document.getElementById('theme-switcher').addEventListener('click', (e) => {
-                if (e.target.matches('.theme-btn')) {
-                    applyTheme(e.target.dataset.theme);
-                }
-            });
-
-            // --- SCROLLING & NAV LOGIC ---
-            const sections = document.querySelectorAll('.full-page-section');
-            const navLinks = document.querySelectorAll('#navbar a');
-
-            function updateActiveNav(id) {
-                navLinks.forEach(link => {
-                    const linkHref = link.getAttribute('href');
-                    if (linkHref === `#${id}`) {
-                        link.classList.add('border-orange');
-                        link.classList.remove('border-transparent');
-                    } else {
-                        link.classList.remove('border-orange');
-                        link.classList.add('border-transparent');
-                    }
-                });
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        updateActiveNav(entry.target.id);
-                    }
-                });
-            }, {
-                root: document.querySelector('main'),
-                threshold: 0.5 
-            });
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Initial active nav link
-            if (sections.length > 0) {
-                 updateActiveNav(sections[0].id);
-            }
+            initThemeSwitcher();
+            initLangSwitcher();
+            initTabs();
+            initCopyButtons();
+            initLayout(); // Uruchomienie logiki layoutu
         });
     </script>
 </body>
