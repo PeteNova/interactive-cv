@@ -40,7 +40,7 @@
         }
 
         .page-section {
-            height: 100vh;
+            min-height: 100vh;
             width: 100%;
             position: relative;
             display: flex;
@@ -57,6 +57,7 @@
         
         #profile-section { 
             background-color: var(--base2);
+            height: 100vh;
             overflow: hidden;
         }
         body.theme-atom-one-dark #profile-section, body.theme-atom-one-dark #career-section { background-color: var(--base3); }
@@ -155,11 +156,10 @@
         /* --- Style dla sekcji Kariera --- */
         #career-section {
             align-items: flex-start;
-            overflow-y: auto;
             background-color: var(--base2);
             padding-top: 7rem;
             padding-bottom: 4rem;
-            height: auto; /* Zmieniono, aby sekcja dopasowywała się do treści */
+            height: auto; 
         }
         
         .career-entry {
@@ -186,8 +186,17 @@
             color: var(--base01);
         }
         body.theme-atom-one-dark .tag-badge {
-            background-color: var(--base02);
+            background-color: transparent;
             color: var(--base01);
+            padding-left: 1.25em; 
+            position: relative;
+        }
+        body.theme-atom-one-dark .tag-badge::before {
+            content: '•';
+            position: absolute;
+            left: 0.25em; 
+            top: 50%;
+            transform: translateY(-50%);
         }
         .timeline-separator {
             border-left: 1px solid var(--base0);
@@ -208,9 +217,6 @@
             html, body, main {
                 overflow: auto;
                 height: auto;
-            }
-            main {
-                scroll-snap-type: none;
             }
             .page-section {
                 height: auto;
@@ -609,7 +615,7 @@
                         <div class="mt-4">
                             <p class="text-sm">Stonehouse, England</p>
                             <p class="text-sm">Sektor: Produkcja AGD (premium)</p>
-                            <p class="text-sm">Strona: <a href="https://dkmsheetmetal.co.uk/" target="_blank" class="timeline-text-accent timeline-link">dkmsheetmetal.co.uk</a></p>
+                            <p class="text-sm">Strona: <a href="https://www.dkm-sheetmetal.co.uk" target="_blank" class="timeline-text-accent timeline-link">dkm-sheetmetal.co.uk</a></p>
                         </div>
                     </div>
                     <div class="w-3/4 pl-4 pr-[1em]">
@@ -956,17 +962,20 @@
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
+                    if (entry.intersectionRatio > 0.5) { // Zmieniono warunek
                         const id = entry.target.getAttribute('id');
                         navLinks.forEach(link => {
-                            const linkHref = link.getAttribute('href');
-                            link.classList.toggle('active', linkHref === `#${id}`);
+                            link.classList.remove('active');
                         });
+                        const activeLink = document.querySelector(`#navbar a[href="#${id}"]`);
+                        if(activeLink) {
+                            activeLink.classList.add('active');
+                        }
                     }
                 });
             }, { 
                 root: null, 
-                threshold: 0.5 
+                threshold: 0.5 // Obserwuj moment przekroczenia 50%
             });
 
             sections.forEach(section => {
@@ -1050,4 +1059,3 @@
     </script>
 </body>
 </html>
-
