@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piotr Nowakowski - Profil</title>
+    <title>Piotr Nowakowski - Profil & Kariera</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* --- STYLE PODSTAWOWE (WIDOK DOMYŚLNY / KOMPUTERY) --- */
-        body { 
-            font-family: 'Inter', sans-serif;
-            min-width: 1200px; 
-        }
-        
         :root {
             --base03: #dee2e6; --base02: #f8f9fa; --base01: #212529; --base00: #495057;
             --base0:  #ced4da; --base1:  #6c757d; --base2:  #ffffff; --base3:  #f8f9fa;
@@ -31,17 +26,40 @@
             --cyan:   #56b6c2; --green:  #98c379; --contact-color: var(--base00);
         }
         
-        html { scroll-behavior: smooth; }
+        html, body {
+            font-family: 'Inter', sans-serif;
+            height: 100%;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         body { background-color: var(--base2); color: var(--base01); }
-        
-        .full-page-section {
-            min-height: 100vh; width: 100%; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; position: relative; padding: 2rem;
+
+        main {
+            /* Usunięto style tworzące podwójny suwak */
+        }
+
+        .page-section {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
         }
         
-        #layout-wrapper { display: flex; justify-content: center; width: 100%; max-width: 1200px; }
-        #profile-section { background-color: var(--base2); }
-        body.theme-atom-one-dark #profile-section { background-color: var(--base3); }
+        header.fixed {
+            background-color: rgba(var(--base2-rgb), 0.5);
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+        
+        #profile-section { 
+            background-color: var(--base2);
+            overflow: hidden;
+        }
+        body.theme-atom-one-dark #profile-section, body.theme-atom-one-dark #career-section { background-color: var(--base3); }
 
         .profile-image-container {
             width: 240px; height: 240px; border-radius: 50%;
@@ -56,9 +74,9 @@
         body.theme-atom-one-dark .lang-btn:not(.active):not(:hover) { color: var(--base00); }
         .lang-btn:hover, #navbar a:hover { color: var(--base01); }
         .lang-btn.active, #navbar a.active { color: var(--base01); cursor: default; }
-        #navbar a { color: var(--contact-color); transition: color 0.3s; }
+        #navbar a { color: var(--contact-color); transition: color 0.3s; text-decoration: none; }
 
-        #main-container { max-width: 1200px; width: 100%; margin-left: auto; margin-right: auto; }
+        #main-container { max-width: 1200px; width: 100%; }
 
         .tab-title { transition: color 0.3s; cursor: pointer; }
         .tab-title.active { color: var(--base01); cursor: default; }
@@ -98,6 +116,10 @@
         }
         
         .desktop-separator { border-right: 1px solid var(--base0); }
+
+        #desktop-separator-line {
+            background-color: var(--base0);
+        }
         
         /* --- Style przełącznika motywu --- */
         .theme-toggle-btn {
@@ -130,18 +152,52 @@
             color: var(--base01);
         }
 
-        /* --- NOWA REGUŁA SKALOWANIA --- */
-        @media (min-width: 768px) {
-            #layout-wrapper {
-                transform: scale(0.95);
-            }
+        /* --- Style dla sekcji Kariera --- */
+        #career-section {
+            align-items: flex-start;
+            overflow-y: auto;
+            background-color: var(--base2);
+            padding-top: 7rem;
+            padding-bottom: 4rem;
+            height: auto; /* Zmieniono, aby sekcja dopasowywała się do treści */
+        }
+        
+        .career-entry {
+            display: flex;
+            align-items: stretch;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        .timeline-text-secondary { color: var(--base00); }
+        .timeline-text-accent { color: var(--blue); }
+        .timeline-link:hover { text-decoration: underline; }
+        .accordion-icon { transition: transform 0.3s ease-in-out; }
+        .accordion-toggle.active .accordion-icon { transform: rotate(180deg); }
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .tag-badge {
+            font-size: 0.75rem; /* text-xs */
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+            background-color: var(--base03);
+            color: var(--base01);
+        }
+        body.theme-atom-one-dark .tag-badge {
+            background-color: var(--base02);
+            color: var(--base01);
+        }
+        .timeline-separator {
+            border-left: 1px solid var(--base0);
         }
 
         /* --- MEDIA QUERIES DLA RESPONSYWNOŚCI --- */
         @media (max-width: 1199px) and (min-width: 768px) {
-            body { min-width: 768px; }
-            #main-container, #layout-wrapper { max-width: 100%; padding-left: 1.5rem; padding-right: 1.5rem; }
-            .full-page-section { padding: 1rem; }
+            #main-container { max-width: 100%; padding-left: 1.5rem; padding-right: 1.5rem; }
+            .page-section { padding: 1rem; }
+            #career-section { padding-top: 5.5rem; }
             .flex-col-right { padding-left: 1.5rem; }
             .flex-col-left { padding-right: 2.5rem; }
             h1 { font-size: 2rem; }
@@ -149,8 +205,22 @@
         }
 
         @media (max-width: 767px) {
-            body { min-width: 100%; }
-            .fixed.top-0 { padding: 0.5rem 1rem; background-color: rgba(var(--base2-rgb), 0.85); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+            html, body, main {
+                overflow: auto;
+                height: auto;
+            }
+            main {
+                scroll-snap-type: none;
+            }
+            .page-section {
+                height: auto;
+                min-height: 100vh;
+                padding: 5rem 1rem 2rem 1rem;
+            }
+            #career-section {
+                min-height: auto;
+                 padding: 5.5rem 1rem 2rem 1rem;
+            }
             
             #navbar, #desktop-nav-right { display: none; }
             #mobile-nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 28px; }
@@ -161,13 +231,12 @@
             #mobile-lang-switcher .lang-btn.active { color: var(--base01); }
             #mobile-lang-switcher .separator { color: var(--base00); margin: 0 0.2rem; }
 
-            .full-page-section { padding: 5rem 1rem 2rem 1rem; min-height: auto; }
             .profile-image-container { width: 145px; height: 145px; }
             
             .profile-header-flex, .content-flex { flex-direction: column; }
             
             .flex-col-left, .flex-col-right { width: 100% !important; padding: 0 !important; text-align: center; }
-            .desktop-separator { border-right: none; }
+            #desktop-separator-line { display: none; }
             .flex-col-left { margin-bottom: 2rem; }
             .flex-col-right .flex.justify-between { flex-direction: column; align-items: center; }
 
@@ -209,13 +278,20 @@
             }
             .flex.flex-col.text-right .contact-info { color: var(--base00); }
             .flex.flex-col.text-right .copy-btn { color: var(--blue); }
-        }
-        
-        @media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
-            #profile-section {
-                padding-top: 5rem;
-                transform: scale(0.85);
-                transform-origin: top center;
+
+            /* Responsive styles for Career Timeline */
+            .career-entry .w-1\/4, .career-entry .w-3\/4 {
+                width: 100%;
+                padding: 0 !important;
+            }
+             .career-entry .desktop-separator {
+                border-right: none;
+                padding-bottom: 1rem;
+                border-left: 2px solid var(--base0); 
+                padding-left: 1.5rem;
+            }
+            .career-entry {
+                flex-direction: column;
             }
         }
     </style>
@@ -224,9 +300,9 @@
 
     <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4">
         <nav id="navbar" class="flex items-center space-x-6 text-sm font-medium">
-            <a href="#" class="active">Profil</a>
+            <a href="#profile-section" data-section="profile-section" class="active">Profil</a>
+            <a href="#career-section" data-section="career-section">Kariera</a>
             <a href="#">Umiejętności</a>
-            <a href="#">Kariera</a>
             <a href="#">Kontakt</a>
         </nav>
         <div id="desktop-nav-right" class="flex-shrink-0 flex items-center space-x-4 ml-auto">
@@ -265,9 +341,9 @@
         </div>
     </header>
     
-    <section id="profile-section" class="full-page-section">
-        <div id="layout-wrapper">
-            <div id="main-container" class="container mx-auto w-full">
+    <main>
+        <section id="profile-section" class="page-section">
+            <div id="main-container">
                 
                 <div class="profile-header-flex flex items-center">
                     <div class="flex-col-left w-1/4 pr-10 desktop-separator">
@@ -304,8 +380,8 @@
                     </div>
                 </div>
 
-                <div class="content-flex flex items-stretch pt-12">
-                    <div id="mobile-col-info" class="flex-col-left w-1/4 pr-10 desktop-separator">
+                <div class="content-flex flex items-start pt-12 relative">
+                    <div id="mobile-col-info" class="flex-col-left w-1/4 pr-10">
                         <div id="info-container" class="flex flex-col text-left">
                             <h3 class="mobile-title">Informacje dodatkowe</h3>
                             <div class="flex space-x-6 text-2xl md:text-3xl font-medium pb-2 justify-start">
@@ -321,12 +397,14 @@
                                     <p>Języki: Angielski (B1), Polski (Ojczysty)</p>
                                     <p>Certyfikat: 2 Level HACCP (Food Hygiene Production)</p>
                                     <p>Umiejętności komputerowe</p>
-                                    <p>Prawo jazdy: Full UK Driving License</p>
+                                    <p>Prawo jazdy: Full UK B+E</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
+                    <div id="desktop-separator-line" class="absolute top-12 w-px hidden md:block" style="left: 25%; height: 140px;"></div>
+
                     <div id="mobile-col-summary" class="flex-col-right w-3/4 pl-4">
                         <div id="summary-container" class="flex flex-col">
                             <h3 class="mobile-title">PODSUMOWANIE</h3>
@@ -351,8 +429,335 @@
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
+
+        <section id="career-section" class="page-section">
+            <div id="main-container" class="container mx-auto w-full">
+                <div class="flex flex-col md:flex-row mb-12 md:items-end">
+                    <div class="w-1/4 pr-10">
+                        <h2 class="text-2xl md:text-3xl font-medium">Oś Czasu</h2>
+                    </div>
+                    <div class="w-3/4 pl-4 flex justify-between items-end">
+                        <h2 class="text-2xl md:text-3xl font-medium">Doświadczenie Zawodowe</h2>
+                        <button id="expand-all-btn" class="text-sm font-medium timeline-text-secondary timeline-link whitespace-nowrap ml-4 pb-1">Rozwiń wszystko</button>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: CKF Systems Limited -->
+                <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">09.2024 - 07.2025</span>
+                            <h3 class="text-xl font-bold mt-1">TIG/MIG Welder</h3>
+                            <h4 class="text-lg mt-1">CKF Systems Limited</h4>
+                        </div>
+                         <div class="mt-4">
+                            <p class="text-sm">Gloucester, England</p>
+                            <p class="text-sm">Sektor: Automatyka, Przemysł spożywczy</p>
+                            <p class="text-sm">Strona: <a href="https://www.ckf.co.uk" target="_blank" class="timeline-text-accent timeline-link">ckf.co.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Planowane ponowne podjęcie współpracy przy projektowaniu i spawaniu zautomatyzowanych linii produkcyjnych.</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Stal Nierdzewna</span>
+                                    <span class="tag-badge">Stal Czarna</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                     <span class="tag-badge">Spawarka TIG/MIG</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                <svg class="accordion-icon w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Systematyczne dostarczanie wysokiej jakości spoin i wkład w pomyślne ukończenie złożonych projektów linii produkcyjnych.</li>
+                                        <li>Pomyślna modernizacja i utrzymanie stanowiska spawalniczego.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: Fowlers Of Bristol -->
+                <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">02.2024 - 08.2024</span>
+                            <h3 class="text-xl font-bold mt-1">TIG/MIG Welder</h3>
+                            <h4 class="text-lg mt-1">Fowlers Of Bristol (Engineers) Ltd.</h4>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm">Avonmouth, England</p>
+                            <p class="text-sm">Sektor: Lotniczy, Obronny</p>
+                            <p class="text-sm">Strona: <a href="https://www.fowlers-eng.com" target="_blank" class="timeline-text-accent timeline-link">fowlers-eng.com</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Spawanie komponentów ze stali nierdzewnej i aluminium dla kluczowych dostawców przemysłu lotniczego i obronnego. Praca wymagała zachowania najwyższych standardów jakości i bezpieczeństwa.</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Stal Nierdzewna</span>
+                                    <span class="tag-badge">Aluminium</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Spawarka TIG/MIG</span>
+                                    <span class="tag-badge">Narzędzia inspekcyjne</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                <svg class="accordion-icon w-5 h-5 mr-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                     <ul class="list-disc list-inside space-y-2">
+                                        <li>Uzyskanie pozytywnych wyników testów i certyfikacji dla spoin pachwinowych na stali nierdzewnej i aluminium o grubościach 1.6mm, 3mm i 6mm.</li>
+                                        <li>Wdrożenie rozwiązań dla ustawień spawalniczych, które umożliwiły przyjęcie nowych zleceń od klientów takich jak Rolls-Royce.</li>
+                                        <li>Modernizacja i utrzymanie stanowiska spawalniczego, opracowanie procedur i ustawień spawalniczych.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: CKF Systems Limited -->
+                <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">09.2022 - 02.2024</span>
+                            <h3 class="text-xl font-bold mt-1">TIG/MIG Welder</h3>
+                            <h4 class="text-lg mt-1">CKF Systems Limited</h4>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm">Gloucester, England</p>
+                            <p class="text-sm">Sektor: Automatyka, Przemysł spożywczy</p>
+                            <p class="text-sm">Strona: <a href="https://www.ckf.co.uk" target="_blank" class="timeline-text-accent timeline-link">ckf.co.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Produkcja i spawanie różnorodnych komponentów linii produkcyjnych dla przemysłu spożywczego, w tym konstrukcji ze stali nierdzewnej i stali czarnej.</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Stal Nierdzewna</span>
+                                    <span class="tag-badge">Stal Czarna</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Spawarka TIG/MIG</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                 <svg class="accordion-icon w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                 <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Systematyczne dostarczanie wysokiej jakości spoin i wkład w pomyślne ukończenie złożonych projektów linii produkcyjnych.</li>
+                                        <li>Pomyślna modernizacja i utrzymanie stanowiska spawalniczego.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: DKM Sheetmetal Ltd -->
+                <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">01.2022 - 09.2022</span>
+                            <h3 class="text-xl font-bold mt-1">TIG Welder</h3>
+                            <h4 class="text-lg mt-1">DKM Sheetmetal Ltd</h4>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm">Stonehouse, England</p>
+                            <p class="text-sm">Sektor: Produkcja AGD (premium)</p>
+                            <p class="text-sm">Strona: <a href="https://dkmsheetmetal.co.uk/" target="_blank" class="timeline-text-accent timeline-link">dkmsheetmetal.co.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Praca przy projekcie pieców EVERHOT. Odpowiedzialność za spawanie metodą TIG części pokryw, zawiasów i elementów grilla wykonanych z blachy nierdzewnej (1-1.5mm) oraz grubszych płyt (5mm).</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Blacha Nierdzewna (1-5mm)</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Spawarka TIG</span>
+                                    <span class="tag-badge">Zaciski i przyrządy</span>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                 <svg class="accordion-icon w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                 <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Opracowanie metody pracy pozwalającej na osiągniecie wyższej wydajności.</li>
+                                        <li>Zgłaszanie wszelkich wadliwych urządzeń lub materiałów przełożonym.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: Berkeley Stainless Fittings -->
+                 <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">06.2020 - 02.2021</span>
+                            <h3 class="text-xl font-bold mt-1">TIG Welder</h3>
+                            <h4 class="text-lg mt-1">Berkeley Stainless Fittings</h4>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm">Bristol, England</p>
+                            <p class="text-sm">Sektor: Produkcja sanitarna</p>
+                            <p class="text-sm">Strona: <a href="https://www.berkeleystainless.co.uk/" target="_blank" class="timeline-text-accent timeline-link">berkeleystainless.co.uk</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Projektowanie i spawanie higienicznych elementów ze stali nierdzewnej, takich jak rury, złączki, zawory, stożki, kołnierze i inne części (RJT, DIN, SMS).</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Stal Nierdzewna (sanitarna)</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Spawarka TIG</span>
+                                    <span class="tag-badge">Stół obrotowy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                 <svg class="accordion-icon w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                 <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                     <ul class="list-disc list-inside space-y-2">
+                                        <li>Spawanie TIG w standardzie higienicznym (pełny przetop z przedmuchem gazowym).</li>
+                                        <li>Znacząca poprawa jakości spawania i zwiększenie prędkości stołu obrotowego (do 50%) dzięki opracowaniu książki danych spawalniczych.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wpis na osi czasu: Pangolin Editions Ltd -->
+                <div class="career-entry">
+                    <div class="w-1/4 pr-10 desktop-separator">
+                        <div>
+                            <span class="text-sm mb-1">10.2015 - 04.2019</span>
+                            <h3 class="text-xl font-bold mt-1">Metalworker</h3>
+                            <h4 class="text-lg mt-1">Pangolin Editions Ltd.</h4>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-sm">Chalford, England</p>
+                            <p class="text-sm">Sektor: Odlewnictwo artystyczne</p>
+                            <p class="text-sm">Strona: <a href="https://www.pangolin-editions.com" target="_blank" class="timeline-text-accent timeline-link">pangolin-editions.com</a></p>
+                        </div>
+                    </div>
+                    <div class="w-3/4 pl-4 pr-[1em]">
+                        <div>
+                             <p class="text-justify">Kompleksowa praca na wszystkich etapach tworzenia rzeźb z brązu w dziale obróbki metalu. Udział w projektach dla światowej sławy artystów, takich jak Damien Hirst, Lynn Chadwick czy Marc Quinn.</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row mt-4 mb-4">
+                            <div class="md:w-1/2 md:pr-4">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Materiały:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag-badge">Brąz odlewniczy</span>
+                                    <span class="tag-badge">Mosiądz</span>
+                                    <span class="tag-badge">Stal Nierdzewna</span>
+                                    <span class="tag-badge">Stal Czarna</span>
+                                </div>
+                            </div>
+                            <div class="hidden md:block timeline-separator"></div>
+                            <div class="md:w-1/2 md:pl-4 mt-4 md:mt-0">
+                                <h5 class="font-semibold text-sm mb-2 timeline-text-secondary">Narzędzia:</h5>
+                                <div class="flex flex-wrap gap-2">
+                                     <span class="tag-badge">Spawarka TIG/MIG</span>
+                                     <span class="tag-badge">Narzędzia ręczne i pneumatyczne</span>
+                                     <span class="tag-badge">Narzędzia do modelowania i teksturowania</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <button class="accordion-toggle flex items-center w-full text-left transition-colors">
+                                 <svg class="accordion-icon w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                 <span class="font-normal text-sm timeline-text-secondary mr-1">Rozwiń</span><span class="font-semibold text-sm timeline-text-secondary">Osiągnięcia:</span>
+                            </button>
+                            <div class="accordion-content">
+                                <div class="pt-4 pb-4">
+                                    <ul class="list-disc list-inside space-y-2">
+                                        <li>Modelowanie zmontowanych rzeźb: kształtowanie, teksturowanie, szlifowanie.</li>
+                                        <li>Zwiększenie wydajności pracy działu poprzez opracowanie nowych metod pracy, technik i narzędzi.</li>
+                                        <li>Skuteczne naprawy wadliwie odlanych rzeźb z brązu.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <div id="toast-notification" class="fixed bottom-5 right-5 bg-green-600 text-white py-2 px-4 rounded-lg shadow-lg">
         Skopiowano do schowka!
@@ -379,51 +784,59 @@
         };
 
         // --- SEKCJA 2: Funkcje związane z układem strony (Layout) ---
-        /**
-         * Oblicza i ustawia maksymalną wymaganą wysokość dla kontenera,
-         * aby zapobiec "skakaniu" layoutu przy zmianie zakładek.
-         */
-        const stabilizeLayoutHeight = () => {
-            const layoutWrapper = document.getElementById('layout-wrapper');
-            if (!layoutWrapper || window.innerWidth < 768) {
-                if(layoutWrapper) layoutWrapper.style.height = 'auto';
-                return;
-            }
+        
+        const updateSeparatorHeight = () => {
+            if (window.innerWidth < 768) return;
 
-            const profileHeader = document.querySelector('.profile-header-flex');
-            const contentFlex = document.querySelector('.content-flex');
+            const infoCol = document.querySelector('#mobile-col-info');
+            const summaryCol = document.querySelector('#mobile-col-summary');
+            const separator = document.getElementById('desktop-separator-line');
+            
+            if (!infoCol || !summaryCol || !separator) return;
+
+            const infoHeight = infoCol.offsetHeight;
+            const summaryHeight = summaryCol.offsetHeight;
+            const maxHeight = Math.max(infoHeight, summaryHeight);
+            
+            separator.style.height = maxHeight + 'px';
+        };
+
+        const stabilizeLayoutHeight = () => {
+            if (window.innerWidth < 768) return;
+
+            const contentFlex = document.querySelector('#profile-section .content-flex');
+            if (!contentFlex) return;
+
             const infoContents = document.querySelectorAll('#info-container .tab-content');
             const summaryContents = document.querySelectorAll('#summary-container .tab-content');
+            
+            contentFlex.style.minHeight = 'auto';
 
+            let maxContainerHeight = 0;
             const originalActiveInfo = document.querySelector('#info-container .tab-content.active');
             const originalActiveSummary = document.querySelector('#summary-container .tab-content.active');
-            let maxContentHeight = 0;
 
             infoContents.forEach(infoTab => {
                 summaryContents.forEach(summaryTab => {
-                    infoContents.forEach(c => c.classList.remove('active'));
-                    summaryContents.forEach(c => c.classList.remove('active'));
-                    infoTab.classList.add('active');
-                    summaryTab.classList.add('active');
-                    maxContentHeight = Math.max(maxContentHeight, contentFlex.offsetHeight);
+                    infoContents.forEach(c => c.style.display = 'none');
+                    summaryContents.forEach(c => c.style.display = 'none');
+                    infoTab.style.display = 'block';
+                    summaryTab.style.display = 'block';
+                    maxContainerHeight = Math.max(maxContainerHeight, contentFlex.offsetHeight);
                 });
             });
 
-            infoContents.forEach(c => c.classList.remove('active'));
-            summaryContents.forEach(c => c.classList.remove('active'));
-            if (originalActiveInfo) {
-                originalActiveInfo.classList.add('active');
-            } else if (infoContents.length > 0) {
-                infoContents[0].classList.add('active');
-            }
-            if (originalActiveSummary) {
-                originalActiveSummary.classList.add('active');
-            } else if (summaryContents.length > 0) {
-                summaryContents[0].classList.add('active');
+            if (maxContainerHeight > 0) {
+                contentFlex.style.minHeight = maxContainerHeight + 'px';
             }
 
-            const totalHeight = profileHeader.offsetHeight + maxContentHeight;
-            layoutWrapper.style.height = totalHeight + 'px';
+            infoContents.forEach(c => c.style.display = '');
+            summaryContents.forEach(c => c.style.display = '');
+             document.querySelectorAll('.tab-content.active').forEach(c => c.classList.remove('active'));
+            if (originalActiveInfo) originalActiveInfo.classList.add('active');
+            if (originalActiveSummary) originalActiveSummary.classList.add('active');
+            
+            updateSeparatorHeight();
         };
 
         // --- SEKCJA 3: Funkcje inicjalizujące ---
@@ -464,6 +877,8 @@
                         const isActive = content.getAttribute('data-content') === tabId;
                         content.classList.toggle('active', isActive);
                     });
+                    // Update separator height after tab change
+                    setTimeout(updateSeparatorHeight, 0);
                 };
                 tabTitles.forEach(title => {
                     title.addEventListener('click', () => activateTab(title.getAttribute('data-tab')));
@@ -474,6 +889,48 @@
             };
             setupTabs('info-container');
             setupTabs('summary-container');
+        };
+        
+        const initCareerAccordion = () => {
+            const accordions = document.querySelectorAll('#career-section .accordion-toggle');
+            const expandAllBtn = document.getElementById('expand-all-btn');
+            if (!expandAllBtn) return;
+
+            const updateExpandAllButton = () => {
+                const allExpanded = [...accordions].every(acc => acc.classList.contains('active'));
+                expandAllBtn.textContent = allExpanded ? 'Zwiń wszystko' : 'Rozwiń wszystko';
+                expandAllBtn.dataset.expanded = allExpanded ? 'true' : 'false';
+            };
+
+            accordions.forEach(clickedAccordion => {
+                clickedAccordion.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const content = clickedAccordion.nextElementSibling;
+                    clickedAccordion.classList.toggle('active');
+
+                    if (clickedAccordion.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = null;
+                    }
+                    updateExpandAllButton();
+                });
+            });
+
+            expandAllBtn.addEventListener('click', () => {
+                const isExpanded = expandAllBtn.dataset.expanded === 'true';
+                accordions.forEach(accordion => {
+                    const content = accordion.nextElementSibling;
+                    if (isExpanded) {
+                        accordion.classList.remove('active');
+                        content.style.maxHeight = null;
+                    } else {
+                        accordion.classList.add('active');
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+                updateExpandAllButton();
+            });
         };
 
         const initCopyButtons = () => {
@@ -490,12 +947,88 @@
                 });
             });
         };
+
+        const initNavScrollListener = () => {
+            const navLinks = document.querySelectorAll('#navbar a');
+            const sections = document.querySelectorAll('main > section.page-section');
+            
+            if (sections.length === 0) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            const linkHref = link.getAttribute('href');
+                            link.classList.toggle('active', linkHref === `#${id}`);
+                        });
+                    }
+                });
+            }, { 
+                root: null, 
+                threshold: 0.5 
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Natychmiastowa zmiana koloru przy kliknięciu
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        };
+
+        const initSmartScroll = () => {
+            let isScrolling = false;
+            let scrollTimeout = null;
+
+            window.addEventListener('wheel', (event) => {
+                if (window.innerWidth < 768) return;
+
+                const profileSection = document.getElementById('profile-section');
+                const careerSection = document.getElementById('career-section');
+                if (!profileSection || !careerSection) return;
+
+                const isAtProfileTop = window.scrollY < 50;
+                const careerSectionTop = careerSection.getBoundingClientRect().top;
+                // Check if the top of the career section is near the top of the viewport
+                const isAtCareerTop = careerSectionTop > -50 && careerSectionTop < 50;
+                
+                const handleScroll = (targetSection) => {
+                    event.preventDefault();
+                    isScrolling = true;
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => { isScrolling = false; }, 800);
+                };
+
+                if (!isScrolling) {
+                    // Snap from Profile to Career
+                    if (isAtProfileTop && event.deltaY > 0) {
+                        handleScroll(careerSection);
+                    } 
+                    // Snap from Career to Profile
+                    else if (isAtCareerTop && event.deltaY < 0) {
+                        handleScroll(profileSection);
+                    }
+                }
+            }, { passive: false });
+        };
         
-        /**
-         * Inicjalizuje logikę związaną z układem strony, w tym stabilizację wysokości.
-         */
         const initLayout = () => {
-            setTimeout(stabilizeLayoutHeight, 100);
+            stabilizeLayoutHeight();
             window.addEventListener('resize', stabilizeLayoutHeight);
         };
 
@@ -506,8 +1039,15 @@
             initLangSwitcher();
             initTabs();
             initCopyButtons();
-            initLayout(); // Uruchomienie logiki layoutu
+            initCareerAccordion();
+            initNavScrollListener();
+            initSmartScroll(); 
+        });
+
+        window.addEventListener('load', () => {
+            initLayout();
         });
     </script>
 </body>
 </html>
+
