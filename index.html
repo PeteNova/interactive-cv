@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piotr Nowakowski - Profil & Kariera</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Inter:wght@400;500;700&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         /* --- STYLE PODSTAWOWE (WIDOK DOMYŚLNY / KOMPUTERY) --- */
         :root {
@@ -20,7 +21,7 @@
         
         body.theme-atom-one-dark {
             --base03: #282c34; --base02: #21252b; --base01: #cbcfd6; --base00: #5c6370;
-            --base0:  #5c6370; --base1:  #e06c75; --base2:  #21252b; --base3:  #282c34;
+            --base0:  #5c6370; --base1:  #e06c75; --base2: #21252b; --base3: #282c34;
             --base2-rgb: 33, 37, 43; --yellow: #e5c07b; --orange: #d19a66;
             --red:    #e06c75; --magenta:#c678dd; --violet: #c678dd; --blue:   #61afef;
             --cyan:   #56b6c2; --green:  #98c379; --contact-color: var(--base00);
@@ -60,7 +61,13 @@
             height: 100vh;
             overflow: hidden;
         }
-        body.theme-atom-one-dark #profile-section, body.theme-atom-one-dark #career-section { background-color: var(--base3); }
+        #skills-section {
+            background-color: var(--base2);
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Lato', sans-serif;
+        }
+        body.theme-atom-one-dark #profile-section, body.theme-atom-one-dark #career-section, body.theme-atom-one-dark #skills-section { background-color: var(--base3); }
 
         .profile-image-container {
             width: 240px; height: 240px; border-radius: 50%;
@@ -337,12 +344,47 @@
             color: var(--base01);
         }
 
+        /* --- Style dla sekcji Umiejętności (skills) --- */
+        .chart-container {
+            position: relative; 
+            width: 100%; 
+            max-width: 500px; 
+            height: 400px;
+        }
+        #skills-section {
+            font-family: 'Lato', sans-serif;
+        }
+        #skill-tooltip-container {
+            position: fixed; 
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            opacity: 0; 
+            transform: translateY(10px) scale(0.95); 
+            z-index: 100;
+        }
+        #skill-tooltip-container.visible { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+        }
+
+        .skill-tooltip-card {
+            background-color: var(--base2); 
+            color: var(--base01); 
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 280px; 
+            border-radius: 0.5rem;
+            border: 1px solid var(--base03);
+        }
+        .skill-tooltip-card h3 { 
+            color: inherit; 
+        }
 
         /* --- MEDIA QUERIES DLA RESPONSYWNOŚCI --- */
         @media (max-width: 1199px) and (min-width: 768px) {
             #main-container { max-width: 100%; padding-left: 1.5rem; padding-right: 1.5rem; }
             .page-section { padding: 1rem; }
-            #career-section { padding-top: 5.5rem; }
+            #career-section, #skills-section { padding-top: 5.5rem; }
             .flex-col-right { padding-left: 1.5rem; }
             .flex-col-left { padding-right: 2.5rem; }
             h1 { font-size: 2rem; }
@@ -359,10 +401,11 @@
                 min-height: 100vh;
                 padding: 5rem 1rem 2rem 1rem;
             }
-            #career-section {
+            #career-section, #skills-section {
                 min-height: auto;
                  padding: 5.5rem 1rem 2rem 1rem;
             }
+            .chart-container { height: 320px; }
             
             #navbar, #desktop-nav-right { display: none; }
             #mobile-nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 28px; }
@@ -435,6 +478,10 @@
             .career-entry {
                 flex-direction: column;
             }
+
+            /* Responsive skills section */
+            .grid.md:grid-cols-2 { grid-template-columns: 1fr; }
+            .md:block.absolute { display: none; }
         }
     </style>
 </head>
@@ -443,8 +490,8 @@
     <header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4">
         <nav id="navbar" class="flex items-center space-x-6 text-sm font-medium">
             <a href="#profile-section" data-section="profile-section" class="active">Profil</a>
+            <a href="#skills-section" data-section="skills-section">Umiejętności</a>
             <a href="#career-section" data-section="career-section">Kariera</a>
-            <a href="#">Umiejętności</a>
             <a href="#">Kontakt</a>
         </nav>
         <div id="desktop-nav-right" class="flex-shrink-0 flex items-center space-x-4 ml-auto">
@@ -570,6 +617,30 @@
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- Sekcja Umiejętności -->
+        <section id="skills-section" class="page-section">
+            <div id="main-container" class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
+                <div class="relative grid md:grid-cols-2 gap-x-16 gap-y-12 items-center w-full max-w-7xl mt-12">
+                    <div class="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-base0 -ml-px"></div>
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-xl md:text-2xl font-bold pb-2 text-cyan text-center transform translate-x-2" data-translate-key="technical_skills_title">TECHNICZNE</h3>
+                        <div class="h-6"></div>
+                        <div class="chart-container">
+                            <canvas id="technicalSkillsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <h3 class="text-xl md:text-2xl font-bold pb-2 text-green text-center" data-translate-key="soft_skills_title">MIĘKKIE</h3>
+                        <div class="h-6"></div>
+                        <div class="chart-container">
+                            <canvas id="softSkillsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -916,6 +987,8 @@
             <div id="zoomed-timeline-container"></div>
         </div>
     </div>
+    
+    <div id="skill-tooltip-container"></div>
 
 
     <script>
@@ -923,6 +996,8 @@
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
             localStorage.setItem('cv-theme', theme);
+            if (technicalSkillsChart) renderTechnicalSkillsChart(currentLang);
+            if (softSkillsChart) renderSoftSkillsChart(currentLang);
         };
 
         const loadTheme = () => {
@@ -1010,6 +1085,7 @@
                     const selectedLang = e.target.dataset.lang;
                     document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
                     document.querySelectorAll(`.lang-btn[data-lang="${selectedLang}"]`).forEach(btn => btn.classList.add('active'));
+                    translateSkillsPage(selectedLang);
                 }
             };
             document.getElementById('lang-switcher')?.addEventListener('click', handleLangSwitch);
@@ -1152,11 +1228,14 @@
                 if (window.innerWidth < 768) return;
 
                 const profileSection = document.getElementById('profile-section');
+                const skillsSection = document.getElementById('skills-section');
                 const careerSection = document.getElementById('career-section');
-                if (!profileSection || !careerSection) return;
+                if (!profileSection || !skillsSection || !careerSection) return;
 
                 const isAtProfileTop = window.scrollY < 50;
+                const skillsSectionTop = skillsSection.getBoundingClientRect().top;
                 const careerSectionTop = careerSection.getBoundingClientRect().top;
+                const isAtSkillsTop = skillsSectionTop > -50 && skillsSectionTop < 50;
                 const isAtCareerTop = careerSectionTop > -50 && careerSectionTop < 50;
                 
                 const handleScroll = (targetSection) => {
@@ -1169,10 +1248,16 @@
 
                 if (!isScrolling) {
                     if (isAtProfileTop && event.deltaY > 0) {
-                        handleScroll(careerSection);
+                        handleScroll(skillsSection);
                     } 
-                    else if (isAtCareerTop && event.deltaY < 0) {
+                    else if (isAtSkillsTop && event.deltaY > 0) {
+                        handleScroll(careerSection);
+                    }
+                    else if (isAtSkillsTop && event.deltaY < 0) {
                         handleScroll(profileSection);
+                    }
+                    else if (isAtCareerTop && event.deltaY < 0) {
+                        handleScroll(skillsSection);
                     }
                 }
             }, { passive: false });
@@ -1333,6 +1418,191 @@
             });
         };
 
+        // --- SEKCJA UMIEJĘTNOŚCI (SKILLS) ---
+        const translations = {
+            technical_skills_title: { pl: "TECHNICZNE", en: "TECHNICAL" },
+            soft_skills_title: { pl: "MIĘKKIE", en: "SOFT" },
+            technical_qualifications_data: {
+                pl: [ { title: "Spawanie TIG/MIG", desc: "Zaawansowana biegłość w spawaniu TIG, uzupełniona o podstawowe doświadczenie w metodzie MIG. Specjalizacja w stali nierdzewnej, aluminium i brązie." }, { title: "Jakość i Zgodność", desc: "Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym (stal nierdzewna i aluminium)." }, { title: "Rzemiosło Artystyczne", desc: "Poziom ekspercki w ręcznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu." }, { title: "Obróbka Przemysłowa", desc: "Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy, rurociągi i armatura." }, { title: "Bezpieczeństwo i Procedury", desc: "Nienaganny rekord bezpieczeństwa i doświadczenie w tworzeniu książek danych spawalniczych." }, { title: "Obsługa Narzędzi", desc: "Biegła obsługa szerokiej gamy narzędzi, od spawarek TIG/MIG po przecinarki plazmowe i suwnice." } ],
+                en: [ { title: "TIG/MIG Welding", desc: "Advanced proficiency in TIG welding, complemented by foundational experience in the MIG method. Specializing in stainless steel, aluminium, and bronze." }, { title: "Quality & Compliance", desc: "Proven ability to pass difficult, aerospace-grade qualification tests (stainless steel and aluminium)." }, { title: "Artisanal Fabrication", desc: "Expert-level skill in manual, artistic metalwork, including complex shaping, texturing, and finishing." }, { title: "Industrial Machining", desc: "Proficient in the fabrication and assembly of industrial components like frames, pipework, and fittings." }, { title: "Safety & Procedures", desc: "Impeccable safety record and experience in creating welding data books." }, { title: "Tool Proficiency", desc: "Skilled in operating a wide range of tools, from TIG/MIG welders to plasma cutters and overhead cranes." } ]
+            },
+            technical_skills_labels: { pl: [['Spawanie', 'TIG/MIG'], ['Jakość i', 'Zgodność'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Obsługa', 'Narzędzi']], en: [['TIG/MIG', 'Welding'], ['Quality &', 'Compliance'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Tool', 'Proficiency']] },
+            soft_qualifications_data: {
+                pl: [ { title: "Rozwiązywanie Problemów", desc: "Biegłość w diagnozowaniu i rozwiązywaniu złożonych wyzwań, od naprawy odlewów po optymalizację procesów spawalniczych." }, { title: "Zdolności Analityczne", desc: "Wysoce rozwinięte zdolności analityczne. Metodyczne podejście do optymalizacji procesów, co pozwoliło przewyższyć wydajność bardziej doświadczonych kolegów." }, { title: "Praca Zespołowa", desc: "Efektywna praca samodzielna i skoncentrowana na zadaniu. Dobrze funkcjonuje w zorganizowanych zespołach, gdzie role są jasno określone, wnosząc wkład poprzez dokładność i rzetelność." }, { title: "Kreatywność i Zręczność", desc: "Wrodzone poczucie formy i estetyki, połączone z wyjątkową zręcznością manualną." }, { title: "Ciągłe Uczenie Się", desc: "Szybkie przyswajanie nowych, skomplikowanych umiejętności pod presją, udowodnione zdaniem testów lotniczych." }, { title: "Etyka Pracy", desc: "Wyjątkowa etyka pracy, udokumentowana historia bezpieczeństwa i elastyczność w adaptacji do nowych zadań." } ],
+                en: [ { title: "Problem Solving", desc: "Adept at diagnosing and resolving complex challenges, from repairing castings to optimizing welding processes." }, { title: "Analytical Ability", desc: "Highly developed analytical skills. A methodical approach to process optimization, which led to surpassing the efficiency of more experienced colleagues." }, { title: "Teamwork", desc: "Effective in independent, task-focused work. Functions well in structured teams with clearly defined roles, contributing through precision and reliability." }, { title: "Creativity & Dexterity", desc: "An innate sense of form and aesthetics, combined with exceptional manual dexterity." }, { title: "Continuous Learning", desc: "Rapid acquisition of new, complex skills under pressure, proven by passing aerospace-grade tests." }, { title: "Work Ethic", desc: "Exceptional work ethic, a proven safety record, and flexibility in adapting to new tasks." } ]
+            },
+            soft_skills_labels: { pl: [['Rozwiązywanie', 'Problemów'], ['Zdolności', 'Analityczne'], ['Praca', 'Zespołowa'], ['Kreatywność', 'i Zręczność'], ['Ciągłe', 'Uczenie Się'], ['Etyka', 'Pracy']], en: [['Problem', 'Solving'], ['Analytical', 'Ability'], ['Teamwork', ''], ['Creativity', '& Dexterity'], ['Continuous', 'Learning'], ['Work', 'Ethic']] }
+        };
+        let currentLang = 'pl', technicalSkillsChart, softSkillsChart;
+        let animationFrameIds = { tech: null, soft: null };
+
+        const translateSkillsPage = (lang) => {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations[key] && translations[key][lang]) el.innerHTML = translations[key][lang];
+            });
+            renderTechnicalSkillsChart(lang);
+            renderSoftSkillsChart(lang);
+        };
+
+        function createChart(canvasId, labelsDataKey, chartData, accentColor, animationKey) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return null;
+            const ctx = canvas.getContext('2d');
+            
+            const s = getComputedStyle(document.body);
+            const FONT_COLOR = s.getPropertyValue('--base01').trim(), GRID_COLOR = s.getPropertyValue('--base0').trim(), ACCENT_COLOR = s.getPropertyValue(accentColor).trim();
+            
+            const chart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: translations[labelsDataKey][currentLang],
+                    datasets: [{ 
+                        label: 'Proficiency', 
+                        data: chartData.map(() => 0), // Start at 0 for animation
+                        backgroundColor: ACCENT_COLOR+'33', 
+                        borderColor: ACCENT_COLOR, 
+                        pointBackgroundColor: ACCENT_COLOR, 
+                        pointBorderColor: '#fff', 
+                        pointHoverBackgroundColor: '#fff', 
+                        pointHoverBorderColor: ACCENT_COLOR 
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, 
+                    responsive: true, 
+                    animation: false, 
+                    scales: { 
+                        r: { 
+                            angleLines: { color: GRID_COLOR }, 
+                            grid: { color: GRID_COLOR }, 
+                            pointLabels: { font: { size: 12, family: "'IBM Plex Mono', monospace" }, color: FONT_COLOR, padding: 25 }, 
+                            ticks: { backdropColor: `rgba(${s.getPropertyValue('--base2-rgb').trim()}, 0.75)`, color: FONT_COLOR, stepSize: 2, font: { family: "'IBM Plex Mono', monospace" } }, 
+                            suggestedMin: 0, 
+                            suggestedMax: 10 
+                        } 
+                    }, 
+                    plugins: { 
+                        legend: { display: false }, 
+                        tooltip: { enabled: false } 
+                    } 
+                }
+            });
+            
+            cancelAnimationFrame(animationFrameIds[animationKey]);
+
+            const finalTargetValues = chartData.map(d => d.base);
+            const oscillationAmplitudes = chartData.map(d => d.amplitude);
+            const initialAnimationBaseDuration = 2000;
+            let initialAnimationStartTime = null;
+
+            const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
+            const easeInOutCubic = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+
+            const initialSpeedMultipliers = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8]; 
+            const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017];
+
+            const individualPeakReachTime = finalTargetValues.map((_, index) => {
+                return initialAnimationBaseDuration / initialSpeedMultipliers[index];
+            });
+
+            function animateChart(timestamp) {
+                if (!initialAnimationStartTime) initialAnimationStartTime = timestamp;
+                const globalElapsedTime = timestamp - initialAnimationStartTime;
+
+                const newValues = finalTargetValues.map((targetValuePeak, index) => {
+                    let currentValue;
+                    const amplitude = oscillationAmplitudes[index];
+                    const peakReachTime = individualPeakReachTime[index];
+
+                    if (globalElapsedTime < peakReachTime) {
+                        let progress = globalElapsedTime / peakReachTime;
+                        currentValue = easeOutCubic(progress) * targetValuePeak;
+                    } else {
+                        const oscillationTime = globalElapsedTime - peakReachTime;
+                        const oscillationCenter = targetValuePeak - amplitude; 
+                        const oscillation = amplitude * (1 + Math.cos(oscillationTime * oscillationSpeeds[index])) / 2;
+                        currentValue = oscillationCenter + oscillation;
+                        currentValue = Math.max(0, Math.min(10, currentValue));
+                    }
+                    return currentValue;
+                });
+
+                chart.data.datasets[0].data = newValues;
+                chart.update('none');
+                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
+            }
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        initialAnimationStartTime = null;
+                        animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
+                        observer.unobserve(canvas);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(canvas);
+
+            return chart;
+        }
+
+        const renderTechnicalSkillsChart = (lang) => {
+            if (technicalSkillsChart) technicalSkillsChart.destroy();
+            const data = [ { base: 7.5, amplitude: 1.5 }, { base: 9, amplitude: 0.5 }, { base: 9, amplitude: 0.5 }, { base: 6, amplitude: 0.5 }, { base: 8, amplitude: 0.5 }, { base: 9, amplitude: 0.5 } ];
+            technicalSkillsChart = createChart('technicalSkillsChart', 'technical_skills_labels', data, '--cyan', 'tech');
+            if(technicalSkillsChart) {
+                technicalSkillsChart.data.labels = translations.technical_skills_labels[lang];
+                technicalSkillsChart.update();
+                initializeChartTooltipEvents(technicalSkillsChart, 'technical_qualifications_data', lang);
+            }
+        };
+        
+        const renderSoftSkillsChart = (lang) => {
+            if (softSkillsChart) softSkillsChart.destroy();
+            const data = [ { base: 8.5, amplitude: 0.5 }, { base: 9.25, amplitude: 0.25 }, { base: 6.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 9.0, amplitude: 0.5 } ];
+            softSkillsChart = createChart('softSkillsChart', 'soft_skills_labels', data, '--yellow', 'soft');
+            if(softSkillsChart) {
+                softSkillsChart.data.labels = translations.soft_skills_labels[lang];
+                softSkillsChart.update();
+                initializeChartTooltipEvents(softSkillsChart, 'soft_qualifications_data', lang);
+            }
+        };
+
+        function initializeChartTooltipEvents(chart, qualificationsDataKey, lang) {
+            const canvas = chart.canvas, tooltipEl = document.getElementById('skill-tooltip-container');
+            const handleMouseMove = (e) => {
+                const rect = canvas.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top;
+                let foundLabel = false;
+                const pointLabels = chart.scales.r._pointLabelItems;
+                if (!pointLabels) return;
+                for (let i=0; i < pointLabels.length; i++) {
+                    const { left, right, top, bottom } = pointLabels[i];
+                    if (x >= left && x <= right && y >= top && y <= bottom) {
+                        foundLabel = true;
+                        canvas.style.cursor = 'pointer';
+                        const qual = translations[qualificationsDataKey][lang][i];
+                        if (qual) tooltipEl.innerHTML = `<div class="skill-tooltip-card"><h3 class="font-bold mb-2">${qual.title}</h3><p class="text-sm">${qual.desc}</p></div>`;
+                        tooltipEl.style.left = `${e.clientX + 15}px`;
+                        tooltipEl.style.top = `${e.clientY + 15}px`;
+                        tooltipEl.classList.add('visible');
+                        break; 
+                    }
+                }
+                if (!foundLabel) { canvas.style.cursor = 'default'; tooltipEl.classList.remove('visible'); }
+            };
+            const handleMouseLeave = () => { canvas.style.cursor = 'default'; tooltipEl.classList.remove('visible'); };
+            canvas.removeEventListener('mousemove', canvas.mouseMoveHandler);
+            canvas.removeEventListener('mouseleave', canvas.mouseLeaveHandler);
+            canvas.mouseMoveHandler = handleMouseMove;
+            canvas.mouseLeaveHandler = handleMouseLeave;
+            canvas.addEventListener('mousemove', canvas.mouseMoveHandler);
+            canvas.addEventListener('mouseleave', canvas.mouseLeaveHandler);
+        }
+
         // --- SEKCJA 4: Główny punkt wejścia ---
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
@@ -1345,6 +1615,7 @@
             initSmartScroll(); 
             initTimelineMarkers(); 
             initTimelineZoom();
+            translateSkillsPage('pl');
         });
 
         window.addEventListener('load', () => {
