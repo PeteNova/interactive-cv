@@ -201,6 +201,142 @@
         .timeline-separator {
             border-left: 1px solid var(--base0);
         }
+        
+        /* === ZAKTUALIZOWANY STYL DLA WSKAŹNIKA NA OSI CZASU === */
+        .career-entry .desktop-separator {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .timeline-marker-wrapper {
+            position: absolute;
+            right: -1px; /* Centruje kropkę (3px) na linii (1px) */
+            width: 3px;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .career-entry:hover .timeline-marker-wrapper {
+            opacity: 1;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 1;
+            width: 5px;
+            height: 5px;
+            background-color: var(--base0);
+            border-radius: 50%;
+            transition: top 0.3s cubic-bezier(0.25, 1, 0.5, 1) 0.15s, background-color 0.2s;
+        }
+
+        .timeline-dot-start, .timeline-dot-end {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .career-entry:hover .timeline-dot-start {
+            top: 0;
+        }
+        .career-entry:hover .timeline-dot-end {
+            top: 100%;
+        }
+        
+        .career-entry:hover .timeline-dot {
+            background-color: var(--base01);
+        }
+        
+        .timeline-year-label {
+            position: absolute;
+            right: 12px; /* Odstęp od separatora */
+            font-size: 0.75rem;
+            color: var(--base0);
+            z-index: 10;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: color 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .career-entry:hover .timeline-year-label {
+            color: var(--base01);
+        }
+        /* === KONIEC ZAKTUALIZOWANEGO STYLU === */
+
+        /* --- Style dla Modalu Zoom --- */
+        #timeline-zoom-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        #timeline-zoom-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .zoom-modal-content {
+            background-color: var(--base2);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 400px;
+            height: 90vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        #close-zoom-modal-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--base00);
+        }
+        #close-zoom-modal-btn:hover { color: var(--base01); }
+        #zoomed-timeline-container {
+            position: relative;
+            flex-grow: 1;
+            width: 100%;
+            margin-top: 1.5rem;
+            border-left: 1px solid var(--base0);
+        }
+        .zoomed-marker {
+            position: absolute;
+            left: -2px;
+            width: 4px;
+            background-color: var(--base0);
+            transition: background-color 0.3s, opacity 0.3s;
+            border-radius: 4px;
+            opacity: 0.6;
+        }
+        .zoomed-marker.highlighted {
+            background-color: var(--blue);
+            opacity: 1;
+        }
+        #zoom-timeline-btn {
+            background: none;
+            border: none;
+            color: var(--base00);
+            cursor: pointer;
+            padding: 0.25rem;
+            margin-left: 0.5rem;
+            transition: color 0.2s;
+        }
+        #zoom-timeline-btn:hover {
+            color: var(--base01);
+        }
+
 
         /* --- MEDIA QUERIES DLA RESPONSYWNOŚCI --- */
         @media (max-width: 1199px) and (min-width: 768px) {
@@ -438,18 +574,23 @@
         </section>
 
         <section id="career-section" class="page-section">
-            <div id="main-container" class="container mx-auto w-full">
+            <div id="main-container" class="container mx-auto w-full relative">
                 <div class="flex flex-col md:flex-row mb-12 md:items-end">
-                    <div class="w-1/4 pr-10">
+                    <div class="w-1/4 pr-10 flex items-center">
                         <h2 class="text-2xl md:text-3xl font-medium">Oś Czasu</h2>
+                        <button id="zoom-timeline-btn" title="Powiększ oś czasu">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                                <path d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                            </svg>
+                        </button>
                     </div>
                     <div class="w-3/4 pl-4 flex justify-between items-end">
                         <h2 class="text-2xl md:text-3xl font-medium">Doświadczenie Zawodowe</h2>
                         <button id="expand-all-btn" class="text-sm font-medium timeline-text-secondary timeline-link whitespace-nowrap ml-4 pb-1">Rozwiń wszystko</button>
                     </div>
                 </div>
-
-                <!-- Wpis na osi czasu: CKF Systems Limited -->
+                
                 <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
@@ -500,7 +641,6 @@
                     </div>
                 </div>
 
-                <!-- Wpis na osi czasu: Fowlers Of Bristol -->
                 <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
@@ -553,7 +693,6 @@
                     </div>
                 </div>
 
-                <!-- Wpis na osi czasu: CKF Systems Limited -->
                 <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
@@ -604,7 +743,6 @@
                     </div>
                 </div>
 
-                <!-- Wpis na osi czasu: DKM Sheetmetal Ltd -->
                 <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
@@ -655,8 +793,7 @@
                     </div>
                 </div>
 
-                <!-- Wpis na osi czasu: Berkeley Stainless Fittings -->
-                 <div class="career-entry">
+                <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
                             <span class="text-sm mb-1">06.2020 - 02.2021</span>
@@ -706,7 +843,6 @@
                     </div>
                 </div>
 
-                <!-- Wpis na osi czasu: Pangolin Editions Ltd -->
                 <div class="career-entry">
                     <div class="w-1/4 pr-10 desktop-separator">
                         <div>
@@ -768,6 +904,19 @@
     <div id="toast-notification" class="fixed bottom-5 right-5 bg-green-600 text-white py-2 px-4 rounded-lg shadow-lg">
         Skopiowano do schowka!
     </div>
+
+    <div id="timeline-zoom-modal" class="">
+        <div class="zoom-modal-content">
+            <button id="close-zoom-modal-btn" title="Zamknij">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </button>
+            <h3 class="text-xl font-medium text-center">Oś Czasu - Pełny Widok</h3>
+            <div id="zoomed-timeline-container"></div>
+        </div>
+    </div>
+
 
     <script>
         // --- SEKCJA 1: Funkcje pomocnicze i narzędziowe ---
@@ -883,7 +1032,6 @@
                         const isActive = content.getAttribute('data-content') === tabId;
                         content.classList.toggle('active', isActive);
                     });
-                    // Update separator height after tab change
                     setTimeout(updateSeparatorHeight, 0);
                 };
                 tabTitles.forEach(title => {
@@ -962,7 +1110,7 @@
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.intersectionRatio > 0.5) { // Zmieniono warunek
+                    if (entry.intersectionRatio > 0.5) {
                         const id = entry.target.getAttribute('id');
                         navLinks.forEach(link => {
                             link.classList.remove('active');
@@ -975,7 +1123,7 @@
                 });
             }, { 
                 root: null, 
-                threshold: 0.5 // Obserwuj moment przekroczenia 50%
+                threshold: 0.5
             });
 
             sections.forEach(section => {
@@ -985,11 +1133,8 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Natychmiastowa zmiana koloru przy kliknięciu
                     navLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-
                     const targetId = this.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
@@ -1012,7 +1157,6 @@
 
                 const isAtProfileTop = window.scrollY < 50;
                 const careerSectionTop = careerSection.getBoundingClientRect().top;
-                // Check if the top of the career section is near the top of the viewport
                 const isAtCareerTop = careerSectionTop > -50 && careerSectionTop < 50;
                 
                 const handleScroll = (targetSection) => {
@@ -1024,11 +1168,9 @@
                 };
 
                 if (!isScrolling) {
-                    // Snap from Profile to Career
                     if (isAtProfileTop && event.deltaY > 0) {
                         handleScroll(careerSection);
                     } 
-                    // Snap from Career to Profile
                     else if (isAtCareerTop && event.deltaY < 0) {
                         handleScroll(profileSection);
                     }
@@ -1039,6 +1181,156 @@
         const initLayout = () => {
             stabilizeLayoutHeight();
             window.addEventListener('resize', stabilizeLayoutHeight);
+        };
+        
+        let allJobsData = [];
+
+        const initTimelineMarkers = () => {
+            if (window.innerWidth < 768) return;
+
+            document.querySelectorAll('.timeline-marker-wrapper').forEach(el => el.remove());
+
+            const careerEntries = Array.from(document.querySelectorAll('#career-section .career-entry'));
+            if (careerEntries.length === 0) return;
+
+            const jobs = careerEntries.map((entry, index) => {
+                const dateEl = entry.querySelector('.desktop-separator .text-sm');
+                if (!dateEl) return null;
+                
+                const dateText = dateEl.textContent.trim();
+                const [startStr, endStr] = dateText.split(' - ');
+                
+                if (!startStr || !endStr) return null;
+
+                const [startMonth, startYear] = startStr.split('.').map(Number);
+                const [endMonth, endYear] = endStr.split('.').map(Number);
+
+                if (isNaN(startMonth) || isNaN(startYear) || isNaN(endMonth) || isNaN(endYear)) return null;
+
+                entry.dataset.jobId = index;
+
+                return {
+                    id: index,
+                    element: entry,
+                    endYear: endYear,
+                    startTotalMonths: startYear * 12 + (startMonth - 1),
+                    endTotalMonths: endYear * 12 + (endMonth - 1),
+                };
+            }).filter(Boolean);
+
+            if (jobs.length === 0) return;
+            allJobsData = jobs;
+
+            const minDate = Math.min(...jobs.map(j => j.startTotalMonths));
+            const maxDate = Math.max(...jobs.map(j => j.endTotalMonths));
+            const totalDuration = (maxDate - minDate) + 1;
+
+            jobs.forEach(job => {
+                const separator = job.element.querySelector('.desktop-separator');
+                if (!separator) return;
+
+                const durationMonths = (job.endTotalMonths - job.startTotalMonths) + 1;
+                const topOffsetFromMax = maxDate - job.endTotalMonths;
+                const topPercent = (topOffsetFromMax / totalDuration) * 100;
+                const heightPercent = (durationMonths / totalDuration) * 100;
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'timeline-marker-wrapper';
+                wrapper.style.top = `${topPercent}%`;
+                wrapper.style.height = `${heightPercent}%`;
+                
+                const years = Math.floor(durationMonths / 12);
+                const months = durationMonths % 12;
+                let titleText = 'Czas trwania: ';
+                if (years > 0) titleText += `${years} lat `;
+                if (months > 0) titleText += `${months} mies.`;
+                wrapper.title = titleText.trim();
+
+
+                const startDot = document.createElement('div');
+                startDot.className = 'timeline-dot timeline-dot-start';
+
+                const endDot = document.createElement('div');
+                endDot.className = 'timeline-dot timeline-dot-end';
+                
+                const yearLabel = document.createElement('span');
+                yearLabel.className = 'timeline-year-label';
+                yearLabel.textContent = job.endYear;
+                
+                wrapper.appendChild(startDot);
+                wrapper.appendChild(endDot);
+                wrapper.appendChild(yearLabel);
+                separator.appendChild(wrapper);
+            });
+        };
+
+        const initTimelineZoom = () => {
+            const zoomBtn = document.getElementById('zoom-timeline-btn');
+            const modal = document.getElementById('timeline-zoom-modal');
+            const closeBtn = document.getElementById('close-zoom-modal-btn');
+            const container = document.getElementById('zoomed-timeline-container');
+            const careerEntries = document.querySelectorAll('.career-entry');
+
+            if (!zoomBtn || !modal || !closeBtn || !container) return;
+
+            let activeJobId = null;
+
+            careerEntries.forEach(entry => {
+                entry.addEventListener('mouseenter', () => {
+                   activeJobId = entry.dataset.jobId;
+                });
+                entry.addEventListener('mouseleave', () => {
+                    activeJobId = null;
+                });
+            });
+
+            const populateZoomedTimeline = () => {
+                container.innerHTML = '';
+                if(allJobsData.length === 0) return;
+
+                const minDate = Math.min(...allJobsData.map(j => j.startTotalMonths));
+                const maxDate = Math.max(...allJobsData.map(j => j.endTotalMonths));
+                const totalDuration = (maxDate - minDate) + 1;
+
+                allJobsData.forEach(job => {
+                    const durationMonths = (job.endTotalMonths - job.startTotalMonths) + 1;
+                    const topOffsetFromMax = maxDate - job.endTotalMonths;
+                    const topPercent = (topOffsetFromMax / totalDuration) * 100;
+                    const heightPercent = (durationMonths / totalDuration) * 100;
+
+                    const marker = document.createElement('div');
+                    marker.className = 'zoomed-marker';
+                    marker.style.top = `${topPercent}%`;
+                    marker.style.height = `${heightPercent}%`;
+                    
+                    if (activeJobId !== null && job.id == activeJobId) {
+                        marker.classList.add('highlighted');
+                    }
+                    
+                    const years = Math.floor(durationMonths / 12);
+                    const months = durationMonths % 12;
+                    let titleText = job.element.querySelector('h3').textContent + ' ('
+                    if (years > 0) titleText += `${years} lat `;
+                    if (months > 0) titleText += `${months} mies.`;
+                    titleText += ')'
+                    marker.title = titleText.trim();
+                    
+                    container.appendChild(marker);
+                });
+            };
+            
+            zoomBtn.addEventListener('click', () => {
+                populateZoomedTimeline();
+                modal.classList.add('visible');
+            });
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('visible');
+            });
+            modal.addEventListener('click', (e) => {
+                if(e.target === modal) {
+                    modal.classList.remove('visible');
+                }
+            });
         };
 
         // --- SEKCJA 4: Główny punkt wejścia ---
@@ -1051,10 +1343,16 @@
             initCareerAccordion();
             initNavScrollListener();
             initSmartScroll(); 
+            initTimelineMarkers(); 
+            initTimelineZoom();
         });
 
         window.addEventListener('load', () => {
             initLayout();
+        });
+
+        window.addEventListener('resize', () => {
+            initTimelineMarkers();
         });
     </script>
 </body>
