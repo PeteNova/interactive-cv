@@ -1379,21 +1379,18 @@
                 }
                 const globalElapsedTime = timestamp - animationState[animationKey].startTime;
                 
-                // Sprawdź, czy animacja już się rozpoczęła (tzn. czy to nie jest pierwszy render)
-                const hasStarted = !!animationState[animationKey].lastData;
-
                 const newValues = finalTargetValues.map((targetValuePeak, index) => {
                     let currentValue;
                     const amplitude = oscillationAmplitudes[index];
                     const peakReachTime = individualPeakReachTime[index];
 
-                    // Wykonaj animację "wzrostu" tylko jeśli to pierwszy start (hasStarted jest fałszywe)
-                    if (globalElapsedTime < peakReachTime && !hasStarted) {
+                    // Wykonaj animację "wzrostu"
+                    if (globalElapsedTime < peakReachTime) {
                         let progress = globalElapsedTime / peakReachTime;
                         currentValue = easeOutCubic(progress) * targetValuePeak;
                     } else {
-                        // W przeciwnym razie od razu przejdź do oscylacji
-                        const oscillationTime = (globalElapsedTime < peakReachTime) ? 0 : globalElapsedTime - peakReachTime;
+                        // W przeciwnym razie przejdź do oscylacji
+                        const oscillationTime = globalElapsedTime - peakReachTime;
                         const oscillationCenter = targetValuePeak - amplitude; 
                         const oscillation = amplitude * (1 + Math.cos(oscillationTime * oscillationSpeeds[index])) / 2;
                         currentValue = oscillationCenter + oscillation;
@@ -1433,8 +1430,10 @@
 
         const renderTechnicalSkillsChart = (lang) => {
             if (technicalSkillsChart) {
-                // Zapisz stan przed zniszczeniem wykresu
-                animationState.tech.lastData = technicalSkillsChart.data.datasets[0].data;
+                // Zapisz stan tylko, jeśli animacja już się rozpoczęła, aby uniknąć pominięcia animacji początkowej
+                if (animationState.tech.startTime) {
+                    animationState.tech.lastData = technicalSkillsChart.data.datasets[0].data;
+                }
                 technicalSkillsChart.destroy();
             }
             const data = [ { base: 7.5, amplitude: 1.5 }, { base: 9, amplitude: 0.5 }, { base: 9, amplitude: 0.5 }, { base: 6, amplitude: 0.5 }, { base: 8, amplitude: 0.5 }, { base: 9, amplitude: 0.5 } ];
@@ -1448,8 +1447,10 @@
         
         const renderSoftSkillsChart = (lang) => {
             if (softSkillsChart) {
-                 // Zapisz stan przed zniszczeniem wykresu
-                animationState.soft.lastData = softSkillsChart.data.datasets[0].data;
+                // Zapisz stan tylko, jeśli animacja już się rozpoczęła, aby uniknąć pominięcia animacji początkowej
+                if (animationState.soft.startTime) {
+                    animationState.soft.lastData = softSkillsChart.data.datasets[0].data;
+                }
                 softSkillsChart.destroy();
             }
             const data = [ { base: 8.5, amplitude: 0.5 }, { base: 9.25, amplitude: 0.25 }, { base: 6.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 9.0, amplitude: 0.5 } ];
@@ -1516,3 +1517,4 @@
     </script>
 </body>
 </html>
+
