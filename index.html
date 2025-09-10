@@ -273,77 +273,6 @@
         }
         /* === KONIEC ZAKTUALIZOWANEGO STYLU === */
 
-        /* --- Style dla Modalu Zoom --- */
-        #timeline-zoom-modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s;
-        }
-        #timeline-zoom-modal.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        .zoom-modal-content {
-            background-color: var(--base2);
-            padding: 2rem;
-            border-radius: 0.5rem;
-            width: 90%;
-            max-width: 400px;
-            height: 90vh;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        #close-zoom-modal-btn {
-            position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--base00);
-        }
-        #close-zoom-modal-btn:hover { color: var(--base01); }
-        #zoomed-timeline-container {
-            position: relative;
-            flex-grow: 1;
-            width: 100%;
-            margin-top: 1.5rem;
-            border-left: 1px solid var(--base0);
-        }
-        .zoomed-marker {
-            position: absolute;
-            left: -2px;
-            width: 4px;
-            background-color: var(--base0);
-            transition: background-color 0.3s, opacity 0.3s;
-            border-radius: 4px;
-            opacity: 0.6;
-        }
-        .zoomed-marker.highlighted {
-            background-color: var(--blue);
-            opacity: 1;
-        }
-        #zoom-timeline-btn {
-            background: none;
-            border: none;
-            color: var(--base00);
-            cursor: pointer;
-            padding: 0.25rem;
-            margin-left: 0.5rem;
-            transition: color 0.2s;
-        }
-        #zoom-timeline-btn:hover {
-            color: var(--base01);
-        }
-
         /* --- Style dla sekcji Umiejętności (skills) --- */
         .chart-container {
             position: relative; 
@@ -649,12 +578,6 @@
                 <div class="flex flex-col md:flex-row mb-12 md:items-end">
                     <div class="w-1/4 pr-10 flex items-center">
                         <h2 class="text-2xl md:text-3xl font-medium">Oś Czasu</h2>
-                        <button id="zoom-timeline-btn" title="Powiększ oś czasu">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                                <path d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                            </svg>
-                        </button>
                     </div>
                     <div class="w-3/4 pl-4 flex justify-between items-end">
                         <h2 class="text-2xl md:text-3xl font-medium">Doświadczenie Zawodowe</h2>
@@ -976,18 +899,6 @@
         Skopiowano do schowka!
     </div>
 
-    <div id="timeline-zoom-modal" class="">
-        <div class="zoom-modal-content">
-            <button id="close-zoom-modal-btn" title="Zamknij">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </button>
-            <h3 class="text-xl font-medium text-center">Oś Czasu - Pełny Widok</h3>
-            <div id="zoomed-timeline-container"></div>
-        </div>
-    </div>
-    
     <div id="skill-tooltip-container"></div>
 
 
@@ -996,6 +907,7 @@
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
             localStorage.setItem('cv-theme', theme);
+            // Wywołaj funkcje renderujące, które teraz same obsłużą zapis stanu
             if (technicalSkillsChart) renderTechnicalSkillsChart(currentLang);
             if (softSkillsChart) renderSoftSkillsChart(currentLang);
         };
@@ -1349,75 +1261,6 @@
             });
         };
 
-        const initTimelineZoom = () => {
-            const zoomBtn = document.getElementById('zoom-timeline-btn');
-            const modal = document.getElementById('timeline-zoom-modal');
-            const closeBtn = document.getElementById('close-zoom-modal-btn');
-            const container = document.getElementById('zoomed-timeline-container');
-            const careerEntries = document.querySelectorAll('.career-entry');
-
-            if (!zoomBtn || !modal || !closeBtn || !container) return;
-
-            let activeJobId = null;
-
-            careerEntries.forEach(entry => {
-                entry.addEventListener('mouseenter', () => {
-                   activeJobId = entry.dataset.jobId;
-                });
-                entry.addEventListener('mouseleave', () => {
-                    activeJobId = null;
-                });
-            });
-
-            const populateZoomedTimeline = () => {
-                container.innerHTML = '';
-                if(allJobsData.length === 0) return;
-
-                const minDate = Math.min(...allJobsData.map(j => j.startTotalMonths));
-                const maxDate = Math.max(...allJobsData.map(j => j.endTotalMonths));
-                const totalDuration = (maxDate - minDate) + 1;
-
-                allJobsData.forEach(job => {
-                    const durationMonths = (job.endTotalMonths - job.startTotalMonths) + 1;
-                    const topOffsetFromMax = maxDate - job.endTotalMonths;
-                    const topPercent = (topOffsetFromMax / totalDuration) * 100;
-                    const heightPercent = (durationMonths / totalDuration) * 100;
-
-                    const marker = document.createElement('div');
-                    marker.className = 'zoomed-marker';
-                    marker.style.top = `${topPercent}%`;
-                    marker.style.height = `${heightPercent}%`;
-                    
-                    if (activeJobId !== null && job.id == activeJobId) {
-                        marker.classList.add('highlighted');
-                    }
-                    
-                    const years = Math.floor(durationMonths / 12);
-                    const months = durationMonths % 12;
-                    let titleText = job.element.querySelector('h3').textContent + ' ('
-                    if (years > 0) titleText += `${years} lat `;
-                    if (months > 0) titleText += `${months} mies.`;
-                    titleText += ')'
-                    marker.title = titleText.trim();
-                    
-                    container.appendChild(marker);
-                });
-            };
-            
-            zoomBtn.addEventListener('click', () => {
-                populateZoomedTimeline();
-                modal.classList.add('visible');
-            });
-            closeBtn.addEventListener('click', () => {
-                modal.classList.remove('visible');
-            });
-            modal.addEventListener('click', (e) => {
-                if(e.target === modal) {
-                    modal.classList.remove('visible');
-                }
-            });
-        };
-
         // --- SEKCJA UMIEJĘTNOŚCI (SKILLS) ---
         const translations = {
             technical_skills_title: { pl: "TECHNICZNE", en: "TECHNICAL" },
@@ -1435,6 +1278,12 @@
         };
         let currentLang = 'pl', technicalSkillsChart, softSkillsChart;
         let animationFrameIds = { tech: null, soft: null };
+        
+        // Globalny obiekt do przechowywania stanu animacji
+        let animationState = {
+            tech: { startTime: null, lastData: null },
+            soft: { startTime: null, lastData: null }
+        };
 
         const translateSkillsPage = (lang) => {
             currentLang = lang;
@@ -1453,21 +1302,39 @@
             const ctx = canvas.getContext('2d');
             
             const s = getComputedStyle(document.body);
-            const FONT_COLOR = s.getPropertyValue('--base01').trim(), GRID_COLOR = s.getPropertyValue('--base0').trim(), ACCENT_COLOR = s.getPropertyValue(accentColor).trim();
+            const isDarkMode = document.body.classList.contains('theme-atom-one-dark');
+
+            const FONT_COLOR = s.getPropertyValue('--base01').trim();
+            const GRID_COLOR = s.getPropertyValue('--base0').trim();
+            const BG_COLOR = s.getPropertyValue('--base2').trim();
+
+            let chartFillColor, chartStrokeColor;
+
+            if (isDarkMode) {
+                const ACCENT_COLOR = s.getPropertyValue(accentColor).trim();
+                chartFillColor = ACCENT_COLOR + '33';
+                chartStrokeColor = ACCENT_COLOR;
+            } else {
+                const MONO_COLOR = s.getPropertyValue('--base01').trim();
+                chartFillColor = MONO_COLOR + '1A'; // ~10% opacity black
+                chartStrokeColor = MONO_COLOR;
+            }
             
+            const initialDatasetData = animationState[animationKey].lastData || chartData.map(() => 0);
+
             const chart = new Chart(ctx, {
                 type: 'radar',
                 data: {
                     labels: translations[labelsDataKey][currentLang],
                     datasets: [{ 
                         label: 'Proficiency', 
-                        data: chartData.map(() => 0), // Start at 0 for animation
-                        backgroundColor: ACCENT_COLOR+'33', 
-                        borderColor: ACCENT_COLOR, 
-                        pointBackgroundColor: ACCENT_COLOR, 
-                        pointBorderColor: '#fff', 
-                        pointHoverBackgroundColor: '#fff', 
-                        pointHoverBorderColor: ACCENT_COLOR 
+                        data: initialDatasetData,
+                        backgroundColor: chartFillColor, 
+                        borderColor: chartStrokeColor, 
+                        pointBackgroundColor: chartStrokeColor, 
+                        pointBorderColor: BG_COLOR, 
+                        pointHoverBackgroundColor: BG_COLOR, 
+                        pointHoverBorderColor: chartStrokeColor 
                     }]
                 },
                 options: { 
@@ -1496,11 +1363,9 @@
             const finalTargetValues = chartData.map(d => d.base);
             const oscillationAmplitudes = chartData.map(d => d.amplitude);
             const initialAnimationBaseDuration = 2000;
-            let initialAnimationStartTime = null;
 
             const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
-            const easeInOutCubic = p => p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
-
+            
             const initialSpeedMultipliers = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8]; 
             const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017];
 
@@ -1509,19 +1374,26 @@
             });
 
             function animateChart(timestamp) {
-                if (!initialAnimationStartTime) initialAnimationStartTime = timestamp;
-                const globalElapsedTime = timestamp - initialAnimationStartTime;
+                if (!animationState[animationKey].startTime) {
+                     animationState[animationKey].startTime = timestamp;
+                }
+                const globalElapsedTime = timestamp - animationState[animationKey].startTime;
+                
+                // Sprawdź, czy animacja już się rozpoczęła (tzn. czy to nie jest pierwszy render)
+                const hasStarted = !!animationState[animationKey].lastData;
 
                 const newValues = finalTargetValues.map((targetValuePeak, index) => {
                     let currentValue;
                     const amplitude = oscillationAmplitudes[index];
                     const peakReachTime = individualPeakReachTime[index];
 
-                    if (globalElapsedTime < peakReachTime) {
+                    // Wykonaj animację "wzrostu" tylko jeśli to pierwszy start (hasStarted jest fałszywe)
+                    if (globalElapsedTime < peakReachTime && !hasStarted) {
                         let progress = globalElapsedTime / peakReachTime;
                         currentValue = easeOutCubic(progress) * targetValuePeak;
                     } else {
-                        const oscillationTime = globalElapsedTime - peakReachTime;
+                        // W przeciwnym razie od razu przejdź do oscylacji
+                        const oscillationTime = (globalElapsedTime < peakReachTime) ? 0 : globalElapsedTime - peakReachTime;
                         const oscillationCenter = targetValuePeak - amplitude; 
                         const oscillation = amplitude * (1 + Math.cos(oscillationTime * oscillationSpeeds[index])) / 2;
                         currentValue = oscillationCenter + oscillation;
@@ -1529,29 +1401,42 @@
                     }
                     return currentValue;
                 });
+                
+                // Zaktualizuj stan na potrzeby kolejnego przerenderowania
+                animationState[animationKey].lastData = newValues;
 
                 chart.data.datasets[0].data = newValues;
                 chart.update('none');
                 animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
             }
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        initialAnimationStartTime = null;
-                        animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
-                        observer.unobserve(canvas);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            observer.observe(canvas);
+            // Jeśli czas startu już istnieje, kontynuuj animację
+            if (animationState[animationKey].startTime) {
+                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
+            } else {
+                // W przeciwnym razie, użyj IntersectionObserver do pierwszego uruchomienia
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            if (!animationState[animationKey].startTime) {
+                                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
+                            }
+                            observer.unobserve(canvas);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                observer.observe(canvas);
+            }
 
             return chart;
         }
 
         const renderTechnicalSkillsChart = (lang) => {
-            if (technicalSkillsChart) technicalSkillsChart.destroy();
+            if (technicalSkillsChart) {
+                // Zapisz stan przed zniszczeniem wykresu
+                animationState.tech.lastData = technicalSkillsChart.data.datasets[0].data;
+                technicalSkillsChart.destroy();
+            }
             const data = [ { base: 7.5, amplitude: 1.5 }, { base: 9, amplitude: 0.5 }, { base: 9, amplitude: 0.5 }, { base: 6, amplitude: 0.5 }, { base: 8, amplitude: 0.5 }, { base: 9, amplitude: 0.5 } ];
             technicalSkillsChart = createChart('technicalSkillsChart', 'technical_skills_labels', data, '--cyan', 'tech');
             if(technicalSkillsChart) {
@@ -1562,7 +1447,11 @@
         };
         
         const renderSoftSkillsChart = (lang) => {
-            if (softSkillsChart) softSkillsChart.destroy();
+            if (softSkillsChart) {
+                 // Zapisz stan przed zniszczeniem wykresu
+                animationState.soft.lastData = softSkillsChart.data.datasets[0].data;
+                softSkillsChart.destroy();
+            }
             const data = [ { base: 8.5, amplitude: 0.5 }, { base: 9.25, amplitude: 0.25 }, { base: 6.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 9.0, amplitude: 0.5 } ];
             softSkillsChart = createChart('softSkillsChart', 'soft_skills_labels', data, '--yellow', 'soft');
             if(softSkillsChart) {
@@ -1614,7 +1503,6 @@
             initNavScrollListener();
             initSmartScroll(); 
             initTimelineMarkers(); 
-            initTimelineZoom();
             translateSkillsPage('pl');
         });
 
