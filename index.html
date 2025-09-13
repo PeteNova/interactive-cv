@@ -65,7 +65,6 @@
             background-color: var(--base2);
             height: 100vh;
             overflow: hidden;
-            font-family: 'Lato', sans-serif;
         }
         body.theme-atom-one-dark #profile-section, body.theme-atom-one-dark #career-section, body.theme-atom-one-dark #skills-section { background-color: var(--base3); }
 
@@ -277,12 +276,23 @@
         .chart-container {
             position: relative; 
             width: 100%; 
-            max-width: 500px; 
-            height: 400px;
+            max-width: 550px; 
+            height: 450px;
         }
-        #skills-section {
-            font-family: 'Lato', sans-serif;
+        
+        /* --- NOWE STYLE DLA ZAKŁADEK (TABS) --- */
+        .skill-title {
+            transition: color 0.3s;
+            cursor: pointer;
         }
+        .skill-title.active {
+            color: var(--base01);
+            cursor: default;
+        }
+        .skill-title:not(.active) {
+            color: var(--contact-color);
+        }
+
         #skill-tooltip-container {
             position: fixed; 
             pointer-events: none;
@@ -307,6 +317,15 @@
         }
         .skill-tooltip-card h3 { 
             color: inherit; 
+        }
+        
+        body.theme-atom-one-dark .skill-tooltip-card {
+            box-shadow: none;
+            border-radius: 0;
+        }
+        body:not(.theme-atom-one-dark) .skill-tooltip-card {
+            border: none;
+            border-radius: 0;
         }
 
         /* --- MEDIA QUERIES DLA RESPONSYWNOŚCI --- */
@@ -334,7 +353,8 @@
                 min-height: auto;
                  padding: 5.5rem 1rem 2rem 1rem;
             }
-            .chart-container { height: 320px; }
+            .chart-container { height: 350px; max-width: 100%; }
+            #skills-tabs h2 { font-size: 1.25rem; } /* Zmniejszenie czcionki na mobile */
             
             #navbar, #desktop-nav-right { display: none; }
             #mobile-nav { display: flex; justify-content: space-between; align-items: center; width: 100%; height: 28px; }
@@ -407,10 +427,6 @@
             .career-entry {
                 flex-direction: column;
             }
-
-            /* Responsive skills section */
-            .grid.md:grid-cols-2 { grid-template-columns: 1fr; }
-            .md:block.absolute { display: none; }
         }
     </style>
 </head>
@@ -466,7 +482,15 @@
                 <div class="profile-header-flex flex items-center">
                     <div class="flex-col-left w-1/4 pr-10 desktop-separator">
                          <div class="profile-image-container">
-                            <img src="profile.jpg" alt="Piotr Nowakowski" class="profile-image" onerror="this.onerror=null;this.src='https://placehold.co/240x240/21252B/CBDFD6?text=PN';">
+                            <!-- UWAGA DOTYCZĄCA ZDJĘCIA:
+                                 - Upewnij się, że pliki 'profile.webp' i 'profile.jpg' znajdują się w tym samym folderze co ten plik HTML.
+                                 - Wielkość liter w nazwie pliku ma znaczenie (profile.jpg to nie to samo co Profile.JPG).
+                                 - Jeśli zdjęcie wciąż się nie ładuje, spróbuj wyczyścić pamięć podręczną przeglądarki (Ctrl+Shift+R).
+                            -->
+                            <picture>
+                                <source srcset="./profile.webp" type="image/webp">
+                                <img src="./profile.jpg" alt="Piotr Nowakowski" class="profile-image" onerror="this.onerror=null; this.parentElement.innerHTML = '<div class=\'profile-image\' style=\'background-color: var(--base02); color: var(--base01); display: flex; align-items: center; justify-content: center; font-size: 4rem;\'>PN</div>';">
+                            </picture>
                         </div>
                     </div>
                     <div class="flex-col-right w-3/4 pl-4">
@@ -474,7 +498,7 @@
                             <div class="flex flex-col items-start text-left">
                                 <h1 class="text-3xl md:text-4xl text-blue font-bold">PIOTR <span class="font-normal">NOWAKOWSKI</span></h1>
                                 <p class="text-base text-base00 mt-1 mobile-hidden-info">Wiek: 38 lat</p>
-                                <p class="text-xl md:text-2xl mt-4 text-cyan font-normal">Spawacz TIG/MIG & Ślusarz</p>
+                                <div class="text-xl md:text-2xl mt-4 text-cyan">Spawacz TIG/MIG & Ślusarz</div>
                                 <p class="text-base text-base00 mt-1 mobile-hidden-info">Ponad 9 lat doświadczenia zawodowego</p>
                             </div>
                             <div class="flex flex-col text-right pr-[1em]">
@@ -549,27 +573,20 @@
             </div>
         </section>
 
-        <!-- Sekcja Umiejętności -->
         <section id="skills-section" class="page-section">
             <div id="main-container" class="container mx-auto px-6 w-full flex flex-col justify-center items-center">
-                <div class="relative grid md:grid-cols-2 gap-x-16 gap-y-12 items-center w-full max-w-7xl mt-12">
-                    <div class="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-base0 -ml-px"></div>
-                    <div class="flex flex-col items-center">
-                        <h3 class="text-xl md:text-2xl font-bold pb-2 text-cyan text-center transform translate-x-2" data-translate-key="technical_skills_title">TECHNICZNE</h3>
-                        <div class="h-6"></div>
-                        <div class="chart-container">
-                            <canvas id="technicalSkillsChart"></canvas>
-                        </div>
+
+                <div class="flex flex-col items-center w-full max-w-4xl mt-12">
+                    <div id="skills-tabs" class="flex items-center justify-center space-x-6 mb-8">
+                        <h2 data-skill-type="technical" class="skill-title active text-2xl md:text-3xl font-medium" data-translate-key="technical_skills_title">TECHNICZNE</h2>
+                        <h2 data-skill-type="soft" class="skill-title text-2xl md:text-3xl font-medium" data-translate-key="soft_skills_title">MIĘKKIE</h2>
                     </div>
-                    
-                    <div class="flex flex-col items-center">
-                        <h3 class="text-xl md:text-2xl font-bold pb-2 text-green text-center" data-translate-key="soft_skills_title">MIĘKKIE</h3>
-                        <div class="h-6"></div>
-                        <div class="chart-container">
-                            <canvas id="softSkillsChart"></canvas>
-                        </div>
+
+                    <div class="chart-container w-full">
+                        <canvas id="skillsChart"></canvas>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -904,12 +921,33 @@
 
     <script>
         // --- SEKCJA 1: Funkcje pomocnicze i narzędziowe ---
+        const throttle = (func, limit) => {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            };
+        };
+
+        const debounce = (func, delay) => {
+            let timeout;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), delay);
+            };
+        };
+
         const applyTheme = (theme) => {
             document.body.className = theme === 'default' ? '' : theme;
             localStorage.setItem('cv-theme', theme);
-            // Wywołaj funkcje renderujące, które teraz same obsłużą zapis stanu
-            if (technicalSkillsChart) renderTechnicalSkillsChart(currentLang);
-            if (softSkillsChart) renderSoftSkillsChart(currentLang);
+            if (skillsChart) renderSkillsChart(currentLang);
         };
 
         const loadTheme = () => {
@@ -1126,58 +1164,108 @@
                     const targetId = this.getAttribute('href');
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
-                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                        // Let the smart scroll handle the navigation if it's active
+                        if (window.innerWidth >= 768) {
+                            const sectionsArray = Array.from(sections);
+                            const targetIndex = sectionsArray.findIndex(s => s.id === targetSection.id);
+                            if (targetIndex !== -1) {
+                                // This assumes scrollToSection is globally available or refactored
+                                // For now, we'll keep the direct scroll for nav clicks
+                                targetSection.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        } else {
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
                     }
                 });
             });
         };
 
         const initSmartScroll = () => {
+            // De-initialize if screen is too small
+            if (window.innerWidth < 768) {
+                // In a real app, you'd remove the listener if it was added before.
+                // For this script's structure, we just prevent it from being added.
+                return;
+            }
+
+            const sections = Array.from(document.querySelectorAll('main > .page-section'));
+            if (sections.length < 2) return;
+
+            let currentSectionIndex = 0;
             let isScrolling = false;
-            let scrollTimeout = null;
+            const scrollAnimationDuration = 800; // ms
 
-            window.addEventListener('wheel', (event) => {
-                if (window.innerWidth < 768) return;
-
-                const profileSection = document.getElementById('profile-section');
-                const skillsSection = document.getElementById('skills-section');
-                const careerSection = document.getElementById('career-section');
-                if (!profileSection || !skillsSection || !careerSection) return;
-
-                const isAtProfileTop = window.scrollY < 50;
-                const skillsSectionTop = skillsSection.getBoundingClientRect().top;
-                const careerSectionTop = careerSection.getBoundingClientRect().top;
-                const isAtSkillsTop = skillsSectionTop > -50 && skillsSectionTop < 50;
-                const isAtCareerTop = careerSectionTop > -50 && careerSectionTop < 50;
-                
-                const handleScroll = (targetSection) => {
-                    event.preventDefault();
+            // Find the initial section on page load
+            const initialScrollY = window.scrollY;
+            for(let i = 0; i < sections.length; i++) {
+                if(sections[i].offsetTop >= initialScrollY) {
+                    currentSectionIndex = i;
+                    break;
+                }
+            }
+            
+            const scrollToSection = (index) => {
+                if (index >= 0 && index < sections.length) {
                     isScrolling = true;
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    clearTimeout(scrollTimeout);
-                    scrollTimeout = setTimeout(() => { isScrolling = false; }, 800);
-                };
+                    currentSectionIndex = index; // Update the index immediately
+                    sections[index].scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Set a timeout to re-enable scrolling after the animation is expected to finish
+                    setTimeout(() => {
+                        isScrolling = false;
+                    }, scrollAnimationDuration);
+                }
+            };
 
-                if (!isScrolling) {
-                    if (isAtProfileTop && event.deltaY > 0) {
-                        handleScroll(skillsSection);
-                    } 
-                    else if (isAtSkillsTop && event.deltaY > 0) {
-                        handleScroll(careerSection);
+            const wheelHandler = (event) => {
+                // If a smooth scroll animation is in progress, prevent any other scroll actions
+                if (isScrolling) {
+                    event.preventDefault();
+                    return;
+                }
+
+                const currentSection = sections[currentSectionIndex];
+                const isCareerSection = currentSection.id === 'career-section';
+                const scrollDirection = event.deltaY;
+
+                if (isCareerSection) {
+                    const rect = currentSection.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Use a small tolerance to account for sub-pixel rendering issues
+                    const isAtTop = rect.top >= -5;
+                    const isAtBottom = rect.bottom <= viewportHeight + 5;
+
+                    if (scrollDirection < 0 && isAtTop) { // User is at the top and wants to scroll up
+                        event.preventDefault();
+                        scrollToSection(currentSectionIndex - 1);
+                    } else if (scrollDirection > 0 && isAtBottom) { // User is at the bottom and wants to scroll down
+                        event.preventDefault();
+                        if (currentSectionIndex < sections.length - 1) {
+                            scrollToSection(currentSectionIndex + 1);
+                        }
                     }
-                    else if (isAtSkillsTop && event.deltaY < 0) {
-                        handleScroll(profileSection);
-                    }
-                    else if (isAtCareerTop && event.deltaY < 0) {
-                        handleScroll(skillsSection);
+                    // IMPORTANT: If not at the edges, we DO NOT call preventDefault.
+                    // This allows the browser's native scroll to work inside the career section.
+                } else {
+                    // For all other sections, we use the snap-scrolling behavior
+                    event.preventDefault();
+                    if (scrollDirection > 0 && currentSectionIndex < sections.length - 1) {
+                        scrollToSection(currentSectionIndex + 1);
+                    } else if (scrollDirection < 0 && currentSectionIndex > 0) {
+                        scrollToSection(currentSectionIndex - 1);
                     }
                 }
-            }, { passive: false });
+            };
+            
+            // Add the event listener once, ensuring it's not re-added on resize or other events.
+            // The passive: false option is crucial for preventDefault() to work reliably.
+            window.addEventListener('wheel', wheelHandler, { passive: false });
         };
         
         const initLayout = () => {
             stabilizeLayoutHeight();
-            window.addEventListener('resize', stabilizeLayoutHeight);
         };
         
         let allJobsData = [];
@@ -1266,24 +1354,81 @@
             technical_skills_title: { pl: "TECHNICZNE", en: "TECHNICAL" },
             soft_skills_title: { pl: "MIĘKKIE", en: "SOFT" },
             technical_qualifications_data: {
-                pl: [ { title: "Spawanie TIG/MIG", desc: "Zaawansowana biegłość w spawaniu TIG, uzupełniona o podstawowe doświadczenie w metodzie MIG. Specjalizacja w stali nierdzewnej, aluminium i brązie." }, { title: "Jakość i Zgodność", desc: "Udokumentowana zdolność do zdawania trudnych testów kwalifikacyjnych na poziomie lotniczym (stal nierdzewna i aluminium)." }, { title: "Rzemiosło Artystyczne", desc: "Poziom ekspercki w ręcznej obróbce metali, w tym w skomplikowanym kształtowaniu, teksturowaniu i wykańczaniu." }, { title: "Obróbka Przemysłowa", desc: "Biegłość w produkcji i montażu komponentów przemysłowych, takich jak ramy, rurociągi i armatura." }, { title: "Bezpieczeństwo i Procedury", desc: "Nienaganny rekord bezpieczeństwa i doświadczenie w tworzeniu książek danych spawalniczych." }, { title: "Obsługa Narzędzi", desc: "Biegła obsługa szerokiej gamy narzędzi, od spawarek TIG/MIG po przecinarki plazmowe i suwnice." } ],
-                en: [ { title: "TIG/MIG Welding", desc: "Advanced proficiency in TIG welding, complemented by foundational experience in the MIG method. Specializing in stainless steel, aluminium, and bronze." }, { title: "Quality & Compliance", desc: "Proven ability to pass difficult, aerospace-grade qualification tests (stainless steel and aluminium)." }, { title: "Artisanal Fabrication", desc: "Expert-level skill in manual, artistic metalwork, including complex shaping, texturing, and finishing." }, { title: "Industrial Machining", desc: "Proficient in the fabrication and assembly of industrial components like frames, pipework, and fittings." }, { title: "Safety & Procedures", desc: "Impeccable safety record and experience in creating welding data books." }, { title: "Tool Proficiency", desc: "Skilled in operating a wide range of tools, from TIG/MIG welders to plasma cutters and overhead cranes." } ]
+                pl: [
+                    { title: "Spawanie TIG", desc: "Poziom ekspercki w spawaniu TIG (141), specjalizacja w stali nierdzewnej, aluminium i brązie. Precyzja w pracy z cienkimi i wymagającymi materiałami." },
+                    { title: "Spawanie MIG", desc: "Dobre umiejętności w spawaniu MIG (135/136), efektywne przy grubszych materiałach i konstrukcjach stalowych." },
+                    { title: "Rzemiosło Artystyczne", desc: "Poziom ekspercki w ręcznej obróbce metali, w tym w skomplikowanym kształtowaniu i wykańczaniu. Biegła obsługa specjalistycznych narzędzi ręcznych i traserskich." },
+                    { title: "Obróbka Przemysłowa", desc: "Biegłość w produkcji i montażu komponentów przemysłowych. Swobodna obsługa elektronarzędzi (szlifierki, wiertarki) i podstawowa znajomość cięższych maszyn." },
+                    { title: "Bezpieczeństwo i Procedury", desc: "Nienaganny rekord bezpieczeństwa (zero wypadków). Doświadczenie w tworzeniu baz danych (WPS) dla optymalizacji procesów spawalniczych, skracania czasu operacji i podnoszenia jakości." },
+                    { title: "Jakość i Zgodność", desc: "Potwierdzenie umiejętności wraz ze zdaniem najtrudniejszej kwalifikacji w przemyśle lotniczym: spawanie pachwinowe (fillet weld) na blasze 1.6mm z pełną penetracją bez przetopu." }
+                ],
+                en: [
+                    { title: "TIG Welding", desc: "Expert proficiency in TIG welding (141), specializing in stainless steel, aluminum, and bronze. Precision in working with thin and demanding materials." },
+                    { title: "MIG Welding", desc: "Good skills in MIG welding (135/136), effective for thicker materials and steel structures." },
+                    { title: "Artisanal Fabrication", desc: "Expert-level skill in manual metalwork, including complex shaping and finishing. Proficient in specialized hand and marking tools." },
+                    { title: "Industrial Machining", desc: "Proficient in fabricating and assembling industrial components. Confident with power tools (grinders, drills) and basic knowledge of heavier machinery." },
+                    { title: "Safety & Procedures", desc: "Impeccable safety record (zero accidents). Experienced in creating welding databases (WPS) to optimize welding processes, reduce operation times, and increase quality." },
+                    { title: "Quality & Compliance", desc: "Confirmation of skills by passing the most difficult qualification in the aerospace industry: a 1.6mm fillet weld with full penetration and no melt-through." }
+                ]
             },
-            technical_skills_labels: { pl: [['Spawanie', 'TIG/MIG'], ['Jakość i', 'Zgodność'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Obsługa', 'Narzędzi']], en: [['TIG/MIG', 'Welding'], ['Quality &', 'Compliance'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Tool', 'Proficiency']] },
+            technical_skills_labels: {
+                pl: [['Spawanie', 'TIG'], ['Spawanie', 'MIG'], ['Rzemiosło', 'Artystyczne'], ['Obróbka', 'Przemysłowa'], ['Procedury', 'Bezpieczeństwa'], ['Jakość i', 'Zgodność']],
+                en: [['TIG', 'Welding'], ['MIG', 'Welding'], ['Artisanal', 'Fabrication'], ['Industrial', 'Machining'], ['Safety', 'Procedures'], ['Quality &', 'Compliance']]
+            },
             soft_qualifications_data: {
-                pl: [ { title: "Rozwiązywanie Problemów", desc: "Biegłość w diagnozowaniu i rozwiązywaniu złożonych wyzwań, od naprawy odlewów po optymalizację procesów spawalniczych." }, { title: "Zdolności Analityczne", desc: "Wysoce rozwinięte zdolności analityczne. Metodyczne podejście do optymalizacji procesów, co pozwoliło przewyższyć wydajność bardziej doświadczonych kolegów." }, { title: "Praca Zespołowa", desc: "Efektywna praca samodzielna i skoncentrowana na zadaniu. Dobrze funkcjonuje w zorganizowanych zespołach, gdzie role są jasno określone, wnosząc wkład poprzez dokładność i rzetelność." }, { title: "Kreatywność i Zręczność", desc: "Wrodzone poczucie formy i estetyki, połączone z wyjątkową zręcznością manualną." }, { title: "Ciągłe Uczenie Się", desc: "Szybkie przyswajanie nowych, skomplikowanych umiejętności pod presją, udowodnione zdaniem testów lotniczych." }, { title: "Etyka Pracy", desc: "Wyjątkowa etyka pracy, udokumentowana historia bezpieczeństwa i elastyczność w adaptacji do nowych zadań." } ],
-                en: [ { title: "Problem Solving", desc: "Adept at diagnosing and resolving complex challenges, from repairing castings to optimizing welding processes." }, { title: "Analytical Ability", desc: "Highly developed analytical skills. A methodical approach to process optimization, which led to surpassing the efficiency of more experienced colleagues." }, { title: "Teamwork", desc: "Effective in independent, task-focused work. Functions well in structured teams with clearly defined roles, contributing through precision and reliability." }, { title: "Creativity & Dexterity", desc: "An innate sense of form and aesthetics, combined with exceptional manual dexterity." }, { title: "Continuous Learning", desc: "Rapid acquisition of new, complex skills under pressure, proven by passing aerospace-grade tests." }, { title: "Work Ethic", desc: "Exceptional work ethic, a proven safety record, and flexibility in adapting to new tasks." } ]
+                pl: [ { title: "Rozwiązywanie Problemów", desc: "Biegłość w diagnozowaniu i rozwiązywaniu złożonych wyzwań, od naprawy odlewów po optymalizację procesów spawalniczych." }, { title: "Zdolności Analityczne", desc: "Wysoce rozwinięte zdolności analityczne. Metodyczne podejście do optymalizacji procesów, co pozwoliło przewyższyć wydajność bardziej doświadczonych kolegów." }, { title: "Praca Zespołowa", desc: "Efektywna praca samodzielna i skoncentrowana na zadaniu. Dobrze funkcjonuje w zorganizowanych zespołach, gdzie role są jasno określone, wnosząc wkład poprzez dokładność i rzetelność." }, { title: "Kreatywność i Dbałość o Detal", desc: "Naturalny zmysł estetyczny, doskonalony przez 8 lat edukacji i doświadczenie zawodowe, przekłada się na wyjątkową precyzję i dbałość o najdrobniejsze detale." }, { title: "Ciągłe Uczenie Się", desc: "Szybkie przyswajanie nowych, skomplikowanych umiejętności pod presją, udowodnione zdaniem testów lotniczych." }, { title: "Etyka Pracy", desc: "Wyjątkowa etyka pracy, udokumentowana historia bezpieczeństwa i elastyczność w adaptacji do nowych zadań." } ],
+                en: [ { title: "Problem Solving", desc: "Adept at diagnosing and resolving complex challenges, from repairing castings to optimizing welding processes." }, { title: "Analytical Ability", desc: "Highly developed analytical skills. A methodical approach to process optimization, which led to surpassing the efficiency of more experienced colleagues." }, { title: "Teamwork", desc: "Effective in independent, task-focused work. Functions well in structured teams with clearly defined roles, contributing through precision and reliability." }, { title: "Creativity & Attention to Detail", desc: "A natural aesthetic sense, honed through 8 years of education and professional experience, translates into exceptional precision and attention to the smallest details." }, { title: "Continuous Learning", desc: "Rapid acquisition of new, complex skills under pressure, proven by passing aerospace-grade tests." }, { title: "Work Ethic", desc: "Exceptional work ethic, a proven safety record, and flexibility in adapting to new tasks." } ]
             },
-            soft_skills_labels: { pl: [['Rozwiązywanie', 'Problemów'], ['Zdolności', 'Analityczne'], ['Praca', 'Zespołowa'], ['Kreatywność', 'i Zręczność'], ['Ciągłe', 'Uczenie Się'], ['Etyka', 'Pracy']], en: [['Problem', 'Solving'], ['Analytical', 'Ability'], ['Teamwork', ''], ['Creativity', '& Dexterity'], ['Continuous', 'Learning'], ['Work', 'Ethic']] }
+            soft_skills_labels: { pl: [['Rozwiązywanie', 'Problemów'], ['Zdolności', 'Analityczne'], ['Praca', 'Zespołowa'], ['Kreatywność', 'i Detal'], ['Ciągłe', 'Uczenie Się'], ['Etyka', 'Pracy']], en: [['Problem', 'Solving'], ['Analytical', 'Ability'], ['Teamwork', ' '], ['Creativity &', 'Detail'], ['Continuous', 'Learning'], ['Work', 'Ethic']] }
         };
-        let currentLang = 'pl', technicalSkillsChart, softSkillsChart;
-        let animationFrameIds = { tech: null, soft: null };
-        
-        // Globalny obiekt do przechowywania stanu animacji
+
+        const createPaddedLabels = (originalTranslations) => {
+            const allLines = [];
+            ['technical_skills_labels', 'soft_skills_labels'].forEach(key => {
+                ['pl', 'en'].forEach(lang => {
+                    originalTranslations[key][lang].forEach(labelPair => {
+                        allLines.push(...labelPair);
+                    });
+                });
+            });
+
+            const maxLength = Math.max(...allLines.map(line => line.trim().length));
+
+            const padLine = (line) => {
+                const trimmedLine = line.trim();
+                const spacesToAdd = maxLength - trimmedLine.length;
+                if (spacesToAdd <= 0) return trimmedLine;
+                const leftPadding = Math.floor(spacesToAdd / 2);
+                const rightPadding = Math.ceil(spacesToAdd / 2);
+                return ' '.repeat(leftPadding) + trimmedLine + ' '.repeat(rightPadding);
+            };
+
+            const paddedTranslations = JSON.parse(JSON.stringify(originalTranslations));
+
+            ['technical_skills_labels', 'soft_skills_labels'].forEach(key => {
+                ['pl', 'en'].forEach(lang => {
+                    paddedTranslations[key][lang] = originalTranslations[key][lang].map(labelPair => {
+                        return labelPair.map(line => (line.trim() ? padLine(line) : line));
+                    });
+                });
+            });
+
+            return paddedTranslations;
+        };
+
+        let currentLang = 'pl';
+        let skillsChart;
+        let animationFrameId = null;
+        let activeSkillType = 'technical';
+        let techDataConfig, softDataConfig;
+        let isInitialLoad = true; // Flag to track the very first animation
+
         let animationState = {
-            tech: { startTime: null, lastData: null },
-            soft: { startTime: null, lastData: null }
+            startTime: null, lastData: null,
+            isTransitioning: false, transitionStartTime: 0,
+            transitionDuration: 800, fromColorsRgba: null, toColorsRgba: null
         };
+        const paddedTranslations = createPaddedLabels(translations);
 
         const translateSkillsPage = (lang) => {
             currentLang = lang;
@@ -1292,178 +1437,215 @@
                 const key = el.dataset.translateKey;
                 if (translations[key] && translations[key][lang]) el.innerHTML = translations[key][lang];
             });
-            renderTechnicalSkillsChart(lang);
-            renderSoftSkillsChart(lang);
+            document.querySelectorAll('.skill-title').forEach(title => {
+                title.classList.toggle('active', title.dataset.skillType === activeSkillType);
+            });
+            renderSkillsChart(lang);
+        };
+        
+        const colorStringToRgba = (colorStr) => {
+            const canvas = document.createElement('canvas');
+            canvas.width = canvas.height = 1;
+            const ctx = canvas.getContext('2d');
+            if (!colorStr) return [0,0,0,0]; // Handle cases where color might be undefined
+            ctx.fillStyle = colorStr;
+            ctx.fillRect(0, 0, 1, 1);
+            const data = ctx.getImageData(0, 0, 1, 1).data;
+            return [data[0], data[1], data[2], data[3]];
         };
 
-        function createChart(canvasId, labelsDataKey, chartData, accentColor, animationKey) {
-            const canvas = document.getElementById(canvasId);
-            if (!canvas) return null;
-            const ctx = canvas.getContext('2d');
-            
-            const s = getComputedStyle(document.body);
-            const isDarkMode = document.body.classList.contains('theme-atom-one-dark');
+        const updateTransitionColors = (timestamp) => {
+            if (!animationState.isTransitioning) return;
+            const progress = Math.min((timestamp - animationState.transitionStartTime) / animationState.transitionDuration, 1);
+            const t = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+            const fromRgba = animationState.fromColorsRgba, toRgba = animationState.toColorsRgba;
+            const lerp = (s, e, a) => Math.round(s + (e - s) * a);
+            const rgbaToString = (rgba) => `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3] / 255})`;
+            const interpolateRgba = (from, to) => [lerp(from[0], to[0], t), lerp(from[1], to[1], t), lerp(from[2], to[2], t), lerp(from[3], to[3], t)];
 
-            const FONT_COLOR = s.getPropertyValue('--base01').trim();
-            const GRID_COLOR = s.getPropertyValue('--base0').trim();
-            const BG_COLOR = s.getPropertyValue('--base2').trim();
+            const techBgNow = rgbaToString(interpolateRgba(fromRgba.tech.bg, toRgba.tech.bg));
+            const techBorderNow = rgbaToString(interpolateRgba(fromRgba.tech.border, toRgba.tech.border));
+            const softBgNow = rgbaToString(interpolateRgba(fromRgba.soft.bg, toRgba.soft.bg));
+            const softBorderNow = rgbaToString(interpolateRgba(fromRgba.soft.border, toRgba.soft.border));
 
-            let chartFillColor, chartStrokeColor;
+            skillsChart.data.datasets[0].backgroundColor = techBgNow;
+            skillsChart.data.datasets[0].borderColor = techBorderNow;
+            skillsChart.data.datasets[0].pointBackgroundColor = techBorderNow;
+            skillsChart.data.datasets[1].backgroundColor = softBgNow;
+            skillsChart.data.datasets[1].borderColor = softBorderNow;
+            skillsChart.data.datasets[1].pointBackgroundColor = softBorderNow;
 
-            if (isDarkMode) {
-                const ACCENT_COLOR = s.getPropertyValue(accentColor).trim();
-                chartFillColor = ACCENT_COLOR + '33';
-                chartStrokeColor = ACCENT_COLOR;
-            } else {
-                const MONO_COLOR = s.getPropertyValue('--base01').trim();
-                chartFillColor = MONO_COLOR + '1A'; // ~10% opacity black
-                chartStrokeColor = MONO_COLOR;
+            if (progress >= 1) {
+                animationState.isTransitioning = false;
             }
-            
-            const initialDatasetData = animationState[animationKey].lastData || chartData.map(() => 0);
+        };
+        
+        const shuffleArray = (array) => {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        };
 
-            const chart = new Chart(ctx, {
+        const randomizeAnimationParameters = () => {
+            const originalTechSpeeds = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8];
+            const originalSoftSpeeds = [1.5, 1.1, 1.0, 1.2, 1.7, 1.9];
+
+            techDataConfig.speeds = shuffleArray([...originalTechSpeeds]);
+            softDataConfig.speeds = shuffleArray([...originalSoftSpeeds]);
+            
+            techDataConfig.oscillationSpeeds = techDataConfig.oscillationSpeeds.map(s => s * (0.8 + Math.random() * 0.4));
+            softDataConfig.oscillationSpeeds = softDataConfig.oscillationSpeeds.map(s => s * (0.8 + Math.random() * 0.4));
+        };
+
+
+        function mainAnimationLoop(timestamp) {
+            if (skillsChart && skillsChart.data.datasets[0].data.length) {
+                
+                const calculateTargetData = (ts) => {
+                    if (!animationState.startTime) animationState.startTime = ts;
+                    const globalElapsedTime = ts - animationState.startTime;
+                    const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
+                    const animationBaseDuration = 2500;
+
+                    const calculateValues = (config) => {
+                        const finalTargets = config.data.map(d => d.base);
+                        const amplitudes = config.data.map(d => d.amplitude);
+                        return finalTargets.map((target, i) => {
+                            const pointDuration = animationBaseDuration / config.speeds[i];
+                            let currentValue;
+                            if (globalElapsedTime < pointDuration) {
+                                const progress = globalElapsedTime / pointDuration;
+                                const easedProgress = easeOutCubic(progress);
+                                currentValue = easedProgress * target;
+                            } else {
+                                const oscillationTime = globalElapsedTime - pointDuration;
+                                const center = target - amplitudes[i];
+                                const oscillation = amplitudes[i] * (1 + Math.cos(oscillationTime * config.oscillationSpeeds[i])) / 2;
+                                currentValue = Math.max(0, Math.min(10, center + oscillation));
+                            }
+                            return currentValue;
+                        });
+                    };
+                    const newValuesTech = calculateValues(techDataConfig);
+                    const newValuesSoft = calculateValues(softDataConfig);
+                    return { newValuesTech, newValuesSoft };
+                };
+
+                const { newValuesTech, newValuesSoft } = calculateTargetData(timestamp);
+
+                const smoothingFactor = 0.1; 
+                const lerp = (start, end, t) => start + (end - start) * t;
+
+                const currentDataTech = skillsChart.data.datasets[0].data;
+                const smoothedDataTech = currentDataTech.map((value, i) => lerp(value, newValuesTech[i], smoothingFactor));
+
+                const currentDataSoft = skillsChart.data.datasets[1].data;
+                const smoothedDataSoft = currentDataSoft.map((value, i) => lerp(value, newValuesSoft[i], smoothingFactor));
+
+                skillsChart.data.datasets[0].data = smoothedDataTech;
+                skillsChart.data.datasets[1].data = smoothedDataSoft;
+
+                updateTransitionColors(timestamp);
+                
+                skillsChart.update('none');
+            }
+            animationFrameId = requestAnimationFrame(mainAnimationLoop);
+        }
+
+        const renderSkillsChart = (lang) => {
+            let lastKnownData = null;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            if (skillsChart) {
+                lastKnownData = {
+                    tech: [...skillsChart.data.datasets[0].data],
+                    soft: [...skillsChart.data.datasets[1].data]
+                };
+                skillsChart.destroy();
+            }
+
+            const canvas = document.getElementById('skillsChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const s = getComputedStyle(document.body);
+            const FONT_COLOR = s.getPropertyValue('--base01').trim(), GRID_COLOR = s.getPropertyValue('--base0').trim(), BG_COLOR = s.getPropertyValue('--base2').trim();
+            
+            techDataConfig = { 
+                data: [
+                    { base: 9, amplitude: 0.5 },    // TIG
+                    { base: 7, amplitude: 0.5 },    // MIG
+                    { base: 9, amplitude: 0.5 },    // Rzemiosło Artystyczne
+                    { base: 6, amplitude: 0.5 },    // Obróbka Przemysłowa
+                    { base: 8, amplitude: 0.5 },    // Bezpieczeństwo i Procedury
+                    { base: 9, amplitude: 0.5 }     // Jakość i Zgodność
+                ], 
+                speeds: [1.6, 1.2, 0.9, 1.1, 1.8, 1.8], 
+                oscillationSpeeds: [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017] 
+            };
+            softDataConfig = { data: [{ base: 8.5, amplitude: 1.5 }, { base: 8.75, amplitude: 0.25 }, { base: 6.5, amplitude: 0.5 }, { base: 9.5, amplitude: 1.0 }, { base: 8.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }], speeds: [1.5, 1.1, 1.0, 1.2, 1.7, 1.9], oscillationSpeeds: [0.00095, 0.00145, 0.00115, 0.00135, 0.0010, 0.00175] };
+            
+            const initialDataTech = isInitialLoad ? techDataConfig.data.map(() => 0) : lastKnownData.tech;
+            const initialDataSoft = isInitialLoad ? softDataConfig.data.map(() => 0) : lastKnownData.soft;
+
+            const isDarkMode = document.body.classList.contains('theme-atom-one-dark');
+            const baseColor = isDarkMode ? s.getPropertyValue('--cyan').trim() : s.getPropertyValue('--base01').trim();
+            const activeOpacity = isDarkMode ? '4D' : '26', inactiveOpacity = '0D', inactiveBorderOpacity = '26';
+
+            const techIsActive = activeSkillType === 'technical';
+            const techBgColor = baseColor + (techIsActive ? activeOpacity : inactiveOpacity);
+            const techBorderColor = techIsActive ? baseColor : baseColor + inactiveBorderOpacity;
+            const softBgColor = baseColor + (!techIsActive ? activeOpacity : inactiveOpacity);
+            const softBorderColor = !techIsActive ? baseColor : baseColor + inactiveBorderOpacity;
+
+
+            skillsChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: translations[labelsDataKey][currentLang],
-                    datasets: [{ 
-                        label: 'Proficiency', 
-                        data: initialDatasetData,
-                        backgroundColor: chartFillColor, 
-                        borderColor: chartStrokeColor, 
-                        pointBackgroundColor: chartStrokeColor, 
-                        pointBorderColor: BG_COLOR, 
-                        pointHoverBackgroundColor: BG_COLOR, 
-                        pointHoverBorderColor: chartStrokeColor 
-                    }]
+                    labels: paddedTranslations[`${activeSkillType}_skills_labels`][lang],
+                    datasets: [
+                        { label: 'Technical', data: initialDataTech, pointHoverBackgroundColor: BG_COLOR, pointBorderWidth: 0, backgroundColor: techBgColor, borderColor: techBorderColor, pointBackgroundColor: techBorderColor },
+                        { label: 'Soft', data: initialDataSoft, pointHoverBackgroundColor: BG_COLOR, pointBorderWidth: 0, backgroundColor: softBgColor, borderColor: softBorderColor, pointBackgroundColor: softBorderColor }
+                    ]
                 },
                 options: { 
-                    maintainAspectRatio: false, 
-                    responsive: true, 
-                    animation: false, 
-                    scales: { 
-                        r: { 
-                            angleLines: { color: GRID_COLOR }, 
-                            grid: { color: GRID_COLOR }, 
-                            pointLabels: { font: { size: 12, family: "'IBM Plex Mono', monospace" }, color: FONT_COLOR, padding: 25 }, 
-                            ticks: { backdropColor: `rgba(${s.getPropertyValue('--base2-rgb').trim()}, 0.75)`, color: FONT_COLOR, stepSize: 2, font: { family: "'IBM Plex Mono', monospace" } }, 
-                            suggestedMin: 0, 
-                            suggestedMax: 10 
-                        } 
-                    }, 
-                    plugins: { 
-                        legend: { display: false }, 
-                        tooltip: { enabled: false } 
-                    } 
+                    maintainAspectRatio: false, responsive: true, animation: false,
+                    scales: { r: { angleLines: { color: GRID_COLOR }, grid: { color: GRID_COLOR }, pointLabels: { font: { size: 12, family: "'IBM Plex Mono', monospace" }, color: FONT_COLOR, padding: 25 }, ticks: { backdropColor: `rgba(${s.getPropertyValue('--base2-rgb').trim()}, 0.75)`, color: FONT_COLOR, stepSize: 2, font: { family: "'IBM Plex Mono', monospace" } }, suggestedMin: 0, suggestedMax: 10 } }, 
+                    plugins: { legend: { display: false }, tooltip: { enabled: false } } 
                 }
             });
             
-            cancelAnimationFrame(animationFrameIds[animationKey]);
-
-            const finalTargetValues = chartData.map(d => d.base);
-            const oscillationAmplitudes = chartData.map(d => d.amplitude);
-            const initialAnimationBaseDuration = 2000;
-
-            const easeOutCubic = p => 1 - Math.pow(1 - p, 3);
-            
-            const initialSpeedMultipliers = [1.6, 1.2, 0.9, 1.1, 1.8, 1.8]; 
-            const oscillationSpeeds = [0.0009, 0.0014, 0.0011, 0.0013, 0.00105, 0.0017];
-
-            const individualPeakReachTime = finalTargetValues.map((_, index) => {
-                return initialAnimationBaseDuration / initialSpeedMultipliers[index];
-            });
-
-            function animateChart(timestamp) {
-                if (!animationState[animationKey].startTime) {
-                     animationState[animationKey].startTime = timestamp;
-                }
-                const globalElapsedTime = timestamp - animationState[animationKey].startTime;
-                
-                const newValues = finalTargetValues.map((targetValuePeak, index) => {
-                    let currentValue;
-                    const amplitude = oscillationAmplitudes[index];
-                    const peakReachTime = individualPeakReachTime[index];
-
-                    // Wykonaj animację "wzrostu"
-                    if (globalElapsedTime < peakReachTime) {
-                        let progress = globalElapsedTime / peakReachTime;
-                        currentValue = easeOutCubic(progress) * targetValuePeak;
-                    } else {
-                        // W przeciwnym razie przejdź do oscylacji
-                        const oscillationTime = globalElapsedTime - peakReachTime;
-                        const oscillationCenter = targetValuePeak - amplitude; 
-                        const oscillation = amplitude * (1 + Math.cos(oscillationTime * oscillationSpeeds[index])) / 2;
-                        currentValue = oscillationCenter + oscillation;
-                        currentValue = Math.max(0, Math.min(10, currentValue));
-                    }
-                    return currentValue;
-                });
-                
-                // Zaktualizuj stan na potrzeby kolejnego przerenderowania
-                animationState[animationKey].lastData = newValues;
-
-                chart.data.datasets[0].data = newValues;
-                chart.update('none');
-                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
-            }
-
-            // Jeśli czas startu już istnieje, kontynuuj animację
-            if (animationState[animationKey].startTime) {
-                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
-            } else {
-                // W przeciwnym razie, użyj IntersectionObserver do pierwszego uruchomienia
+            if (isInitialLoad) {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
-                            if (!animationState[animationKey].startTime) {
-                                animationFrameIds[animationKey] = requestAnimationFrame(animateChart);
-                            }
-                            observer.unobserve(canvas);
+                            isInitialLoad = false; 
+                            randomizeAnimationParameters();
+                            animationState.startTime = null; 
+                            animationFrameId = requestAnimationFrame(mainAnimationLoop);
+                            observer.unobserve(canvas); 
                         }
                     });
                 }, { threshold: 0.5 });
                 observer.observe(canvas);
-            }
-
-            return chart;
-        }
-
-        const renderTechnicalSkillsChart = (lang) => {
-            if (technicalSkillsChart) {
-                // Zapisz stan tylko, jeśli animacja już się rozpoczęła, aby uniknąć pominięcia animacji początkowej
-                if (animationState.tech.startTime) {
-                    animationState.tech.lastData = technicalSkillsChart.data.datasets[0].data;
+            } else {
+                if (!animationState.startTime) {
+                    animationState.startTime = performance.now() - 3000;
                 }
-                technicalSkillsChart.destroy();
+                animationFrameId = requestAnimationFrame(mainAnimationLoop);
             }
-            const data = [ { base: 7.5, amplitude: 1.5 }, { base: 9, amplitude: 0.5 }, { base: 9, amplitude: 0.5 }, { base: 6, amplitude: 0.5 }, { base: 8, amplitude: 0.5 }, { base: 9, amplitude: 0.5 } ];
-            technicalSkillsChart = createChart('technicalSkillsChart', 'technical_skills_labels', data, '--cyan', 'tech');
-            if(technicalSkillsChart) {
-                technicalSkillsChart.data.labels = translations.technical_skills_labels[lang];
-                technicalSkillsChart.update();
-                initializeChartTooltipEvents(technicalSkillsChart, 'technical_qualifications_data', lang);
-            }
-        };
-        
-        const renderSoftSkillsChart = (lang) => {
-            if (softSkillsChart) {
-                // Zapisz stan tylko, jeśli animacja już się rozpoczęła, aby uniknąć pominięcia animacji początkowej
-                if (animationState.soft.startTime) {
-                    animationState.soft.lastData = softSkillsChart.data.datasets[0].data;
-                }
-                softSkillsChart.destroy();
-            }
-            const data = [ { base: 8.5, amplitude: 0.5 }, { base: 9.25, amplitude: 0.25 }, { base: 6.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 8.5, amplitude: 0.5 }, { base: 9.0, amplitude: 0.5 } ];
-            softSkillsChart = createChart('softSkillsChart', 'soft_skills_labels', data, '--yellow', 'soft');
-            if(softSkillsChart) {
-                softSkillsChart.data.labels = translations.soft_skills_labels[lang];
-                softSkillsChart.update();
-                initializeChartTooltipEvents(softSkillsChart, 'soft_qualifications_data', lang);
-            }
+            
+            initializeChartTooltipEvents(skillsChart, lang);
         };
 
-        function initializeChartTooltipEvents(chart, qualificationsDataKey, lang) {
+        function initializeChartTooltipEvents(chart, lang) {
             const canvas = chart.canvas, tooltipEl = document.getElementById('skill-tooltip-container');
+            const qualificationsDataKey = activeSkillType === 'technical' ? 'technical_qualifications_data' : 'soft_qualifications_data';
             const handleMouseMove = (e) => {
                 const rect = canvas.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top;
                 let foundLabel = false;
@@ -1493,6 +1675,50 @@
             canvas.addEventListener('mouseleave', canvas.mouseLeaveHandler);
         }
 
+        const initSkillTabs = () => {
+            document.getElementById('skills-tabs').addEventListener('click', (e) => {
+                if (!e.target.matches('.skill-title') || animationState.isTransitioning) return;
+                const newType = e.target.dataset.skillType;
+                if (newType === activeSkillType || !skillsChart) return;
+                
+                activeSkillType = newType;
+                document.querySelectorAll('.skill-title').forEach(t => t.classList.remove('active'));
+                e.target.classList.add('active');
+                skillsChart.data.labels = paddedTranslations[`${activeSkillType}_skills_labels`][currentLang];
+
+                const getTargetColors = (type) => {
+                    const s = getComputedStyle(document.body), isDarkMode = document.body.classList.contains('theme-atom-one-dark');
+                    const baseColor = isDarkMode ? s.getPropertyValue('--cyan').trim() : s.getPropertyValue('--base01').trim();
+                    const activeOpacity = isDarkMode ? '4D' : '26', inactiveOpacity = '0D', inactiveBorderOpacity = '26';
+                    return {
+                        tech: { bg: baseColor + (type === 'technical' ? activeOpacity : inactiveOpacity), border: type === 'technical' ? baseColor : baseColor + inactiveBorderOpacity },
+                        soft: { bg: baseColor + (type === 'soft' ? activeOpacity : inactiveOpacity), border: type === 'soft' ? baseColor : baseColor + inactiveBorderOpacity }
+                    };
+                };
+                
+                const currentColors = {
+                    tech: { bg: skillsChart.data.datasets[0].backgroundColor, border: skillsChart.data.datasets[0].borderColor },
+                    soft: { bg: skillsChart.data.datasets[1].backgroundColor, border: skillsChart.data.datasets[1].borderColor }
+                };
+
+                const targetColors = getTargetColors(newType);
+
+                animationState.fromColorsRgba = {
+                    tech: { bg: colorStringToRgba(currentColors.tech.bg), border: colorStringToRgba(currentColors.tech.border) },
+                    soft: { bg: colorStringToRgba(currentColors.soft.bg), border: colorStringToRgba(currentColors.soft.border) }
+                };
+                animationState.toColorsRgba = {
+                    tech: { bg: colorStringToRgba(targetColors.tech.bg), border: colorStringToRgba(targetColors.tech.border) },
+                    soft: { bg: colorStringToRgba(targetColors.soft.bg), border: colorStringToRgba(targetColors.soft.border) }
+                };
+                animationState.transitionStartTime = performance.now();
+                animationState.isTransitioning = true;
+                
+                initializeChartTooltipEvents(skillsChart, currentLang);
+            });
+        };
+
+
         // --- SEKCJA 4: Główny punkt wejścia ---
         document.addEventListener('DOMContentLoaded', () => {
             loadTheme();
@@ -1503,17 +1729,24 @@
             initCareerAccordion();
             initNavScrollListener();
             initSmartScroll(); 
-            initTimelineMarkers(); 
-            translateSkillsPage('pl');
+            initTimelineMarkers();
+            initSkillTabs(); 
+
+            // Wait for custom fonts to be loaded before rendering the chart
+            // to prevent layout shifts (flickering).
+            document.fonts.ready.then(() => {
+                translateSkillsPage('pl');
+            });
         });
 
         window.addEventListener('load', () => {
             initLayout();
         });
 
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', debounce(() => {
+            stabilizeLayoutHeight();
             initTimelineMarkers();
-        });
+        }, 250));
     </script>
 </body>
 </html>
